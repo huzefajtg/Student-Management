@@ -1,0 +1,147 @@
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3 " id="main-nav">
+    <div class="container">
+      <a href="index.html" class="display 2 navbar-brand">Student Management System</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul hidden=true class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="#home" class="nav-link text-primary">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="#about" class="nav-link text-primary">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#specs" class="nav-link text-primary">Specs</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h5>{{ user | json }}</h5>
+    <form (ngSubmit)="Register()">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="form-group">
+
+            <label for="nameInput">Name</label>
+            <div class="form-row">
+
+              <div class="col">
+                <input name="fname" class="form-control" type="text" placeholder="Enter First Name"
+                [(ngModel)]="user.PersonalInfo.firstName"
+                required>
+              </div>
+              <div class="col">
+                <input name="sname" class="form-control" type="text" placeholder="Enter Second Name"
+                [(ngModel)]="user.PersonalInfo.secondName">
+              </div>
+              <div class="col">
+                <input name="lname" class="form-control" type="text" placeholder="Enter Third Name"
+                [(ngModel)]="user.PersonalInfo.lastname">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <div class="form-check">
+              <input class="form-check-input" id="Male" name="gender" type="radio" value="M"
+              [(ngModel)]="user.PersonalInfo.gender">
+              <label for="Make">Male</label> 
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="female" name=gender type="radio" value="F"
+              [(ngModel)]="user.PersonalInfo.gender">
+              <label for="female">Female</label> 
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col">
+                Email
+                <input id="email" class="form-control" type="email" placeholder="yourname@example.com" name="email"
+                [(ngModel)]="user.PersonalInfo.emailId">
+                
+              </div>
+
+              <div class="col">
+                Contact Number
+                <input id="contactNum" class="form-control" type="text" placeholder="Enter Phone Number" name="conNum"
+                [(ngModel)]="user.PersonalInfo.contactNumber">
+
+              </div>
+            </div>
+          </div>  
+          <div class="form-group">
+              <label for="adress">Adress</label>
+                <input type="text" name="address" class="form-control" 
+                [(ngModel)]="user.PersonalInfo.contactAddress">
+          </div>
+
+          <div class="form-group">
+              <label for="adress">Date Of Birth</label>
+                <input type="text" name="dob" class="form-control" placeholder="DD/MM/YYYY"
+                [(ngModel)]="user.PersonalInfo.dob">
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h4>User Login Detail</h4>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col">
+                    <label for="username">Username</label>
+                    <input name="username" hidden=true class="form-control" type="text" placeholder="Username"
+                    [(ngModel)]="user.UserInfo.username">
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+                      </div>
+                      <input type="text" class="form-control" name="username"  placeholder="Username"
+                      [(ngModel)]="user.UserInfo.username">
+                    </div>
+
+                  </div>
+                  <div class="col">
+                    <label for="password">Password</label>
+                    <input name="password" class="form-control" type="password" placeholder="Password"
+                    [(ngModel)]="user.UserInfo.password">
+                  </div>
+                  <div class="col">
+                    <label for="confirm">Confirm Pasword</label>
+                    
+                    <input name="cpassword" class="form-control" type="password" placeholder="Confirm Password">
+                  </div>
+                </div>
+              </div>
+              <div class="">
+                <h5>Register As</h5>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" name="type" type="radio"  value="S"
+                [(ngModel)]="user.PersonalInfo.type">
+                <label class="form-check-label" for="inlineCheckbox1">Student</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" name="type" type="radio"  value="T"
+                [(ngModel)]="user.PersonalInfo.type">
+                <label class="form-check-label" for="inlineCheckbox1">Teacher</label>
+              </div>
+              </div>
+
+            </div>
+          </div>
+          <button class="btn btn-primary mt-3" >Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
