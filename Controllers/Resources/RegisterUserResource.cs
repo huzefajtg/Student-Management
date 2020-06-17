@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StudentProject.Controllers.Resources
 {
-    public class Personal
+    public class PersonalResource
     {
         public string FirstName { get; set; }
         public string SecondName { get; set; }
@@ -22,7 +22,7 @@ namespace StudentProject.Controllers.Resources
 
     public class RegisterUserResource
     {
-        public Personal PersonalInfo { get; set; }
+        public PersonalResource PersonalInfo { get; set; }
         public UsernamePasswordResource UserInfo { get; set; }
 
     }

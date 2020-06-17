@@ -99,7 +99,8 @@
                   <div class="col">
                     <label for="username">Username</label>
                     <input name="username" hidden=true class="form-control" type="text" placeholder="Username"
-                    [(ngModel)]="user.UserInfo.username">
+                    [(ngModel)]="user.UserInfo.username"
+                    [class]="user.UserInfo=='S'">
 
                     <div class="input-group">
                       <div class="input-group-prepend">

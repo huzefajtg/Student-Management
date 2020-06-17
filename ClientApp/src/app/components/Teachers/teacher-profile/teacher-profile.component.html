@@ -1,0 +1,130 @@
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3" id="main-nav">
+    <div class="container">
+      <a href="index.html" class="display 2 navbar-brand">Student Management System</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
+             class="nav-item">
+            <a [routerLink]='["/teacher_home/"+id]' class="nav-link text-white">Home
+              <i class="fa fa-home" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#home" class="nav-link text-white">Search
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li [routerLinkActive]='["link-active"]' class="nav-item">
+
+            <div class="dropdownd bg-dark">
+              <div class="nav-link text-white dropdown " (click)="tmp=!tmp">My Profile <span> &nbsp;</span>
+                <i [hidden]="!tmp" class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+                <i [hidden]="tmp" class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+              </div>
+              <div [hidden]="!tmp" class=" dropdown-content bg-dark">
+              <a class="dropdown-item bg-dark text-white" 
+                 [routerLink]='["/teacher_home/profile/"+id]'>Update My Profile</a>
+              </div>
+            </div>
+
+
+
+            
+          </li>
+          <li [routerLinkActive]='["link-active"]' class="nav-item">
+            <a [routerLink]='["/login"]' class="nav-link text-white">Logout 
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h5>{{ user | json }}</h5>
+    <form>
+      <div class="card" >
+        <div class="card-body" >
+
+          <div class="form-group">
+
+            <label for="nameInput">Name</label>
+            <div class="form-row">
+
+              <div class="col-sm">
+                <label>First Name</label>
+                <input name="fname" class="form-control" type="text" placeholder="{{ user.personalInfo.firstName }}"
+                [(ngModel)]="user.personalInfo.firstName" [readonly]="!isUpdate"
+                required>
+              </div>
+              <div class="col-sm">
+                <label class="">Second Name</label>
+                <input name="sname" class="form-control" type="text" placeholder="{{ user.personalInfo.secondName }}"
+                [(ngModel)]="user.personalInfo.secondName" [readonly]="!isUpdate"
+                >
+              </div>
+              <div class="col-sm">
+                <label>Last Name</label>
+                <input name="lname" class="form-control" type="text" placeholder="{{ user.personalInfo.lastName }}"
+                [(ngModel)]="user.personalInfo.lastName" [readonly]="!isUpdate"
+                >
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <div class="form-check">
+              <input class="form-check-input" id="Male" name="gender" type="radio" value="M"
+              [(ngModel)]="user.personalInfo.gender" [disabled]="!isUpdate">
+              <label for="Make">Male</label> 
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="female" name=gender type="radio" value="F"
+              [(ngModel)]="user.personalInfo.gender" [disabled]="!isUpdate">
+              <label for="female">Female</label> 
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col">
+                Email
+                <input id="email" class="form-control" type="email" placeholder="yourname@example.com" name="email"
+                [(ngModel)]="user.personalInfo.emailId" [readonly]="!isUpdate">
+                
+              </div>
+
+              <div class="col">
+                Contact Number
+                <input id="contactNum" class="form-control" type="text" placeholder="Enter Phone Number" name="conNum"
+                [(ngModel)]="user.personalInfo.contactNumber" [readonly]="!isUpdate">
+
+              </div>
+            </div>
+          </div>  
+          <div class="form-group">
+              <label for="adress">Adress</label>
+                <input type="text" name="address" class="form-control" 
+                [(ngModel)]="user.personalInfo.contactAddress" [readonly]="!isUpdate">
+          </div>
+
+          <div class="form-group">
+              <label for="adress">Date Of Birth</label>
+                <input type="text" name="dob" class="form-control" placeholder="DD/MM/YYYY"
+                [(ngModel)]="user.personalInfo.dob" [readonly]="!isUpdate">
+          </div>
+
+          <button class="btn btn-success mt-3" [hidden]="isUpdate" (click)="isUpdate=!isUpdate">Update</button>
+
+          <button class="btn btn-warning mt-3" [hidden]="!isUpdate" (click)=submit()>Update</button>
+          <button class="btn btn-danger mt-3" [hidden]="!isUpdate" (click)="canceled()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>

@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map'; 
 import { LoginServiceService } from '../../services/login-service.service';
+import { RegisterNewUserComponent } from '../register-new-user/register-new-user.component';
+import { NgModel } from '@angular/forms';
 
 @Component({
-  selector: 'app-login-page',
+  selector: 'login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
+
+
 export class LoginPageComponent implements OnInit {
   user={
     username:'',
@@ -16,15 +21,15 @@ export class LoginPageComponent implements OnInit {
   usernameIsValid:any;
   userRedirect:any={};
 
-  constructor(
-              private LoginService:LoginServiceService)
+  constructor(private LoginService:LoginServiceService,
+              private router:Router)
               { }
   
   ngOnInit() {
 
-    this.user.username="huzefajtg";
-    this.user.password="admin"
-    this.submit();
+    this.user.username="teacher";
+    this.user.password="teacher"
+    //this.submit();
   }
 
   checkUsername(){
@@ -44,16 +49,23 @@ export class LoginPageComponent implements OnInit {
       res=>{
         if(res!=null){
           this.userRedirect=res;
+          let type=this.userRedirect[0].userType;
           console.log("user details from server ",this.userRedirect);
-          if(this.userRedirect[0].userType=="S")
+          if(type=="S"){
             console.log("Student")
+            //this.router.navigateByUrl('/student_home/'+this.userRedirect[0].id);
+          }
             else
-            if(this.userRedirect[0].userType=='T')
-            console.log("Teacher")
+            if(type=='T'){
+              console.log("Teacher")
+              this.router.navigateByUrl('/teacher_home/'+this.userRedirect[0].id);
+            }
         }
         else alert("wrong user");
       }
     )
+
+      
   }
 
 }

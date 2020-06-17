@@ -27,13 +27,10 @@ namespace StudentProject.Controllers
         }
 
         [HttpPost]
-        public List<LoginInfo> RegisterNewUser([FromBody]RegisterUserResource userResource)
+        public List<LoginInfo> RegisterNewUser ([FromBody]RegisterUserResource userResource)
         {
-            if (userResource.PersonalInfo.Type == "S")
-            {
-                string param = "exec Add_Student "
-                    + userResource.PersonalInfo.isReg.ToString()
-                    + ", '" + userResource.PersonalInfo.FirstName
+            string parameters = Convert.ToBoolean(userResource.PersonalInfo.isReg.ToString())
+                    + " , '" + userResource.PersonalInfo.FirstName
                     + "', '" + userResource.PersonalInfo.SecondName
                     + "', '" + userResource.PersonalInfo.LastName
 
@@ -45,29 +42,21 @@ namespace StudentProject.Controllers
 
                     + "', '" + userResource.UserInfo.username
                     + "', '" + userResource.UserInfo.password + "'";
+            if (userResource.PersonalInfo.Type == "S")
+            {
+                string comand = "exec Add_Student " + parameters;
+                    
 
-                return db.LoginInfo.FromSql<LoginInfo>(param).ToList();
+                return db.LoginInfo.FromSql(comand).ToList();
 
             }
 
             else
             {
-                string param = "exec Add_Teacher "
+                string comand = "exec Add_Teacher "
                     + "0 ,"
-                    + userResource.PersonalInfo.isReg.ToString()
-                    + ", '" + userResource.PersonalInfo.FirstName
-                    + "', '" + userResource.PersonalInfo.SecondName
-                    + "', '" + userResource.PersonalInfo.LastName
-
-                    + "', '" + userResource.PersonalInfo.Gender
-                    + "', '" + userResource.PersonalInfo.EmailId
-                    + "', '" + userResource.PersonalInfo.ContactNumber
-                    + "', '" + userResource.PersonalInfo.ContactAddress
-                    + "', '" + userResource.PersonalInfo.Dob
-
-                    + "', '" + userResource.UserInfo.username
-                    + "', '" + userResource.UserInfo.password + "'";
-                return db.LoginInfo.FromSql<LoginInfo>(param).ToList();
+                    + parameters;
+                return db.LoginInfo.FromSql(comand).ToList();
 
             }
 

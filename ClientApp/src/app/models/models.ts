@@ -17,9 +17,25 @@ export interface Personal{
     dob:string,
     type:string
 }
+export interface KeyValuePairResource{
+    id:number,
+    name:string
+}
 
 export interface User{
     username:string,
     password:string
+}
+
+export interface TeacherResource{
+    personalInfo:Personal,
+    hod:KeyValuePairResource,
+    subjectInfo:KeyValuePairResource,
+
+    username:string,
+    teacherId:number,
+    courseId:number,
+    isHod:boolean,
+    isReg:boolean
 }
 

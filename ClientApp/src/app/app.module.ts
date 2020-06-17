@@ -13,6 +13,9 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { LoginServiceService } from './services/login-service.service';
 import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
+import { TeacherHomeComponent } from './components/Teachers/teacher-home/teacher-home.component';
+import { TeacherProfileComponent } from './components/Teachers/teacher-profile/teacher-profile.component';
+import { TeacherServiceService } from './services/teacher-services.services';
 
 @NgModule({
   declarations: [
@@ -22,22 +25,32 @@ import { RegisterNewUserComponent } from './components/register-new-user/registe
     CounterComponent,
     FetchDataComponent,
     LoginPageComponent,
-    RegisterNewUserComponent
+    RegisterNewUserComponent,
+    TeacherHomeComponent,
+    TeacherProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: LoginPageComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'login', component: LoginPageComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'register-new-user', component: RegisterNewUserComponent },
+      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'teacher_home/:id' , component:TeacherHomeComponent },
+      { path: 'teacher_home/profile/:id' , component:TeacherProfileComponent },
+
+      { path: '**', redirectTo:'/login' },//has to remain last
+
     ])
+
   ],
   providers: [
     LoginServiceService,
+    TeacherServiceService,
+    RegisterNewUserComponent
 
   ],
   bootstrap: [AppComponent,
