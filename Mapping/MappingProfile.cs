@@ -43,19 +43,57 @@ namespace StudentProject.Mapping
                     id = Convert.ToInt32(t.Course.SubjectId.ToString())
                 }));
 
+            
+
+
+            CreateMap<LoginInfo, LoginIdTypeResource>();
+            CreateMap<CourseSubject, CourseSubjectResource>();
+            CreateMap<Courses, CourseResource>();
+            CreateMap<Students, StudentResource>()
+                .ForMember(tr => tr.PersonalInfo, opt => opt.MapFrom(t =>
+                    new PersonalResource
+                    {
+                        FirstName = t.FirstName,
+                        SecondName = t.SecondName,
+                        LastName = t.LastName,
+
+                        Gender = t.Gender,
+                        EmailId = t.EmailId,
+                        ContactNumber = t.ContactNumber,
+                        ContactAddress = t.ContactAddress,
+                        Dob = t.Dob,
+                        isReg = Convert.ToBoolean(t.IsReg.ToString()),
+                        Type = "S"
+                    }
+                ));
+
+
+            //teacher-student mapping
             CreateMap<TeacherStudent, TeacherStudentResource>()
                 .AfterMap((ts, tsr) =>
                 {
                     tsr.Teacher.PersonalInfo = null;
                 });
 
+            CreateMap<TeacherStudent, StudentResource>()
+                .ForMember(sr => sr.PersonalInfo, opt => opt.MapFrom(t =>
+                         new PersonalResource
+                         {
+                             FirstName = t.Student.FirstName,
+                             SecondName = t.Student.SecondName,
+                             LastName = t.Student.LastName,
 
-            CreateMap<LoginInfo, LoginIdTypeResource>();
-            CreateMap<CourseSubject, CourseSubjectResource>();
-            CreateMap<Courses, CourseResource>();
-            CreateMap<Students, StudentResource>();
-
-
+                             Gender = t.Student.Gender,
+                             EmailId = t.Student.EmailId,
+                             ContactNumber = t.Student.ContactNumber,
+                             ContactAddress = t.Student.ContactAddress,
+                             Dob = t.Student.Dob,
+                             Type = "S"
+                         }
+                   ))
+                .ForMember(sr => sr.IsReg, opt => opt.MapFrom(t => Convert.ToBoolean(t.Student.IsReg.ToString())))
+                .ForMember(sr => sr.StudentId, opt => opt.MapFrom(ts => ts.StudentId));
+                
 
             //Resource to Model
             CreateMap<TeacherResource, Teachers>()

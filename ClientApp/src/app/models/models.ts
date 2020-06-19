@@ -39,3 +39,27 @@ export interface TeacherResource{
     isReg:boolean
 }
 
+
+export interface StudentResource{
+    personalInfo:Personal,
+    studentID:number,
+    isReg:boolean
+}
+
+
+export interface TeacherStudentResource{
+    studentId:number,
+    teacherID:number,
+    student:StudentResource,
+    teacher:TeacherResource
+}
+
+
+
+//========================================================
+
+export interface TeacherSearch{
+    teacherID:number,
+    myStudents:boolean
+}
+

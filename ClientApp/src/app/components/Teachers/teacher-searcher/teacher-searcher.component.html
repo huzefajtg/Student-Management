@@ -49,6 +49,13 @@
   <h1>{{ id }} Search Page</h1>
   
 <div class="container">
+  <div class="mb-2 mt-3">
+    <button class="btn btn-primary" [hidden]="myStudent" (click)="getMyStudents()" (click)="myStudent=!myStudent">
+      Show My Students</button>
+    <button class="btn btn-secondary" [hidden]="!myStudent" (click)="ngOnInit()" (click)="myStudent=!myStudent">
+      Show All Students</button>
+  </div>
+
   <table class="table table-striped">
     <thead>
       <tr>
@@ -56,15 +63,24 @@
         <th scope="col">Name</th>
         <th scope="col">Emaid</th>
         <th scope="col">Contact Number</th>
-        <th scope="col">HOD</th>
+        <th scope="col">Registered</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
+      <tr *ngFor="let item of allStudents">
+        <th scope="row">{{ item.studentId }}</th>
+        <td>{{ item.personalInfo.firstName }} {{ item.personalInfo.lastName }}</td>
+        <td>{{ item.personalInfo.emailId }}</td>
+        <td>{{ item.personalInfo.contactNumber }}</td>
+        
+        <td>
+          <div *ngIf="item.isReg">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </div>
+          <div *ngIf="!item.isReg">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

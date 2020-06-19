@@ -1,4 +1,4 @@
-import { TeacherResource } from './../models/models';
+import { TeacherResource, TeacherSearch } from './../models/models';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,6 +18,14 @@ export class TeacherServiceService {
   getCourses(){
     return this._http.get('/api/teacher/course').map(res=>res);
 
+  }
+
+  getStudents2(query:TeacherSearch){
+    return this._http.post('/api/teacher/getStudent',query).map(res=>res);
+  }
+
+  getStudents(query:TeacherSearch){
+    return this._http.post('/api/teacher/getStudents',query).map(res=>res);
   }
  
 

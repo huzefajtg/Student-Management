@@ -84,7 +84,7 @@ namespace StudentProject.Controllers
 
 
         [HttpPost("getStudent")]
-        public async Task<List<TeacherStudentResource>> getStudents(TeacherSearch req)
+        public async Task<List<TeacherStudentResource>> getStudent(TeacherSearch req)
         {
             var hod = new KeyValuePairResource();
             int tempCourseid = 0;
@@ -99,9 +99,9 @@ namespace StudentProject.Controllers
                 res = res.Where(ts => ts.TeacherId == req.TeacherID).ToList();
             }
 
-
-
             var final = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
+
+            //get hod
             foreach (var item in final)
             {
                 if (tempCourseid != Convert.ToInt32(item.Teacher.CourseId))
@@ -132,9 +132,48 @@ namespace StudentProject.Controllers
             res.IsReg = register.isReg;
             //Add track on who registered student
             int x = await updateDetails();
+            
+                return Ok(x);
 
-            return Ok(x);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpPost("getStudents")]
+        public async Task<List<StudentResource>> getStudents(TeacherSearch req)
+        {
+            if (req.myStudents == false)
+            {
+                var val = await db.Students.OrderBy(s => s.StudentId).ToListAsync();
+                return mapper.Map<List<Students>, List<StudentResource>>(val);
+            }
+            var res = await db.TeacherStudent
+                         .Include(ts => ts.Student)
+                         .Include(ts => ts.Teacher)
+                             //.Where(ts => ts.TeacherId == req.TeacherID)
+                             .OrderBy(ts => ts.StudentId).ToListAsync();
+
+            if (req.myStudents == true)
+            {
+                res = res.Where(ts => ts.TeacherId == req.TeacherID).ToList();
+            }
+
+            return mapper.Map<List<TeacherStudent>, List<StudentResource>>(res);
 
         }
     }
 }
+
