@@ -13,6 +13,10 @@ export class TeacherServiceService {
 
   updateTeacher(Tid:number,TeacherDetails){
     return this._http.put('/api/teacher/'+Tid,TeacherDetails).map(res=>res);
+  }
+
+  getCourses(){
+    return this._http.get('/api/teacher/course').map(res=>res);
 
   }
  

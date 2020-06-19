@@ -13,11 +13,15 @@
               <i class="fa fa-home" aria-hidden="true"></i>
             </a>
           </li>
+
+          
           <li class="nav-item">
-            <a href="#home" class="nav-link text-white">Search
+            <a [routerLink]='["/teacher_home/search/"+id]' class="nav-link text-white">Search
               <i class="fa fa-search" aria-hidden="true"></i>
             </a>
           </li>
+
+
           <li [routerLinkActive]='["link-active"]' class="nav-item">
 
             <div class="dropdownd bg-dark">
@@ -47,9 +51,16 @@
   <div class="container">
     <h5>{{ user | json }}</h5>
     <form>
-      <div class="card" >
-        <div class="card-body" >
+      <div class="card mb-3" >
+        
+        <div class="container">
+          <button class="btn btn-success mt-3" [hidden]="isUpdate" (click)="isUpdate=!isUpdate">Update Personal Info
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          
+        </div>
 
+        <div class="card-body" >
           <div class="form-group">
 
             <label for="nameInput">Name</label>
@@ -119,11 +130,52 @@
                 [(ngModel)]="user.personalInfo.dob" [readonly]="!isUpdate">
           </div>
 
-          <button class="btn btn-success mt-3" [hidden]="isUpdate" (click)="isUpdate=!isUpdate">Update</button>
+          
 
-          <button class="btn btn-warning mt-3" [hidden]="!isUpdate" (click)=submit()>Update</button>
-          <button class="btn btn-danger mt-3" [hidden]="!isUpdate" (click)="canceled()">Cancel</button>
+          
+          
+
+          <button class="btn btn-success mt-3" [hidden]="isUpdateCourse" 
+          (click)="getCourses()"
+          (click)="isUpdateCourse=!isUpdateCourse">
+            <i class="fa fa-book" aria-hidden="true"></i>Course Details</button>
+          <div class="card mt-3" [hidden]="!isUpdateCourse" >
+
+            <div class="card-body">
+            <h4>Course Details</h4>
+            
+              <div>
+                <label>Subject</label>
+                <select (change)="OnSubjectChange()" class="form-control" name="subject" [(ngModel)]="subjectId">
+                  <option></option>
+                  <option *ngFor="let subject of courses" value="{{ subject.subjectId }}">
+                    {{ subject.subjectName }}
+                  </option>
+                </select>
+              </div>
+
+              <div>
+                <label>Course</label>
+                <select class="form-control" name="subject" [(ngModel)]="courseId">
+                  <option></option>
+                  <option *ngFor="let item of coursesSelect.courses" value="{{ item.courseId }}">
+                    {{ item.courseName }}
+                  </option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="btn btn-warning mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
+          (click)=submit()>Update</button>
+      <button class="btn btn-danger mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
+          (click)="canceled()">Cancel</button>
+
         </div>
+        <br>  
+          
+
       </div>
     </form>
   </div>

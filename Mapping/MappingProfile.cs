@@ -43,14 +43,25 @@ namespace StudentProject.Mapping
                     id = Convert.ToInt32(t.Course.SubjectId.ToString())
                 }));
 
+            CreateMap<TeacherStudent, TeacherStudentResource>()
+                .AfterMap((ts, tsr) =>
+                {
+                    tsr.Teacher.PersonalInfo = null;
+                });
+
+
             CreateMap<LoginInfo, LoginIdTypeResource>();
+            CreateMap<CourseSubject, CourseSubjectResource>();
+            CreateMap<Courses, CourseResource>();
+            CreateMap<Students, StudentResource>();
+
 
 
             //Resource to Model
             CreateMap<TeacherResource, Teachers>()
                 .ForMember(t => t.TeacherId, op => op.Ignore())
                 .ForMember(t => t.IsHod, op => op.Ignore())
-                .ForMember(t => t.CourseId, opt => opt.Ignore())
+                .ForMember(t => t.CourseId, opt => opt.MapFrom(tr => tr.CourseId))
                 .ForMember(t => t.FirstName, opt => opt.MapFrom(tr => tr.PersonalInfo.FirstName))
                 .ForMember(t => t.SecondName, opt => opt.MapFrom(tr => tr.PersonalInfo.SecondName))
                 .ForMember(t => t.LastName, opt => opt.MapFrom(tr => tr.PersonalInfo.LastName))
@@ -61,9 +72,6 @@ namespace StudentProject.Mapping
                 .ForMember(t => t.ContactAddress, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactAddress))
                 .ForMember(t => t.ContactNumber, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactNumber))
                 .ForMember(t => t.Dob, opt => opt.MapFrom(tr => tr.PersonalInfo.Dob));
-
-
-
 
         }
     }

@@ -1,8 +1,7 @@
+import { TeacherResource } from './../../../models/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TeacherResource } from '../../../models/models';
 import { TeacherServiceService } from '../../../services/teacher-services.services';
-import { userInfo } from 'os';
 
 @Component({
   selector: 'app-teacher-profile',
@@ -14,7 +13,7 @@ export class TeacherProfileComponent implements OnInit {
   tmp:boolean=false;
   id:number;
   val:boolean=true
-  
+  isUpdateCourse:boolean=false;
   isUpdate:boolean=false;
 
   user:any={
@@ -50,6 +49,11 @@ export class TeacherProfileComponent implements OnInit {
   }
 
 
+  courses:any=[]  //comes from server
+  coursesSelect:any=[];
+  courseId:number;
+  subjectId:number;
+
   constructor(private route: ActivatedRoute, private router: Router,
               private teacherService:TeacherServiceService
     ) {
@@ -70,20 +74,47 @@ export class TeacherProfileComponent implements OnInit {
       this.user=res;
       console.log("res=>",res)
       console.log("userInfo=>",this.user)
-    })
+    });
+    this.getCourses();
 
   }
 
   canceled(){
-    this.isUpdate=!this.isUpdate
+    this.isUpdate=false
+    this.isUpdateCourse=false
     this.ngOnInit();
   }
 
-  submit(){
-    this.teacherService.updateTeacher(this.id,this.user).subscribe(res=>{
-      console.log("Responce from the service :",res)
+  getCourses(){
+    this.teacherService.getCourses().subscribe(res=>{res
+      console.log("Response after courses call",res)
+      this.courses=res;
+
     })
+  }
+
+  subName:string;
+  OnSubjectChange(){
+    this.coursesSelect=this.courses.find(c=>c.subjectId==this.subjectId)
+    this.subName=this.coursesSelect.subjectName
+    console.log("coursesSelect:",this.coursesSelect)
+  }
+  
+  submit(){
+    if(this.isUpdateCourse){
+      console.log("courses Update")
+      this.user.courseId=this.courseId
+      this.user.subjectInfo.name=this.subName
+      this.user.subjectInfo.id=this.subjectId
+      this.user.personalInfo.isReg=false
+    
+    }
+
+
+    this.teacherService.updateTeacher(this.id,this.user).subscribe(res=>{})
     this.router.navigate(['/teacher_home/'+this.id]);
+
+    
   }
 
 }
