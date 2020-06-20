@@ -17,6 +17,8 @@ import { TeacherHomeComponent } from './components/Teachers/teacher-home/teacher
 import { TeacherProfileComponent } from './components/Teachers/teacher-profile/teacher-profile.component';
 import { TeacherServiceService } from './services/teacher-services.services';
 import { TeacherSearcherComponent } from './components/Teachers/teacher-searcher/teacher-searcher.component';
+import { ViewStudentComponent } from './components/Teachers/teacher-searcher/view-student/view-student.component';
+import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/view-teacher/view-teacher.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { TeacherSearcherComponent } from './components/Teachers/teacher-searcher
     RegisterNewUserComponent,
     TeacherHomeComponent,
     TeacherProfileComponent,
-    TeacherSearcherComponent
+    TeacherSearcherComponent,
+    ViewStudentComponent,
+    ViewTeacherComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -42,6 +46,8 @@ import { TeacherSearcherComponent } from './components/Teachers/teacher-searcher
       { path: 'teacher_home/:id' , component:TeacherHomeComponent },
       { path: 'teacher_home/profile/:id' , component:TeacherProfileComponent },
       { path: 'teacher_home/search/:id' , component:TeacherSearcherComponent },
+      { path: 'teacher_home/viewStudent/:id/:id2' , component:ViewStudentComponent },
+      { path: 'teacher_home/viewTeacher/:id' , component:ViewTeacherComponent },
 
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'counter', component: CounterComponent },

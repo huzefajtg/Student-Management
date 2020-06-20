@@ -9,39 +9,39 @@ import { LoginServiceService } from '../../services/login-service.service';
 })
 export class RegisterNewUserComponent implements OnInit {
 
-  user:RegisterDetails={
-    PersonalInfo:{
-      firstName:'',
-      secondName:'',
-      lastname:'',
-      isReg:true,
+  user: RegisterDetails = {
+    PersonalInfo: {
+      firstName: '',
+      secondName: '',
+      lastname: '',
+      isReg: true,
 
-      gender:'',
-      emailId:'',
-      contactNumber:'',
-      contactAddress:'',
-      dob:'',
-      type:''
+      gender: '',
+      emailId: '',
+      contactNumber: '',
+      contactAddress: '',
+      dob: '',
+      type: ''
     },
 
-    UserInfo:{
-      username:'',
-      password:''
+    UserInfo: {
+      username: '',
+      password: ''
     }
   }
-  constructor(private LoginService:LoginServiceService) { }
+  constructor(private LoginService: LoginServiceService) { }
 
   ngOnInit() {
   }
 
-  Register(){
+  Register() {
     console.log(this.user);
-    this.LoginService.Register(this.user).subscribe(res=>{
+    this.LoginService.Register(this.user).subscribe(res => {
       console.log(res);
     })
   }
 
-  
+
 
 
 }

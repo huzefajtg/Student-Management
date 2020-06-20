@@ -83,38 +83,7 @@ namespace StudentProject.Controllers
         }
 
 
-        [HttpPost("getStudent")]
-        public async Task<List<TeacherStudentResource>> getStudent(TeacherSearch req)
-        {
-            var hod = new KeyValuePairResource();
-            int tempCourseid = 0;
-            var res =await db.TeacherStudent
-                        .Include(ts => ts.Student)
-                        .Include(ts=>ts.Teacher)
-                            //.Where(ts => ts.TeacherId == req.TeacherID)
-                            .OrderBy(ts=>ts.StudentId).ToListAsync();
 
-            if (req.myStudents == true)
-            {
-                res = res.Where(ts => ts.TeacherId == req.TeacherID).ToList();
-            }
-
-            var final = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
-
-            //get hod
-            foreach (var item in final)
-            {
-                if (tempCourseid != Convert.ToInt32(item.Teacher.CourseId))
-                {
-                    hod = await getHOD(Convert.ToInt32(item.Teacher.CourseId));
-                    tempCourseid = Convert.ToInt32(item.Teacher.CourseId);
-                }
-                item.Teacher.HOD = hod;
-
-            }
-
-            return final;
-        }
 
         [HttpGet("search/{id}")]
         public List<TeacherStudentResource> searcher(int id)
@@ -125,6 +94,10 @@ namespace StudentProject.Controllers
                         .Where(ts => ts.StudentId.ToString().StartsWith(id.ToString())).ToList();
             return mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(query);
         }
+
+
+        //------------------------Students API-------------------
+
         [HttpPost("setRegisterStudent")]
         public async Task<IActionResult> setRegStudent(RegisterResource register)
         {
@@ -138,19 +111,28 @@ namespace StudentProject.Controllers
         }
 
 
+        [HttpGet("getSInfo/{id}")]
+        public async Task<StudentResource> getStudentDetails(int id)
+        {
+            var res = await db.Students
+                .Where(s => s.StudentId == id).FirstOrDefaultAsync();
+            var final = mapper.Map<Students, StudentResource>(res); //got personal info of student
+
+            var temp = await db.TeacherStudent
+                    .Where(ts => ts.StudentId == id).ToListAsync();
+
+            var teachers = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(temp);
+            var t = new TeacherResource();
+            foreach (var i in teachers)
+            {
+                //allTeachers[j++] = Convert.ToInt32(i.TeacherId);
+                t = await GetTeacher(Convert.ToInt32(i.TeacherId));
+                final.teacherInfo.Add(t);
+            }
+            return final;
 
 
-
-
-
-
-
-
-
-
-
-
-
+        }
 
         [HttpPost("getStudents")]
         public async Task<List<StudentResource>> getStudents(TeacherSearch req)
@@ -174,6 +156,40 @@ namespace StudentProject.Controllers
             return mapper.Map<List<TeacherStudent>, List<StudentResource>>(res);
 
         }
+
+
+        //[HttpPost("getStudent")]
+        //public async Task<List<TeacherStudentResource>> getStudent(TeacherSearch req)
+        //{
+        //    var hod = new KeyValuePairResource();
+        //    int tempCourseid = 0;
+        //    var res =await db.TeacherStudent
+        //                .Include(ts => ts.Student)
+        //                .Include(ts=>ts.Teacher)
+        //                    //.Where(ts => ts.TeacherId == req.TeacherID)
+        //                    .OrderBy(ts=>ts.StudentId).ToListAsync();
+
+        //    if (req.myStudents == true)
+        //    {
+        //        res = res.Where(ts => ts.TeacherId == req.TeacherID).ToList();
+        //    }
+
+        //    var final = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
+
+        //    //get hod
+        //    foreach (var item in final)
+        //    {
+        //        if (tempCourseid != Convert.ToInt32(item.Teacher.CourseId))
+        //        {
+        //            hod = await getHOD(Convert.ToInt32(item.Teacher.CourseId));
+        //            tempCourseid = Convert.ToInt32(item.Teacher.CourseId);
+        //        }
+        //        item.Teacher.HOD = hod;
+
+        //    }
+
+        //    return final;
+        //}
     }
 }
 

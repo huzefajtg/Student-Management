@@ -14,58 +14,62 @@ import { NgModel } from '@angular/forms';
 
 
 export class LoginPageComponent implements OnInit {
-  user={
-    username:'',
-    password:''
-  };
-  usernameIsValid:any;
-  userRedirect:any={};
 
-  constructor(private LoginService:LoginServiceService,
-              private router:Router)
-              { }
-  
+  //Declarations Start
+  isHome:boolean=false
+
+
+  user = {
+    username: '',
+    password: ''
+  };
+  usernameIsValid: any;
+  userRedirect: any = {};
+
+  constructor(private LoginService: LoginServiceService,
+    private router: Router) { }
+
   ngOnInit() {
 
-    this.user.username="teacher";
-    this.user.password="teacher"
+    this.user.username = "teacher";
+    this.user.password = "teacher"
     //this.submit();
   }
 
-  checkUsername(){
+  checkUsername() {
     this.LoginService.CheckUsername(this.user.username).subscribe(
-      res=>{
-        this.usernameIsValid=res;
-        if(this.usernameIsValid!=true)
-          alert("Username "+ this.user.username +" does not exist ")
+      res => {
+        this.usernameIsValid = res;
+        if (this.usernameIsValid != true)
+          alert("Username " + this.user.username + " does not exist ")
       }
     )
 
   }
 
 
-  submit(){
+  submit() {
     this.LoginService.CheckUser(this.user).subscribe(
-      res=>{
-        if(res!=null){
-          this.userRedirect=res;
-          let type=this.userRedirect[0].userType;
-          console.log("user details from server ",this.userRedirect);
-          if(type=="S"){
+      res => {
+        if (res != null) {
+          this.userRedirect = res;
+          let type = this.userRedirect[0].userType;
+          console.log("user details from server ", this.userRedirect);
+          if (type == "S") {
             console.log("Student")
             //this.router.navigateByUrl('/student_home/'+this.userRedirect[0].id);
           }
-            else
-            if(type=='T'){
+          else
+            if (type == 'T') {
               console.log("Teacher")
-              this.router.navigateByUrl('/teacher_home/'+this.userRedirect[0].id);
+              this.router.navigateByUrl('/teacher_home/' + this.userRedirect[0].id);
             }
         }
         else alert("wrong user");
       }
     )
 
-      
+
   }
 
 }

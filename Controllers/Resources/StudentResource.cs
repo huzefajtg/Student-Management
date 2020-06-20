@@ -7,9 +7,14 @@ namespace StudentProject.Controllers.Resources
 {
     public class StudentResource
     {
-        public int StudentId { get; set; }
-        public bool? IsReg { get; set; }
+        public StudentResource()
+        {
+            teacherInfo = new List<TeacherResource>();
+        }
 
+        public int StudentId { get; set; }
         public PersonalResource PersonalInfo { get; set; }
+        public List<TeacherResource> teacherInfo { get; set; }
+
     }
 }

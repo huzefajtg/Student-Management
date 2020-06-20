@@ -68,35 +68,58 @@ namespace StudentProject.Mapping
                 ));
 
 
+            CreateMap<TeacherStudent,StudentResource>()
+                .ForMember(tr => tr.PersonalInfo, opt => opt.MapFrom(t =>
+                    new PersonalResource
+                    {
+                        FirstName = t.Student.FirstName,
+                        SecondName = t.Student.SecondName,
+                        LastName = t.Student.LastName,
+
+                        Gender= t.Student.Gender,
+                        EmailId = t.Student.EmailId,
+                        ContactNumber = t.Student.ContactNumber,
+                        ContactAddress = t.Student.ContactAddress,
+                        Dob = t.Student.Dob,
+                        isReg = Convert.ToBoolean(t.Student.IsReg.ToString()),
+                        Type = "S"
+                    }
+                ));
+
+
             //teacher-student mapping
-            CreateMap<TeacherStudent, TeacherStudentResource>()
-                .AfterMap((ts, tsr) =>
-                {
-                    tsr.Teacher.PersonalInfo = null;
-                });
+            CreateMap<TeacherStudent, TeacherStudentResource>();
 
-            CreateMap<TeacherStudent, StudentResource>()
-                .ForMember(sr => sr.PersonalInfo, opt => opt.MapFrom(t =>
-                         new PersonalResource
-                         {
-                             FirstName = t.Student.FirstName,
-                             SecondName = t.Student.SecondName,
-                             LastName = t.Student.LastName,
 
-                             Gender = t.Student.Gender,
-                             EmailId = t.Student.EmailId,
-                             ContactNumber = t.Student.ContactNumber,
-                             ContactAddress = t.Student.ContactAddress,
-                             Dob = t.Student.Dob,
-                             Type = "S"
-                         }
-                   ))
-                .ForMember(sr => sr.IsReg, opt => opt.MapFrom(t => Convert.ToBoolean(t.Student.IsReg.ToString())))
-                .ForMember(sr => sr.StudentId, opt => opt.MapFrom(ts => ts.StudentId));
-                
+
+
+
+            //CreateMap<TeacherStudent,TeacherResource>()
+            //    .ForMember(tr=>tr.PersonalInfo, opt => opt.MapFrom(t =>
+            //        new PersonalResource
+            //        {
+            //            FirstName = t.Student.FirstName,
+            //            SecondName = t.Student.SecondName,
+            //            LastName = t.Student.LastName,
+
+            //            Gender = t.Student.Gender,
+            //            EmailId = t.Student.EmailId,
+            //            ContactNumber = t.Student.ContactNumber,
+            //            ContactAddress = t.Student.ContactAddress,
+            //            Dob = t.Student.Dob,
+            //            isReg = Convert.ToBoolean(t.Student.IsReg.ToString()),
+            //            Type = "S"
+            //        }
+            //    ))
+            //    .ForMember(tr => tr.SubjectInfo, opt => opt.MapFrom(t =>
+            //          new KeyValuePairResource
+            //          {
+
+            //          }))
+  
 
             //Resource to Model
-            CreateMap<TeacherResource, Teachers>()
+              CreateMap<TeacherResource, Teachers>()
                 .ForMember(t => t.TeacherId, op => op.Ignore())
                 .ForMember(t => t.IsHod, op => op.Ignore())
                 .ForMember(t => t.CourseId, opt => opt.MapFrom(tr => tr.CourseId))

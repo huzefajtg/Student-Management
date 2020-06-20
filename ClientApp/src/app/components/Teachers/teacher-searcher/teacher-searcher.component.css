@@ -26,3 +26,23 @@
     cursor: pointer;
 }
 
+table{
+    cursor:pointer;
+    background-color: rgba(22, 22, 22, 0.850);
+    color: white;
+}
+
+table tbody tr:hover {
+    transform: scale(1.05); 
+  }
+
+#bodypart{
+    background-image:url('https://wallpaperplay.com/walls/full/1/e/e/312869.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 650px;
+    background-position: 0px -37px;
+}
+
+
