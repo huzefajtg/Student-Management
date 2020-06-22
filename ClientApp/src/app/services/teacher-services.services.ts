@@ -24,8 +24,16 @@ export class TeacherServiceService {
     return this._http.post('/api/teacher/getStudent',query).map(res=>res);
   }
 
-  getStudents(query:TeacherSearch){
+  getStudents(query:TeacherSearch){ //Student List
     return this._http.post('/api/teacher/getStudents',query).map(res=>res);
+  }
+
+  getStudentRecord(id:number){
+    return this._http.get('/api/teacher/getSInfo/'+id).map(res=>res);
+  }
+
+  registerStudent(query:{id:number,isReg:boolean}){
+    return this._http.post('/api/teacher/setRegisterStudent',query).map(res=>res);
   }
  
 

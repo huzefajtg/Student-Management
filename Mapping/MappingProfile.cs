@@ -122,7 +122,7 @@ namespace StudentProject.Mapping
               CreateMap<TeacherResource, Teachers>()
                 .ForMember(t => t.TeacherId, op => op.Ignore())
                 .ForMember(t => t.IsHod, op => op.Ignore())
-                .ForMember(t => t.CourseId, opt => opt.MapFrom(tr => tr.CourseId))
+                .ForMember(t => t.CourseId, opt => opt.MapFrom(tr => tr.Course.CourseId))
                 .ForMember(t => t.FirstName, opt => opt.MapFrom(tr => tr.PersonalInfo.FirstName))
                 .ForMember(t => t.SecondName, opt => opt.MapFrom(tr => tr.PersonalInfo.SecondName))
                 .ForMember(t => t.LastName, opt => opt.MapFrom(tr => tr.PersonalInfo.LastName))

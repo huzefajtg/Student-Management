@@ -13,11 +13,10 @@ namespace StudentProject.Controllers.Resources
 
         public string username { get; set; }
         public int TeacherId { get; set; }
-        public int? CourseId { get; set; }
-        public bool? IsHod { get; set; }
+        //public bool? IsHod { get; set; }
         //public bool? IsReg { get; set; }
 
-        //public CoursesResource Course { get; set; }
+        public CourseResource Course { get; set; }
         //public ICollection<TeacherStudent> TeacherStudent { get; set; }
     }
 }

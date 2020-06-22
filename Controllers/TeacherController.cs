@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentProject.Controllers.Resources;
@@ -50,7 +49,7 @@ namespace StudentProject.Controllers
                 .FirstOrDefaultAsync();
 
             var res= mapper.Map<Teachers, TeacherResource>(teacher);
-            res.HOD =await getHOD(Convert.ToInt32(res.CourseId.ToString()));
+            res.HOD =await getHOD(Convert.ToInt32(res.Course.CourseId.ToString()));
             res.username = getUsername(id);
             return res;
         }
@@ -66,7 +65,7 @@ namespace StudentProject.Controllers
 
             mapper.Map<TeacherResource, Teachers>(resource, teacher);
 
-            updateDetails();
+            await updateDetails();
             return Ok(mapper.Map<Teachers, TeacherResource>(teacher));
         }
 
@@ -85,8 +84,15 @@ namespace StudentProject.Controllers
 
 
 
+
+
+
+        //------------------------Students API-------------------
+
+
+
         [HttpGet("search/{id}")]
-        public List<TeacherStudentResource> searcher(int id)
+        public List<TeacherStudentResource> seachStudent(int id)
         {
             var query = db.TeacherStudent
                         .Include(ts => ts.Student)
@@ -94,9 +100,6 @@ namespace StudentProject.Controllers
                         .Where(ts => ts.StudentId.ToString().StartsWith(id.ToString())).ToList();
             return mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(query);
         }
-
-
-        //------------------------Students API-------------------
 
         [HttpPost("setRegisterStudent")]
         public async Task<IActionResult> setRegStudent(RegisterResource register)
@@ -107,32 +110,31 @@ namespace StudentProject.Controllers
             int x = await updateDetails();
             
                 return Ok(x);
-
         }
-
+        
 
         [HttpGet("getSInfo/{id}")]
-        public async Task<StudentResource> getStudentDetails(int id)
+        public async Task<StudentResource> getSInfo(int id)   //studentid
         {
-            var res = await db.Students
-                .Where(s => s.StudentId == id).FirstOrDefaultAsync();
-            var final = mapper.Map<Students, StudentResource>(res); //got personal info of student
+            var res = await db.TeacherStudent
+                        .Include(ts => ts.Student)
+                        .Include(ts => ts.Teacher)
+                            .ThenInclude(t=>t.Course)
+                            .Where(ts => ts.StudentId == id).ToListAsync(); //1
 
-            var temp = await db.TeacherStudent
-                    .Where(ts => ts.StudentId == id).ToListAsync();
+            var final = new StudentResource();
+            var temp = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
+            final.PersonalInfo = temp[0].Student.PersonalInfo;
+            final.StudentId = Convert.ToInt32(temp[0].StudentId);
 
-            var teachers = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(temp);
-            var t = new TeacherResource();
-            foreach (var i in teachers)
+            foreach (var i in temp)
             {
-                //allTeachers[j++] = Convert.ToInt32(i.TeacherId);
-                t = await GetTeacher(Convert.ToInt32(i.TeacherId));
-                final.teacherInfo.Add(t);
+                final.teacherInfo.Add(await GetTeacher(Convert.ToInt32(i.TeacherId)));
             }
+
             return final;
-
-
         }
+
 
         [HttpPost("getStudents")]
         public async Task<List<StudentResource>> getStudents(TeacherSearch req)
@@ -156,40 +158,6 @@ namespace StudentProject.Controllers
             return mapper.Map<List<TeacherStudent>, List<StudentResource>>(res);
 
         }
-
-
-        //[HttpPost("getStudent")]
-        //public async Task<List<TeacherStudentResource>> getStudent(TeacherSearch req)
-        //{
-        //    var hod = new KeyValuePairResource();
-        //    int tempCourseid = 0;
-        //    var res =await db.TeacherStudent
-        //                .Include(ts => ts.Student)
-        //                .Include(ts=>ts.Teacher)
-        //                    //.Where(ts => ts.TeacherId == req.TeacherID)
-        //                    .OrderBy(ts=>ts.StudentId).ToListAsync();
-
-        //    if (req.myStudents == true)
-        //    {
-        //        res = res.Where(ts => ts.TeacherId == req.TeacherID).ToList();
-        //    }
-
-        //    var final = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
-
-        //    //get hod
-        //    foreach (var item in final)
-        //    {
-        //        if (tempCourseid != Convert.ToInt32(item.Teacher.CourseId))
-        //        {
-        //            hod = await getHOD(Convert.ToInt32(item.Teacher.CourseId));
-        //            tempCourseid = Convert.ToInt32(item.Teacher.CourseId);
-        //        }
-        //        item.Teacher.HOD = hod;
-
-        //    }
-
-        //    return final;
-        //}
     }
 }
 

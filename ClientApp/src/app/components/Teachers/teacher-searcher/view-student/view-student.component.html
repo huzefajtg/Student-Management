@@ -1,50 +1,121 @@
 <body id="bodypart">
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3" id="main-nav">
-    <div class="container">
-      <a href="index.html" class="display 2 navbar-brand">Student Management System</a>
-      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav ml-auto">
-          <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
-             class="nav-item">
-            <a [routerLink]='["/teacher_home/"+id]' class="nav-link text-white">Home
-              <i class="fa fa-home" aria-hidden="true"></i>
-            </a>
+  <nav-menu [iswhereN]="iswhere" [Nid]=id></nav-menu>
+  
+
+  <h1>Student {{ studentId }} Teacher {{ teacherId }}</h1>
+
+
+  <div class="container">
+    
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link  active" href="#StuPInfo" role="tab" data-toggle="tab">Student Information</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]='["/teacher_home/search/"+id]' class="nav-link text-white">Search
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </a>
+            <a class="nav-link " href="#courses" role="tab" data-toggle="tab">Student Courses</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#extra" role="tab" data-toggle="tab">Extra</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="tab-content">
+          <div class="tab-pane active" role="tabpanel" id="StuPInfo">
+            <table class="table">
+              <tbody>
 
-          <li [routerLinkActive]='["link-active"]' class="nav-item">
+                <div class="row">
+                  <div class="col-4">Name</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.firstName }} 
+                    {{ studentInfo.personalInfo.lastName }}</div>
+                </div>
 
-            <div class="dropdownd bg-dark">
-              <div class="nav-link text-white dropdown " (click)="tmp=!tmp">My Profile
-                <i [hidden]="!tmp" class="fa fa-chevron-circle-up" aria-hidden="true"></i>
-                <i [hidden]="tmp" class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+                <div class="row">
+                  <div class="col-4">DOB</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.dob }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Email</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.emailId }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Contact Number</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.contactNumber }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Address</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.contactAddress }} </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Gender</div>
+                  <div class="col text-capitalize">
+                    <div *ngIf="studentInfo.personalInfo.gender=='M'">
+                      <i class="fa fa-mars" aria-hidden="true"></i> Male
+                    </div>
+
+                    <div *ngIf="studentInfo.personalInfo.gender=='F'">
+                      <i class="fa fa-venus" aria-hidden="true"></i> Female
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4" [hidden]="studentInfo.personalInfo.isReg">
+                    Student is <strong>Registered</strong>
+                  </div>
+                  <div class="col-4" [hidden]="!studentInfo.personalInfo.isReg">
+                    Student is <strong>Not Registered</strong>
+                  </div>
+
+                  <div class="col">
+                    <button (click)="regStudent()" [hidden]="studentInfo.personalInfo.isReg" class="col" 
+                    class="btn btn-danger">Click to Un-Register Student</button>
+
+                    <button (click)="regStudent()"  [hidden]="!studentInfo.personalInfo.isReg" class="col" 
+                    class="btn btn-primary">Click to Register Student</button>
+                  </div>
+                </div>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane" role="tabpanel" id="courses">
+
+            <div class="row">
+              <div class="col"><strong>Course Name</strong></div>
+              <div class="col"><strong>Teacher Name</strong></div>
+              <div class="col"><strong>Department HOD</strong></div>
+            </div>
+
+            <div class="row" *ngFor="let item of studentInfo.teacherInfo" >
+              <div class="col">{{ item.course.courseName }}</div>
+              <div class="col text-capitalize">{{ item.personalInfo.firstName }} 
+                {{ item.personalInfo.lastName }}
               </div>
-              <div [hidden]="!tmp" class=" dropdown-content bg-dark">
-              <a class="dropdown-item bg-dark text-white" 
-                 [routerLink]='["/teacher_home/profile/"+id]'>Update My Profile</a>
+              <div class="col">
+                {{ item.hod.name }}
               </div>
+
             </div>
 
 
-
-            
-          </li>
-          <li [routerLinkActive]='["link-active"]' class="nav-item">
-            <a [routerLink]='["/login"]' class="nav-link text-white">Logout 
-              <i class="fa fa-sign-out" aria-hidden="true"></i>
-            </a>
-          </li>
-        </ul>
+          </div>
+          <div class="tab-pane" role="tabpanel" id="extra">1</div>
+        </div>
       </div>
     </div>
-  </nav>
 
-  <h1>Student {{ studentId }} Teacher {{ teacherId }}</h1>
+
+
+
+
+  </div>
 </body>

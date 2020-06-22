@@ -50,6 +50,7 @@ export interface StudentResource{
 export interface TeacherStudentResource{
     studentId:number,
     teacherID:number,
+    personalInfo:Personal,
     student:StudentResource,
     teacher:TeacherResource
 }

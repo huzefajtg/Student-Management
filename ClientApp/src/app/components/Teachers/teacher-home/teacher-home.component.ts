@@ -10,6 +10,7 @@ export class TeacherHomeComponent implements OnInit {
 
   id:number;
   tmp:boolean=false
+  iswhere=1
    
 
   constructor(private route: ActivatedRoute, private router: Router,

@@ -1,4 +1,4 @@
-import { TeacherStudentResource, TeacherSearch, StudentResource } from './../../../models/models';
+import {TeacherSearch, StudentResource } from './../../../models/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServiceService } from '../../../services/teacher-services.services';
@@ -14,6 +14,7 @@ export class TeacherSearcherComponent implements OnInit {
   allStudents: any
   firstList: Array<StudentResource> = []
   myStudent: boolean = false
+  iswhere=1
 
 
 

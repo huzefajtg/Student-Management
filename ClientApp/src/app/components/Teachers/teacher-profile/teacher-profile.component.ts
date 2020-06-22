@@ -54,6 +54,8 @@ export class TeacherProfileComponent implements OnInit {
   courseId: number;
   subjectId: number;
 
+  iswhere=1
+  //Declaration End
   constructor(private route: ActivatedRoute, private router: Router,
     private teacherService: TeacherServiceService
   ) {
