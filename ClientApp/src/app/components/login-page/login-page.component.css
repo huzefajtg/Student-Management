@@ -42,13 +42,42 @@ body {
     padding: 5px;
     border-radius: 5px;
   }
-  
-  #explore-section .fas,
-  #share-section .fas {
-    background: #333;
-    color: #fff;
-    padding: 5px;
-    border-radius: 5px;
-  }
+
+#explore-section .fas,
+#share-section .fas {
+  background: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#explore-section {
+  background-image:url('https://wallpaperplay.com/walls/full/1/e/e/312869.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 
   
+}
+
+#explore-section .dark-overlaye{
+
+    width: 100%;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.github{
+  color: rgba(26, 26, 26);
+}
+
+.github :hover{
+  color: rgb(0, 0, 0);
+}
+
+.insta{
+  color: rgba(36, 36, 255, 0.884);
+}
+
+.insta :hover{
+  color: blue;
+}

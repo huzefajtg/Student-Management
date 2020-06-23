@@ -1,22 +1,22 @@
 
 
-<body data-spy="scroll" data-target="#main-nav" id="home">
+<body data-spy="scroll"  data-target="#main-nav" id="home">
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3 fixed-top" id="main-nav">
     <div class="container">
-      <a href="index.html" class="display 2 navbar-brand">Student Management System</a>
+      <a href="index.html" class="display navbar-brand">Student Management System</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul hidden=true class="navbar-nav ml-auto">
+        <ul  class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="#home" class="nav-link text-primary">Login</a>
+            <a href="#home" class="nav-link =">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#about" class="nav-link text-primary">About</a>
+            <a href="#explore-head-section" class="nav-link =">About</a>
           </li>
           <li class="nav-item">
-            <a href="#specs" class="nav-link text-primary">Specs</a>
+            <a href="#specs" class="nav-link ">Specs</a>
           </li>
         </ul>
       </div>
@@ -54,7 +54,7 @@
               <!--login SECTION -->
               <div class="col-lg-4">
                   <div class="mt-5">
-                      <div class="card bg-primary text-center card-form mt-10">
+                      <div  class="card bg-primary text-center card-form mt-10">
                           <div class="card-body">
                               <h3>Login</h3>
                               <form (ngSubmit)="submit()">
@@ -79,46 +79,47 @@
                                       <input hidden=true type="password" class="form-control form-control-lg" placeholder="Password">
                                   </div>
                                   <input type="submit" value="Submit" class="btn btn-outline-light btn-block">
-                                  <div class="d-flex flex-column justify-content-center">
-                                      <div class="p-1">
+                                  <div class="d-flex flex-column justify-content-center font-weight-bold">
+                                      <div class="mt-1">
                                           <a href="#" class="text-dark">Forgot Password</a>
                                       </div>
                                       <div class="p-1">
                                           <a href="/register-new-user" class="text-dark">Register New</a>
                                       </div>
                                   </div>
-                              </form>
-                          </div>
-                      </div>
-                  </div>
-  
-              </div>
-          </div>
-          </div>
-      </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </header>
 
 
 
   <section id="explore-head-section">
-      <div class="container">
-        <div class="row">
-          <div class="col text-center py-5">
-            <h1 class="display-4">About Me</h1>
-            <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente doloribus ut iure itaque quibusdam rem accusantium
-              deserunt reprehenderit sunt minus.</p>
-              <a href="https://www.linkedin.com/in/huzefa-galiakotwala-b24b0318a/">
-                <i class="fa fa-linkedin-square fa-3x" aria-hidden="true"></i>
-            </a>
-
-            <a href="https://github.com/Huzjtg">
-              <i class="fa fa-git fa-3x" style="color: black;" aria-hidden="true"></i>
-            </a>
-            <a href="https://www.instagram.com/huzefajtg/">
-              <i class="fa fa-instagram fa-3x" style="color:rgb(41, 5, 201);" aria-hidden="true"></i>
-            </a>
-            <div style="color:rgba(255, 2, 2, 0.74);">
-              <i class="fa fa-google fa-2x" aria-hidden="true"></i>
+      <div class="">
+        <div class="container">
+          <div class="row">
+            <div class="col text-center py-5">
+              <h1 class="display-4">About Me</h1>
+              <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sapiente doloribus ut iure itaque quibusdam rem accusantium
+                deserunt reprehenderit sunt minus.</p>
+                <a href="https://www.linkedin.com/in/huzefa-galiakotwala-b24b0318a/">
+                  <i class="fa fa-linkedin-square fa-3x" aria-hidden="true"></i>
+              </a>
+  
+              <a class="github" href="https://github.com/Huzjtg">
+                <i class="fa fa-git fa-3x" aria-hidden="true"></i>
+              </a>
+              <a class="insta" href="https://www.instagram.com/huzefajtg/">
+                <i class="fa fa-instagram fa-3x"  aria-hidden="true"></i>
+              </a>
+              <div style="color:rgba(255, 2, 2, 0.74);">
+                <i class="fa fa-google fa-2x" aria-hidden="true"></i>
+              </div>
             </div>
           </div>
         </div>
@@ -126,40 +127,42 @@
     </section>
   
     <!-- EXPLORE SECTION -->
-    <section id="explore-section" class="bg-light text-muted py-5">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <img src="https://instagram.fdel21-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s640x640/65562013_148398246341385_7271977922324335114_n.jpg?_nc_ht=instagram.fdel21-1.fna.fbcdn.net&_nc_cat=109&_nc_ohc=kbSW8CwVtvwAX9YbM2j&oh=00f5161098cb13a8b97dee7f4cd49c8a&oe=5F09727E" 
-            alt="" class="img-fluid mb-3 rounded-circle">
-          </div>
-          <div class="col-md-6">
-            <h3>Explore & Connect</h3>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore reiciendis, voluptate at alias laborum odit aliquid
-              tempore perspiciatis repudiandae hic?</p>
-            <div class="d-flex">
-              <div class="p-4 align-self-start">
-                <i class="fas fa fa-check fa-2x"></i>
-              </div>
-              <div class="p-4 align-self-end">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi distinctio iusto, perspiciatis mollitia natus harum?
-              </div>
+    <header id="explore-section" class="">
+      <div class="dark-overlaye text-white py-5">
+        <div class=" container">
+          <div class="row">
+            <div class="col-md-6">
+              <img src="https://instagram.fdel21-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s640x640/65562013_148398246341385_7271977922324335114_n.jpg?_nc_ht=instagram.fdel21-1.fna.fbcdn.net&_nc_cat=109&_nc_ohc=kbSW8CwVtvwAX9YbM2j&oh=00f5161098cb13a8b97dee7f4cd49c8a&oe=5F09727E" 
+              alt="" class="img-fluid mb-3 rounded-circle" style="opacity: 85%;">
             </div>
-  
-            <div class="d-flex">
-              <div class="p-4 align-self-start">
-                <i class="fas fa fa-check fa-2x"></i>
+            <div class="col-md-6">
+              <h3>Explore & Connect</h3>
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore reiciendis, voluptate at alias laborum odit aliquid
+                tempore perspiciatis repudiandae hic?</p>
+              <div class="d-flex">
+                <div class="p-4 align-self-start">
+                  <i class="fas fa fa-check fa-2x"></i>
+                </div>
+                <div class="p-4 align-self-end">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi distinctio iusto, perspiciatis mollitia natus harum?
+                </div>
               </div>
-              <div class="p-4 align-self-end">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi distinctio iusto, perspiciatis mollitia natus harum?
+    
+              <div class="d-flex">
+                <div class="p-4 align-self-start">
+                  <i class="fas fa fa-check fa-2x"></i>
+                </div>
+                <div class="p-4 align-self-end">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi distinctio iusto, perspiciatis mollitia natus harum?
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </header>
 
-    <section id="create-head-section" class="bg-primary">
+    <section id="specs" class="bg-primary">
       <div class="container">
         <div class="row">
           <div class="col text-center py-5">
@@ -172,7 +175,7 @@
     </section>
   
     <!-- CREATE SECTION -->
-    <section id="create-section" class="py-5">
+    <section id="create-head-section" class="py-5">
       <div class="container">
         <h2 class="text-center">Create Your Passion</h2>
         <div class="row">
@@ -214,13 +217,20 @@
     </section>
   
     <footer  style="background-color: wheat; color: black;">
-      <div class="container">
-        <div class="row">
-          <div class="col text-center py-4">
+      <div class="container-fluid">
+        <div class="">
+          <div class="text-center py-4">
             <h3>Student Management System</h3>
-            <p>By Huzefa Galiakotwala | 2020</p>
+            <span>By Huzefa Galiakotwala | 2020</span> <br>
+            <span>version Unreleased</span>
           </div>
         </div>
       </div>
     </footer>
+
+  <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+    <script>
+      var scroll = new SmoothScroll('a[href*="#"]');
+    </script>
 </body>

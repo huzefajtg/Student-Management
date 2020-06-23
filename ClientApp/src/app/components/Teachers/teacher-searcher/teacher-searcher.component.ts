@@ -14,7 +14,7 @@ export class TeacherSearcherComponent implements OnInit {
   allStudents: any
   firstList: Array<StudentResource> = []
   myStudent: boolean = false
-  iswhere=1
+  iswhere = 1
 
 
 
@@ -61,8 +61,8 @@ export class TeacherSearcherComponent implements OnInit {
   }
 
 
-  RowSelected(rowID:number){
-    console.log("ID selected: "+rowID)
+  RowSelected(rowID: number) {
+    console.log("ID selected: " + rowID)
     this.router.navigateByUrl('/teacher_home/viewStudent/' + rowID + '/' + this.id);
   }
 

@@ -45,13 +45,13 @@ import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/vie
       { path: 'register-new-user', component: RegisterNewUserComponent },
       { path: 'teacher_home/:id' , component:TeacherHomeComponent },
       { path: 'teacher_home/profile/:id' , component:TeacherProfileComponent },
-      { path: 'teacher_home/search/:id' , component:TeacherSearcherComponent },
+      { path: 'teacher_home/search/:id', component: TeacherSearcherComponent },
       { path: 'teacher_home/viewStudent/:id/:id2' , component:ViewStudentComponent },
       { path: 'teacher_home/viewTeacher/:id' , component:ViewTeacherComponent },
 
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'counter', component: CounterComponent },
-      { path: '**', redirectTo:'/login' },//has to remain last
+      { path: '**', redirectTo: '/login' }//has to remain last
 
     ])
 

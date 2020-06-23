@@ -13,59 +13,59 @@ import { isDefaultChangeDetectionStrategy } from '@angular/core/src/change_detec
 export class ViewStudentComponent implements OnInit {
 
   //Decalratio Start
-  studentId:number;
-  id:number;
+  studentId: number;
+  id: number;
 
-  studentInfo:any={
-    teacherID:0,
-    studentId:0,
-    personalInfo:{
-      firstName:'',
-      secondName:'',
-      lastname:'',
-      gender:'',
-      contactAddress:'',
-      contactNumber:'',
-      dob:'',
-      emailId:'',
-      type:'',
-      isReg:false
+  studentInfo: any = {
+    teacherID: 0,
+    studentId: 0,
+    personalInfo: {
+      firstName: '',
+      secondName: '',
+      lastname: '',
+      gender: '',
+      contactAddress: '',
+      contactNumber: '',
+      dob: '',
+      emailId: '',
+      type: '',
+      isReg: false
     },
-    teacher:{
-      personalInfo:{
-        firstName:'',
-      secondName:'',
-      lastname:'',
-      gender:'',
-      contactAddress:'',
-      contactNumber:'',
-      dob:'',
-      emailId:'',
-      type:'',
-      isReg:false
+    teacher: {
+      personalInfo: {
+        firstName: '',
+        secondName: '',
+        lastname: '',
+        gender: '',
+        contactAddress: '',
+        contactNumber: '',
+        dob: '',
+        emailId: '',
+        type: '',
+        isReg: false
       },
 
-      hod:{
-        id:0,name:''
+      hod: {
+        id: 0, name: ''
       },
 
-      Course:{
-        courseId:0,courseName:''
+      Course: {
+        courseId: 0, courseName: ''
       },
 
-      subjectInfo:{
-        id:0,name:''
+      subjectInfo: {
+        id: 0, name: ''
       },
-      username:'',
-      teacherId:0,
-      courseId:0,
-      isReg:false,
-      isHod:false
+      username: '',
+      teacherId: 0,
+      courseId: 0,
+      isReg: false,
+      isHod: false
 
     }
   }
 
-  iswhere=1
+  iswhere = 1
 
 
   //Decalration End
@@ -76,7 +76,7 @@ export class ViewStudentComponent implements OnInit {
     route.params.subscribe(p => {
       this.studentId = +p['id'];
       this.id = +p['id2'];
-      console.log("parameters " + this.id+" "+this.studentId)
+      console.log("parameters " + this.id + " " + this.studentId)
       if (isNaN(this.studentId) || this.studentId <= 0 || isNaN(this.id) || this.id <= 0) {
         console.log("parameter issue " + this.id)
         //router.navigate(['/login']);
@@ -87,22 +87,22 @@ export class ViewStudentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teacherService.getStudentRecord(this.studentId).subscribe(res=>{
-      this.studentInfo=res;
-      console.log("StudentInfo ",this.studentInfo)
+    this.teacherService.getStudentRecord(this.studentId).subscribe(res => {
+      this.studentInfo = res;
+      console.log("StudentInfo ", this.studentInfo)
     })
   }
 
 
-  regStudent(){
-    let q={
-      id:this.studentId,
-      isReg:!this.studentInfo.personalInfo.isReg
+  regStudent() {
+    let q = {
+      id: this.studentId,
+      isReg: !this.studentInfo.personalInfo.isReg
     }
-    this.teacherService.registerStudent(q).subscribe(res=>{
+    this.teacherService.registerStudent(q).subscribe(res => {
       console.log(res);
     })
-    this.studentInfo.personalInfo.isReg=!this.studentInfo.personalInfo.isReg
+    this.studentInfo.personalInfo.isReg = !this.studentInfo.personalInfo.isReg
   }
 
 }
