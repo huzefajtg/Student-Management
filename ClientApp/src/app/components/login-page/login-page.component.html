@@ -2,16 +2,18 @@
 
 <body data-spy="scroll"  data-target="#main-nav" id="home">
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3 fixed-top" id="main-nav">
+
     <div class="container">
-      <a href="index.html" class="display navbar-brand">Student Management System</a>
+      <a href="" class="display navbar-brand">Student Management System</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul  class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a href="#home" class="nav-link =">Home</a>
           </li>
+
           <li class="nav-item">
             <a href="#explore-head-section" class="nav-link =">About</a>
           </li>
@@ -228,9 +230,10 @@
       </div>
     </footer>
 
-  <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js"></script>
     <script>
-      var scroll = new SmoothScroll('a[href*="#"]');
+      const scroll = new SmoothScroll('a[href*="#"]',{
+        speed:800
+      });
     </script>
 </body>

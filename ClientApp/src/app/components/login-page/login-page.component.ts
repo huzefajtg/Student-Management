@@ -68,8 +68,10 @@ export class LoginPageComponent implements OnInit {
         else alert("wrong user");
       }
     )
+  }
 
-
+  toHome(){
+    
   }
 
 }

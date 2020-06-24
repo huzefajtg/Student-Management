@@ -33,9 +33,13 @@ table{
 }
 
 table tbody tr:hover {
-    transform: scale(1.05); 
+    transform: scale(1.1); 
+    
   }
-
+  table tbody tr:hover .selid{
+      color: black;
+  }
+/*
 #bodypart{
     background-image:url('https://wallpaperplay.com/walls/full/1/e/e/312869.jpg');
     background-repeat: no-repeat;
@@ -44,5 +48,5 @@ table tbody tr:hover {
     min-height: 650px;
     background-position: 0px -37px;
 }
-
+*/
 
