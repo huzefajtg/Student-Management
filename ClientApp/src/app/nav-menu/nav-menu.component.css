@@ -24,8 +24,13 @@
 .dropdown-content a:hover {background-color: white;}
 .dropdownd:hover .dropdown-content {display: block;}
 
+
 .navbar ul li:hover{
     cursor: pointer;
+}
+
+nav ul li :hover{
+    background-color: black;
 }
 
 

@@ -2,7 +2,8 @@
   <nav-menu [iswhereN]="iswhere" [Nid]=id></nav-menu>
   
 
-  <h1>Student {{ studentId }} Teacher {{ teacherId }}</h1>
+  <h1>Student Name : {{ studentInfo.personalInfo.firstName }} 
+    {{ studentInfo.personalInfo.lastName }} </h1>
 
 
   <div class="container">
@@ -31,6 +32,7 @@
                 <div class="row">
                   <div class="col-4">Name</div>
                   <div class="col text-capitalize">{{ studentInfo.personalInfo.firstName }} 
+                    {{ studentInfo.personalInfo.secondName }} 
                     {{ studentInfo.personalInfo.lastName }}</div>
                 </div>
 
@@ -68,18 +70,18 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-4" [hidden]="studentInfo.personalInfo.isReg">
+                  <div class="col-4" [hidden]="!studentInfo.personalInfo.isReg">
                     Student is <strong>Registered</strong>
                   </div>
-                  <div class="col-4" [hidden]="!studentInfo.personalInfo.isReg">
+                  <div class="col-4" [hidden]="studentInfo.personalInfo.isReg">
                     Student is <strong>Not Registered</strong>
                   </div>
 
                   <div class="col">
-                    <button (click)="regStudent()" [hidden]="studentInfo.personalInfo.isReg" class="col" 
+                    <button (click)="regStudent()" [hidden]="!studentInfo.personalInfo.isReg" class="col" 
                     class="btn btn-danger">Click to Un-Register Student</button>
 
-                    <button (click)="regStudent()"  [hidden]="!studentInfo.personalInfo.isReg" class="col" 
+                    <button (click)="regStudent()"  [hidden]="studentInfo.personalInfo.isReg" class="col" 
                     class="btn btn-primary">Click to Register Student</button>
                   </div>
                 </div>

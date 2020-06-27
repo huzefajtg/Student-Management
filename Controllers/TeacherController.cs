@@ -108,9 +108,10 @@ namespace StudentProject.Controllers
             res.IsReg = register.isReg;
             //Add track on who registered student
             int x = await updateDetails();
-            
-                return Ok(x);
+
+            return Ok(x);
         }
+
         
 
         [HttpGet("getSInfo/{id}")]
