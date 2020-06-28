@@ -1,3 +1,4 @@
+import { StudentService } from './services/student.services';
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,8 @@ import { TeacherServiceService } from './services/teacher-services.services';
 import { TeacherSearcherComponent } from './components/Teachers/teacher-searcher/teacher-searcher.component';
 import { ViewStudentComponent } from './components/Teachers/teacher-searcher/view-student/view-student.component';
 import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/view-teacher/view-teacher.component';
+import { StudentHomeComponent } from './components/Student/student-home/student-home.component';
+import { StudentDetailsComponent } from './components/Student/student-details/student-details.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/vie
     TeacherProfileComponent,
     TeacherSearcherComponent,
     ViewStudentComponent,
-    ViewTeacherComponent
+    ViewTeacherComponent,
+    StudentHomeComponent,
+    StudentDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,11 +48,17 @@ import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/vie
       { path: '', component: LoginPageComponent, pathMatch: 'full' },
       { path: 'login', component: LoginPageComponent },
       { path: 'register-new-user', component: RegisterNewUserComponent },
+      //Teachers
       { path: 'teacher_home/:id' , component:TeacherHomeComponent },
-      { path: 'teacher_home/profile/:id' , component:TeacherProfileComponent },
-      { path: 'teacher_home/search/:id', component: TeacherSearcherComponent },
+      { path: 'teacher/profile/:id' , component:TeacherProfileComponent },
+      { path: 'teacher/search/:id', component: TeacherSearcherComponent },
       { path: 'teacher_home/viewStudent/:id/:id2' , component:ViewStudentComponent },
       { path: 'teacher_home/viewTeacher/:id' , component:ViewTeacherComponent },
+
+      //Students
+      { path: 'student_home/:id' , component:StudentHomeComponent },
+      { path: 'student/profile/:id' , component:StudentDetailsComponent },
+
 
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'counter', component: CounterComponent },
@@ -59,6 +70,7 @@ import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/vie
   providers: [
     LoginServiceService,
     TeacherServiceService,
+    StudentService,
     RegisterNewUserComponent
 
   ],

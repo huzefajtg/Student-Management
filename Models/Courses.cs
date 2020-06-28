@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,8 +9,8 @@ namespace StudentProject.Models
     {
         public Courses()
         {
-            CourseStudent = new Collection<CourseStudent>();
-            Teachers = new Collection<Teachers>();
+            CourseStudent = new HashSet<CourseStudent>();
+            Teachers = new HashSet<Teachers>();
         }
 
         [Key]
@@ -23,10 +22,8 @@ namespace StudentProject.Models
         [ForeignKey("SubjectId")]
         [InverseProperty("Courses")]
         public CourseSubject Subject { get; set; }
-
         [InverseProperty("Course")]
         public ICollection<CourseStudent> CourseStudent { get; set; }
-
         [InverseProperty("Course")]
         public ICollection<Teachers> Teachers { get; set; }
     }

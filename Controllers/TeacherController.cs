@@ -83,8 +83,14 @@ namespace StudentProject.Controllers
 
 
 
+        //--------------------Notification For Teachers-----------------------
 
-
+        [HttpGet("notifications/{id}")]
+        public async Task<IEnumerable<NotificationTeachersResource>> GetNotifications(int id)
+        {
+            var notifications = await db.NotiFicationTeachers.Where(no => no.NotificationFor == id).ToListAsync();
+            return mapper.Map<List<NotiFicationTeachers>, List<NotificationTeachersResource>>(notifications);
+        }
 
 
         //------------------------Students API-------------------
@@ -92,7 +98,7 @@ namespace StudentProject.Controllers
 
 
         [HttpGet("search/{id}")]
-        public List<TeacherStudentResource> seachStudent(int id)
+        public List<TeacherStudentResource> searchStudent(int id)
         {
             var query = db.TeacherStudent
                         .Include(ts => ts.Student)
@@ -123,8 +129,12 @@ namespace StudentProject.Controllers
                             .ThenInclude(t=>t.Course)
                             .Where(ts => ts.StudentId == id).ToListAsync(); //1
 
+           
             var final = new StudentResource();
             var temp = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
+
+            /*Add *NULL Teacher* for newly added students with no Courses*/
+
             final.PersonalInfo = temp[0].Student.PersonalInfo;
             final.StudentId = Convert.ToInt32(temp[0].StudentId);
 
@@ -135,6 +145,10 @@ namespace StudentProject.Controllers
 
             return final;
         }
+
+
+
+
 
 
         [HttpPost("getStudents")]
@@ -159,6 +173,9 @@ namespace StudentProject.Controllers
             return mapper.Map<List<TeacherStudent>, List<StudentResource>>(res);
 
         }
+
+
+
     }
 }
 

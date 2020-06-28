@@ -13,6 +13,13 @@ namespace StudentProject.Mapping
         public MappingProfile()
         {
             //Models to Resources
+
+
+            CreateMap<LoginInfo, LoginIdTypeResource>();
+            CreateMap<CourseSubject, CourseSubjectResource>();
+            CreateMap<Courses, CourseResource>();
+            CreateMap<NotiFicationTeachers, NotificationTeachersResource>();
+
             CreateMap<LoginInfo, LoginInfoResource>();
             CreateMap<LoginInfo, LoginIdTypeResource>()
                 .ForMember(logi => logi.Id, opt => opt.MapFrom(log => log.Id))
@@ -46,9 +53,6 @@ namespace StudentProject.Mapping
             
 
 
-            CreateMap<LoginInfo, LoginIdTypeResource>();
-            CreateMap<CourseSubject, CourseSubjectResource>();
-            CreateMap<Courses, CourseResource>();
             CreateMap<Students, StudentResource>()
                 .ForMember(tr => tr.PersonalInfo, opt => opt.MapFrom(t =>
                     new PersonalResource

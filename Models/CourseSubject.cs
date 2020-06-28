@@ -9,7 +9,7 @@ namespace StudentProject.Models
     {
         public CourseSubject()
         {
-            Courses = new List<Courses>();
+            Courses = new HashSet<Courses>();
         }
 
         [Key]

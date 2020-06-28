@@ -1,9 +1,8 @@
 <body>
     <div *ngIf="iswhereN==1">
-        
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3" style="opacity: 95%;" id="main-nav">
         <div class="container">
-          <a href="index.html" class="display 2 navbar-brand">Student Management System 2</a>
+          <a href="index.html" class="display 2 navbar-brand">Student Management System</a>
           <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -11,12 +10,13 @@
             <ul class="navbar-nav ml-auto">
               <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
                  class="nav-item">
-                <a [routerLink]='["/teacher_home/"+Nid]' class="btn rounded nav-link text-white">Home
+                <a [routerLink]='["/teacher_home/"+Nid]' class="btn rounded nav-link text-white">
+                  Home
                   <i class="fa fa-home" aria-hidden="true"></i>
                 </a>
               </li>
               <li class="nav-item">
-                <a [routerLink]='["/teacher_home/search/"+Nid]' class="btn rounded nav-link text-white">Search
+                <a [routerLink]='["/teacher/search/"+Nid]' class="btn rounded nav-link text-white">Search
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </a>
               </li>
@@ -30,7 +30,7 @@
                   </div>
                   <div [hidden]="!tmp" class="update dropdown-content bg-dark">
                   <a class="dropdown-item bg-dark text-white" 
-                     [routerLink]='["/teacher_home/profile/"+Nid]'>Update My Profile</a>
+                     [routerLink]='["/teacher/profile/"+Nid]'>Update My Profile</a>
                   </div>
                 </div>
                 
@@ -45,4 +45,56 @@
         </div>
       </nav>
     </div>
+
+
+
+
+
+
+    <div *ngIf="iswhereN==2">
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3" style="opacity: 95%;" id="main-nav">
+          <div class="container">
+            <a href="index.html" class="display 2 navbar-brand">Student Management System</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav ml-auto">
+                <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
+                   class="nav-item">
+                  <a [routerLink]='["/student_home/"+Nid]' class="btn rounded nav-link text-white">
+                    Home
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a [routerLink]='["/student/search/"+Nid]' class="btn rounded nav-link text-white">Search
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+                </li>
+      
+                <li [routerLinkActive]='["link-active"]' class="nav-item">
+      
+                  <div class="dropdownd bg-dark">
+                    <div class="btn mypro rounded nav-link text-white dropdown" (click)="tmp=!tmp">My Profile
+                      <i [hidden]="!tmp" class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+                      <i [hidden]="tmp" class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+                    </div>
+                    <div [hidden]="!tmp" class="update dropdown-content bg-dark">
+                    <a class="dropdown-item bg-dark text-white" 
+                       [routerLink]='["/student/profile/"+Nid]'>Update My Profile</a>
+                    </div>
+                  </div>
+                  
+                </li>
+                <li [routerLinkActive]='["link-active"]' class="nav-item">
+                  <a [routerLink]='["/login"]' class="rounded nav-link text-white">Logout 
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
 </body>

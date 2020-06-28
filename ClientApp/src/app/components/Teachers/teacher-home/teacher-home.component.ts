@@ -1,5 +1,11 @@
+import { TeacherServiceService } from './../../../services/teacher-services.services';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+interface Noti{
+  notificationMessage:string,
+  messageDate:string
+}
 
 @Component({
   selector: 'app-teacher-home',
@@ -8,13 +14,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TeacherHomeComponent implements OnInit {
 
+
+  //Declaration Start
   id:number;
   tmp:boolean=false
   iswhere=1
+
+  notification:any=[]
+
+  //Declaration End
    
 
-  constructor(private route: ActivatedRoute, private router: Router,
-    ) {
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private tservice:TeacherServiceService) {
     route.params.subscribe(p => {
       this.id = +p['id'];
       if (isNaN(this.id) || this.id <= 0) {
@@ -28,6 +42,10 @@ export class TeacherHomeComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.tservice.getNotification(this.id).subscribe(res=>{
+      this.notification=res;
+      console.log("Notifications ",this.notification)
+    })
   }
 
 }

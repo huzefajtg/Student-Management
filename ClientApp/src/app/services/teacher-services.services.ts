@@ -36,5 +36,9 @@ export class TeacherServiceService {
     return this._http.post('/api/teacher/setRegisterStudent', query).map(res => res);
   }
 
+  getNotification(id:number){
+    return this._http.get('/api/teacher/notifications/' + id).map(res => res);
+  }
+
 
 }

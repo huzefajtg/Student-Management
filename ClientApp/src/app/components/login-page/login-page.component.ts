@@ -31,8 +31,8 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
 
-    this.user.username = "teacher";
-    this.user.password = "teacher"
+    this.user.username = "huzefajtg";
+    this.user.password = "admin"
     //this.submit();
   }
 
@@ -57,7 +57,7 @@ export class LoginPageComponent implements OnInit {
           console.log("user details from server ", this.userRedirect);
           if (type == "S") {
             console.log("Student")
-            //this.router.navigateByUrl('/student_home/'+this.userRedirect[0].id);
+            this.router.navigateByUrl('/student_home/'+this.userRedirect[0].id);
           }
           else
             if (type == 'T') {

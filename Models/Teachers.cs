@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,7 +9,8 @@ namespace StudentProject.Models
     {
         public Teachers()
         {
-            TeacherStudent = new Collection<TeacherStudent>();
+            NotiFicationTeachers = new HashSet<NotiFicationTeachers>();
+            TeacherStudent = new HashSet<TeacherStudent>();
         }
 
         [Key]
@@ -19,15 +19,12 @@ namespace StudentProject.Models
         [Column("IsHOD")]
         public bool? IsHod { get; set; }
         public bool? IsReg { get; set; }
-
-        //PERSONAL
         [StringLength(20)]
         public string FirstName { get; set; }
         [StringLength(20)]
         public string SecondName { get; set; }
         [StringLength(20)]
         public string LastName { get; set; }
-
         [StringLength(3)]
         public string Gender { get; set; }
         [StringLength(40)]
@@ -40,11 +37,11 @@ namespace StudentProject.Models
         [StringLength(20)]
         public string Dob { get; set; }
 
-
         [ForeignKey("CourseId")]
         [InverseProperty("Teachers")]
         public Courses Course { get; set; }
-
+        [InverseProperty("NotificationForNavigation")]
+        public ICollection<NotiFicationTeachers> NotiFicationTeachers { get; set; }
         [InverseProperty("Teacher")]
         public ICollection<TeacherStudent> TeacherStudent { get; set; }
     }

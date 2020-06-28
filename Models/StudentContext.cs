@@ -19,6 +19,7 @@ namespace StudentProject.Models
         public virtual DbSet<CourseStudent> CourseStudent { get; set; }
         public virtual DbSet<CourseSubject> CourseSubject { get; set; }
         public virtual DbSet<LoginInfo> LoginInfo { get; set; }
+        public virtual DbSet<NotiFicationTeachers> NotiFicationTeachers { get; set; }
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<Teachers> Teachers { get; set; }
         public virtual DbSet<TeacherStudent> TeacherStudent { get; set; }
@@ -78,6 +79,18 @@ namespace StudentProject.Models
                 entity.Property(e => e.UserPassword).IsUnicode(false);
 
                 entity.Property(e => e.UserType).IsUnicode(false);
+            });
+
+            modelBuilder.Entity<NotiFicationTeachers>(entity =>
+            {
+                entity.Property(e => e.MessageDate).IsUnicode(false);
+
+                entity.Property(e => e.NotificationMessage).IsUnicode(false);
+
+                entity.HasOne(d => d.NotificationForNavigation)
+                    .WithMany(p => p.NotiFicationTeachers)
+                    .HasForeignKey(d => d.NotificationFor)
+                    .HasConstraintName("FK__NotiFicat__Notif__48CFD27E");
             });
 
             modelBuilder.Entity<Students>(entity =>

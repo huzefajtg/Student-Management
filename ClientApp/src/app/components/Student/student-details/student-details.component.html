@@ -1,0 +1,149 @@
+<body>
+<nav-menu [iswhereN]="iswhere" [Nid]=id></nav-menu>
+
+<h1>Student Details {{ id }}</h1>
+
+<div class="container">
+  <h5>{{ user | json }}</h5>
+  <form>
+    <div class="card mb-3" >
+      
+      <div class="container">
+        <button class="btn btn-success mt-3" [hidden]="isUpdate" (click)="isUpdate=!isUpdate">
+          Update Personal Info
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+        
+      </div>
+
+      <div class="card-body" >
+        <div class="form-group">
+
+          <label for="nameInput">Name</label>
+          <div class="form-row">
+
+            <div class="col-sm">
+              <label>First Name</label>
+              <input name="fname" class="form-control" type="text" placeholder="{{ user.personalInfo.firstName }}"
+              [(ngModel)]="user.personalInfo.firstName" [readonly]="!isUpdate"
+              required>
+            </div>
+            <div class="col-sm">
+              <label class="">Second Name</label>
+              <input name="sname" class="form-control" type="text" placeholder="{{ user.personalInfo.secondName }}"
+              [(ngModel)]="user.personalInfo.secondName" [readonly]="!isUpdate"
+              >
+            </div>
+            <div class="col-sm">
+              <label>Last Name</label>
+              <input name="lname" class="form-control" type="text" placeholder="{{ user.personalInfo.lastName }}"
+              [(ngModel)]="user.personalInfo.lastName" [readonly]="!isUpdate"
+              >
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <div class="form-check">
+            <input class="form-check-input" id="Male" name="gender" type="radio" value="M"
+            [(ngModel)]="user.personalInfo.gender" [disabled]="!isUpdate">
+            <label for="Make">Male</label> 
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" id="female" name=gender type="radio" value="F"
+            [(ngModel)]="user.personalInfo.gender" [disabled]="!isUpdate">
+            <label for="female">Female</label> 
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-row">
+            <div class="col">
+              Email
+              <input id="email" class="form-control" type="email" placeholder="yourname@example.com" name="email"
+              [(ngModel)]="user.personalInfo.emailId" [readonly]="!isUpdate">
+              
+            </div>
+
+            <div class="col">
+              Contact Number
+              <input id="contactNum" class="form-control" type="text" placeholder="Enter Phone Number" name="conNum"
+              [(ngModel)]="user.personalInfo.contactNumber" [readonly]="!isUpdate">
+
+            </div>
+          </div>
+        </div>  
+        <div class="form-group">
+            <label for="adress">Adress</label>
+              <input type="text" name="address" class="form-control" 
+              [(ngModel)]="user.personalInfo.contactAddress" [readonly]="!isUpdate">
+        </div>
+
+        <div class="form-group">
+            <label for="adress">Date Of Birth</label>
+              <input type="text" name="dob" class="form-control" placeholder="DD/MM/YYYY"
+              [(ngModel)]="user.personalInfo.dob" [readonly]="!isUpdate">
+        </div>
+
+        
+
+        
+        
+
+        <button class="btn btn-success mt-3" [hidden]="isUpdateCourse" 
+          (click)="isUpdateCourse=!isUpdateCourse">
+          <i class="fa fa-book" aria-hidden="true"></i> Course Details</button>
+        <div class="mt-3" [hidden]="!isUpdateCourse" >
+
+          <div class="container">
+          <h4 class="mb-3">Course Details</h4>
+
+            <div *ngFor="let item of user.teacherInfo">
+              <div class="mt-2" id="subjects">
+                <div class="card">
+                  <div class="card-header" id="{{item.course.courseId}}">
+                    <h1 class="">
+                      <button class="btn btn-link text-monospace btn-block text-left" type="button" 
+                        data-toggle="collapse" attr.data-target="#{{item.hod.id}}" aria-expanded="true" 
+                        attr.aria-controls="{{item.hod.id}}">
+                        {{item.course.courseId}} - {{item.course.courseName}}
+                      </button>
+                    </h1>
+                  </div>
+                  <div id="{{item.hod.id}}" class="collapse" 
+                    attr.aria-labelledby="{{item.course.courseId}}" 
+                    >
+                    <div class="card-body">
+                      <span class="">
+                        Teacher : {{item.personalInfo.firstName}} {{item.personalInfo.lastName}}
+                      </span> <br>
+                      <span class="">
+                        HOD : {{item.hod.name}}
+                      </span> <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        
+
+        <button class="btn btn-warning mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
+        (click)=submit()>Update</button>
+    <button class="btn btn-danger mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
+        (click)="canceled()">Cancel</button>
+
+      </div>
+      <br>  
+        
+
+    </div>
+  </form>
+</div>
+</body>

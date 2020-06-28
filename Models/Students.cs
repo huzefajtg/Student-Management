@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-
 
 namespace StudentProject.Models
 {
@@ -12,21 +9,19 @@ namespace StudentProject.Models
     {
         public Students()
         {
-            CourseStudent = new Collection<CourseStudent>();
-            TeacherStudent = new Collection<TeacherStudent>();
+            CourseStudent = new HashSet<CourseStudent>();
+            TeacherStudent = new HashSet<TeacherStudent>();
         }
 
         [Key]
         public int StudentId { get; set; }
         public bool? IsReg { get; set; }
-
         [StringLength(20)]
         public string FirstName { get; set; }
         [StringLength(20)]
         public string SecondName { get; set; }
         [StringLength(20)]
         public string LastName { get; set; }
-
         [StringLength(3)]
         public string Gender { get; set; }
         [StringLength(20)]

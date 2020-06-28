@@ -13,7 +13,7 @@ namespace StudentProject.Models
         public int OnId { get; set; }
         [StringLength(2)]
         public string OnType { get; set; }
-        [StringLength(10)]
+        [StringLength(20)]
         public string Operation { get; set; }
         [StringLength(100)]
         public string Description { get; set; }

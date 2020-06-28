@@ -3,5 +3,26 @@
 
   <h1>{{ id }} Home</h1>
 
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Notification</th>
+          <th scope="col">Date</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of notification">
+          <th scope="row">{{ item.notificationMessage }}</th>
+          <td>{{ item.messageDate }}</td>
+          <td>{{ item.messageDate }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
 
 </body>
