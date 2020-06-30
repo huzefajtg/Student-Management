@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentProject.Controllers.Resources;
+using StudentProject.Controllers.Resources.ResourceModels;
 using StudentProject.Models;
 
 namespace StudentProject.Controllers
@@ -77,6 +78,34 @@ namespace StudentProject.Controllers
             res.HOD = await getHOD(Convert.ToInt32(res.Course.CourseId.ToString()));
             res.username = getUsername(id);
             return res;
+        }
+
+        [HttpPost("course")]
+        public async Task<TeacherStudentResource> AddCourse(AddCourseStudent st_course)
+        {
+            int lowest = 0;
+            int tlow;
+            var teachers = await db.Teachers.Where(t => t.CourseId == st_course.courseId).ToListAsync();
+            int[] teachercount = new int[teachers.Count];
+            //to find teacher with lowest students
+            foreach(var t in teachers)
+            {
+                tlow = teachers.IndexOf(t);
+                teachercount[tlow] = db.TeacherStudent.Where(ts => ts.TeacherId == t.TeacherId).Count();
+                if (teachercount[lowest] > teachercount[tlow] && lowest != tlow)
+                {
+                    lowest = tlow;
+                }
+            }
+
+            
+            var res = new TeacherStudent();
+            res.StudentId = st_course.studentId;
+            res.TeacherId = teachers[lowest].TeacherId;
+            //db.Add(res);
+            //int x = db.SaveChanges();
+
+            return mapper.Map<TeacherStudent, TeacherStudentResource>(res);
         }
 
 

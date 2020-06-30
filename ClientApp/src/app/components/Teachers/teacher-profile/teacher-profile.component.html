@@ -44,16 +44,18 @@
           
           <div class="form-group">
             <label for="gender">Gender</label>
-            <div class="form-check">
-              <input class="form-check-input" id="Male" name="gender" type="radio" value="M"
-              [(ngModel)]="user.personalInfo.gender" [disabled]="!isUpdate">
-              <label for="Make">Male</label> 
-            </div>
+            
             <div class="form-check">
               <input class="form-check-input" id="female" name=gender type="radio" value="F"
               [(ngModel)]="user.personalInfo.gender" [disabled]="!isUpdate">
               <label for="female">Female</label> 
+          </div>
+            <div class="form-check">
+                <input class="form-check-input" id="Male" name="gender" type="radio" value="M"
+                [(ngModel)]="user.personalInfo.gender" [disabled]="!isUpdate">
+                <label for="Make">Male</label> 
             </div>
+
           </div>
 
           <div class="form-group">

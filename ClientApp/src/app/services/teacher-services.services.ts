@@ -16,8 +16,7 @@ export class TeacherServiceService {
   }
 
   getCourses() {
-    return this._http.get('/api/teacher/course').map(res => res);
-
+    return this._http.get('/api/courses').map(res => res);
   }
 
   getStudents2(query: TeacherSearch) {

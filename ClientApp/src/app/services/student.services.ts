@@ -7,8 +7,13 @@ export class StudentService {
 
   constructor(private _http: HttpClient) { }
 
-  getStudent(Tid) {
+  getStudent(Tid:number) {
     return this._http.get('/api/student/' + Tid).map(res => res);
   }
+
+  addCourse(obj:{StudentId:number,TeacherId:number}) {
+    return this._http.post('/api/student/course' , obj).map(res => res);
+  }
+
 
 }

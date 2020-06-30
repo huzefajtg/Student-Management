@@ -120,23 +120,42 @@ namespace StudentProject.Mapping
             //          {
 
             //          }))
-  
+
 
             //Resource to Model
-              CreateMap<TeacherResource, Teachers>()
-                .ForMember(t => t.TeacherId, op => op.Ignore())
-                .ForMember(t => t.IsHod, op => op.Ignore())
-                .ForMember(t => t.CourseId, opt => opt.MapFrom(tr => tr.Course.CourseId))
-                .ForMember(t => t.FirstName, opt => opt.MapFrom(tr => tr.PersonalInfo.FirstName))
-                .ForMember(t => t.SecondName, opt => opt.MapFrom(tr => tr.PersonalInfo.SecondName))
-                .ForMember(t => t.LastName, opt => opt.MapFrom(tr => tr.PersonalInfo.LastName))
-                .ForMember(t => t.IsReg, opt => opt.MapFrom(tr => Convert.ToBoolean(tr.PersonalInfo.isReg.ToString())))
+            CreateMap<TeacherResource, Teachers>()
+              .ForMember(t => t.TeacherId, op => op.Ignore())
+              .ForMember(t => t.IsHod, op => op.Ignore())
+              .ForMember(t => t.CourseId, opt => opt.MapFrom(tr => tr.Course.CourseId))
+              .ForMember(t => t.FirstName, opt => opt.MapFrom(tr => tr.PersonalInfo.FirstName))
+              .ForMember(t => t.SecondName, opt => opt.MapFrom(tr => tr.PersonalInfo.SecondName))
+              .ForMember(t => t.LastName, opt => opt.MapFrom(tr => tr.PersonalInfo.LastName))
+              .ForMember(t => t.IsReg, opt => opt.MapFrom(tr => Convert.ToBoolean(tr.PersonalInfo.isReg)))
 
-                .ForMember(t => t.Gender, opt => opt.MapFrom(tr => tr.PersonalInfo.Gender))
-                .ForMember(t => t.EmailId, opt => opt.MapFrom(tr => tr.PersonalInfo.EmailId))
-                .ForMember(t => t.ContactAddress, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactAddress))
-                .ForMember(t => t.ContactNumber, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactNumber))
-                .ForMember(t => t.Dob, opt => opt.MapFrom(tr => tr.PersonalInfo.Dob));
+              .ForMember(t => t.Gender, opt => opt.MapFrom(tr => tr.PersonalInfo.Gender))
+              .ForMember(t => t.EmailId, opt => opt.MapFrom(tr => tr.PersonalInfo.EmailId))
+              .ForMember(t => t.ContactAddress, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactAddress))
+              .ForMember(t => t.ContactNumber, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactNumber))
+              .ForMember(t => t.Dob, opt => opt.MapFrom(tr => tr.PersonalInfo.Dob));
+
+            CreateMap<TeacherStudentResource, TeacherStudent>()
+                .ForMember(ts => ts.TableId, op => op.Ignore())
+                .ForMember(ts => ts.Teacher, op => op.Ignore())
+                .ForMember(ts => ts.Student, op => op.Ignore());
+
+
+            CreateMap<StudentResource, Students>()
+              .ForMember(t => t.StudentId, op => op.Ignore())
+              .ForMember(t => t.FirstName, opt => opt.MapFrom(tr => tr.PersonalInfo.FirstName))
+              .ForMember(t => t.SecondName, opt => opt.MapFrom(tr => tr.PersonalInfo.SecondName))
+              .ForMember(t => t.LastName, opt => opt.MapFrom(tr => tr.PersonalInfo.LastName))
+              .ForMember(t => t.IsReg, op => op.Ignore())
+
+              .ForMember(t => t.Gender, opt => opt.MapFrom(tr => tr.PersonalInfo.Gender))
+              .ForMember(t => t.EmailId, opt => opt.MapFrom(tr => tr.PersonalInfo.EmailId))
+              .ForMember(t => t.ContactAddress, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactAddress))
+              .ForMember(t => t.ContactNumber, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactNumber))
+              .ForMember(t => t.Dob, opt => opt.MapFrom(tr => tr.PersonalInfo.Dob));
 
         }
     }

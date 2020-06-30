@@ -4,7 +4,6 @@
 <h1>Student Details {{ id }}</h1>
 
 <div class="container">
-  <h5>{{ user | json }}</h5>
   <form>
     <div class="card mb-3" >
       
@@ -43,7 +42,7 @@
           </div>
         </div>
         
-        <div class="form-group">
+        <div [attr.disabled]="!isUpdate" class="form-group">
           <label for="gender">Gender</label>
           <div class="form-check">
             <input class="form-check-input" id="Male" name="gender" type="radio" value="M"
@@ -112,8 +111,7 @@
                     </h1>
                   </div>
                   <div id="{{item.hod.id}}" class="collapse" 
-                    attr.aria-labelledby="{{item.course.courseId}}" 
-                    >
+                    attr.aria-labelledby="{{item.course.courseId}}">
                     <div class="card-body">
                       <span class="">
                         Teacher : {{item.personalInfo.firstName}} {{item.personalInfo.lastName}}
@@ -126,24 +124,57 @@
                 </div>
               </div>
             </div>
-          </div>
+            <!-- Add Course -->
+            <button class="btn btn-primary mt-3" [hidden]="addCourseMode"
+              (click)="addCoursefunc()">Add Course</button>
 
+            <div [hidden]="!addCourseMode" class="card mt-3">
+              <div class="card-header">Add New Course</div>
+              <div class="card-body">
+
+                <div>
+                  <label>Subject</label>
+                  <select (change)="OnSubjectChange()" class="form-control" name="subject" 
+                    [(ngModel)]="subjectId">
+                    <option></option>
+                    <option *ngFor="let subject of courses" value="{{ subject.subjectId }}">
+                      {{ subject.subjectName }}
+                    </option>
+                  </select>
+                </div>
+  
+                <div>
+                  <label>Course</label>
+                  <select class="form-control" name="subject" [(ngModel)]="courseId">
+                    <option></option>
+                    <option *ngFor="let item of coursesSelect.courses" value="{{ item.courseId }}">
+                      {{ item.courseName }}
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <button type="button" class="btn mt-2 btn-success" (click)="addCourse()">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Course</button>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
         </div>
 
-
-
         
-
         <button class="btn btn-warning mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
-        (click)=submit()>Update</button>
-    <button class="btn btn-danger mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
-        (click)="canceled()">Cancel</button>
-
+          (click)=submit()>Update</button>
+        <button class="btn btn-danger mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
+          (click)="canceled()">Cancel</button>
       </div>
       <br>  
-        
-
     </div>
   </form>
 </div>
+<h5>{{ user | json }}</h5>
+
 </body>

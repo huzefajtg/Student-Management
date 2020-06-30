@@ -74,12 +74,7 @@ namespace StudentProject.Controllers
             return await db.SaveChangesAsync();
         }
 
-        [HttpGet("course")]
-        public async Task<IEnumerable<CourseSubjectResource>> getCourses()
-        {
-            var data = await db.CourseSubject.Include(cs => cs.Courses).Where(cs => cs.SubjectId != 0).ToListAsync();
-            return mapper.Map<List<CourseSubject>, List<CourseSubjectResource>>(data);
-        }
+        
 
 
 
@@ -112,9 +107,8 @@ namespace StudentProject.Controllers
         {
             var res = await db.Students.Where(s => s.StudentId == register.id).FirstOrDefaultAsync();
             res.IsReg = register.isReg;
-            //Add track on who registered student
             int x = await updateDetails();
-
+#warning Add track on who registered student TeacherController=>serRegStudent()
             return Ok(x);
         }
 
@@ -173,6 +167,10 @@ namespace StudentProject.Controllers
             return mapper.Map<List<TeacherStudent>, List<StudentResource>>(res);
 
         }
+
+
+
+    
 
 
 

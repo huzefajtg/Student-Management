@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,8 +10,8 @@ namespace StudentProject.Models
     {
         public Students()
         {
-            CourseStudent = new HashSet<CourseStudent>();
-            TeacherStudent = new HashSet<TeacherStudent>();
+            CourseStudent = new Collection<CourseStudent>();
+            TeacherStudent = new Collection<TeacherStudent>();
         }
 
         [Key]

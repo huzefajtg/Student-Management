@@ -1,4 +1,3 @@
-import { TeacherResource } from './../../../models/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServiceService } from '../../../services/teacher-services.services';
@@ -89,9 +88,8 @@ export class TeacherProfileComponent implements OnInit {
 
   getCourses() {
     this.teacherService.getCourses().subscribe(res => {
-      res
-      console.log("Response after courses call", res)
       this.courses = res;
+      console.log("Response after courses call", res)
 
     })
   }
