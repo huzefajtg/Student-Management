@@ -138,6 +138,24 @@ namespace StudentProject.Mapping
               .ForMember(t => t.ContactNumber, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactNumber))
               .ForMember(t => t.Dob, opt => opt.MapFrom(tr => tr.PersonalInfo.Dob));
 
+
+
+
+            CreateMap<StudentResource, Students>()
+              .ForMember(t => t.IsReg, opt => opt.Ignore())
+              .ForMember(t => t.StudentId, op => op.Ignore())
+              .ForMember(t => t.FirstName, opt => opt.MapFrom(tr => tr.PersonalInfo.FirstName))
+              .ForMember(t => t.SecondName, opt => opt.MapFrom(tr => tr.PersonalInfo.SecondName))
+              .ForMember(t => t.LastName, opt => opt.MapFrom(tr => tr.PersonalInfo.LastName))
+
+              .ForMember(t => t.Gender, opt => opt.MapFrom(tr => tr.PersonalInfo.Gender))
+              .ForMember(t => t.EmailId, opt => opt.MapFrom(tr => tr.PersonalInfo.EmailId))
+              .ForMember(t => t.ContactAddress, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactAddress))
+              .ForMember(t => t.ContactNumber, opt => opt.MapFrom(tr => tr.PersonalInfo.ContactNumber))
+              .ForMember(t => t.Dob, opt => opt.MapFrom(tr => tr.PersonalInfo.Dob));    
+
+
+
             CreateMap<TeacherStudentResource, TeacherStudent>()
                 .ForMember(ts => ts.TableId, op => op.Ignore())
                 .ForMember(ts => ts.Teacher, op => op.Ignore())

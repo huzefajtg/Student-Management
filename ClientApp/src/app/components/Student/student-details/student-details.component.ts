@@ -2,6 +2,7 @@ import { TeacherServiceService } from './../../../services/teacher-services.serv
 import { StudentService } from './../../../services/student.services';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
 
 @Component({
   selector: 'app-student-details',
@@ -63,16 +64,17 @@ export class StudentDetailsComponent implements OnInit {
 
    }
   ngOnInit() {
+    this.getUser()
+    this.Tservice.getCourses().subscribe(res=>{this.courses=res})
+
+  }
+
+  getUser(){
     this.Stuservices.getStudent(this.id).subscribe(res=>{
       this.user=res;
       console.log("Student Information",this.user)
     })
 
-
-    this.Tservice.getCourses().subscribe(res=>{
-      this.courses=res
-
-    })
 
   }
 
@@ -96,10 +98,25 @@ export class StudentDetailsComponent implements OnInit {
   }
 
   addCourse(){
-    
+    console.log("inside addCourse")
+    var para={
+      studentId: this.id,
+      courseId: this.courseId
+    }
+    console.log("inside addCourse ",para)
+    this.Stuservices.addCourse(para).subscribe(res=>{
+      console.log("Result addCourse",res)
+    this.getUser();
+    })
+    this.addCourseMode=!this.addCourseMode
   }
+  
   submit(){
     console.log("Submit Data", this.user)
+    this.Stuservices.updateStudent(this.id,this.user).subscribe(res=>{
+      console.log("Result addCourse",res)
+    })
+    this.isUpdate=!this.isUpdate
   }
 
 }

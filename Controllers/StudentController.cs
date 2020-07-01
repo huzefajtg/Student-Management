@@ -81,7 +81,7 @@ namespace StudentProject.Controllers
         }
 
         [HttpPost("course")]
-        public async Task<TeacherStudentResource> AddCourse(AddCourseStudent st_course)
+        public async Task<TeacherStudentResource> AddCourse([FromBody]AddCourseStudent st_course)
         {
             int lowest = 0;
             int tlow;
@@ -102,10 +102,25 @@ namespace StudentProject.Controllers
             var res = new TeacherStudent();
             res.StudentId = st_course.studentId;
             res.TeacherId = teachers[lowest].TeacherId;
-            //db.Add(res);
-            //int x = db.SaveChanges();
+            db.Add(res);
+            int x = db.SaveChanges();
 
             return mapper.Map<TeacherStudent, TeacherStudentResource>(res);
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateTeacher(int id, [FromBody]StudentResource resource)
+        {
+            var student = await db.Students
+                //.Include(t => t.Course)
+                //    .ThenInclude(c => c.Subject)
+                .Where(t => t.StudentId == id)
+                .FirstOrDefaultAsync();
+
+            mapper.Map<StudentResource, Students>(resource, student);
+            db.SaveChanges();
+            return Ok(mapper.Map<Students, StudentResource>(student));
         }
 
 
