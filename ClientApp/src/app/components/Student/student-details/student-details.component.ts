@@ -101,7 +101,7 @@ export class StudentDetailsComponent implements OnInit {
     console.log("inside addCourse")
     var para={
       studentId: this.id,
-      courseId: this.courseId
+      otherId: this.courseId
     }
     console.log("inside addCourse ",para)
     this.Stuservices.addCourse(para).subscribe(res=>{
@@ -117,6 +117,17 @@ export class StudentDetailsComponent implements OnInit {
       console.log("Result addCourse",res)
     })
     this.isUpdate=!this.isUpdate
+  }
+
+  delCourse(teacherId){
+    console.log("Teacher ID",teacherId)
+    var para={
+      studentId: this.id,
+      otherId: teacherId
+    }
+    this.Stuservices.deleteCourse(para).subscribe(res=>{
+      this.user=res
+    })
   }
 
 }

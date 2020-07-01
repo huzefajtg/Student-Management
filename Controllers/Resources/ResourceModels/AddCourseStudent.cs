@@ -8,6 +8,6 @@ namespace StudentProject.Controllers.Resources.ResourceModels
     public class AddCourseStudent
     {
         public int studentId { get; set; }
-        public int courseId { get; set; }
+        public int otherId { get; set; }
     }
 }

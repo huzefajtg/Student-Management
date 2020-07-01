@@ -10,11 +10,16 @@ export class StudentService {
     return this._http.get('/api/student/' + Tid).map(res => res);
   }
 
-  addCourse(obj:{studentId:number,courseId:number}) {
+  addCourse(obj:{studentId:number,otherId:number}) {
     return this._http.post('/api/student/course' , obj).map(res => res);
   }
   updateStudent(id:number,StudentDetails){
     return this._http.put('api/student/'+id,StudentDetails).map(re=>re);
+  }
+
+
+  deleteCourse(obj:{studentId:number,otherId:number}){
+    return this._http.post('/api/student/deleteCourse' , obj).map(res => res);
   }
 
 }

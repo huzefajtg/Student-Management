@@ -85,7 +85,8 @@ namespace StudentProject.Controllers
         {
             int lowest = 0;
             int tlow;
-            var teachers = await db.Teachers.Where(t => t.CourseId == st_course.courseId).ToListAsync();
+            //here otherId is CourseId
+            var teachers = await db.Teachers.Where(t => t.CourseId == st_course.otherId).ToListAsync();
             int[] teachercount = new int[teachers.Count];
             //to find teacher with lowest students
             foreach(var t in teachers)
@@ -121,6 +122,21 @@ namespace StudentProject.Controllers
             mapper.Map<StudentResource, Students>(resource, student);
             db.SaveChanges();
             return Ok(mapper.Map<Students, StudentResource>(student));
+        }
+
+
+        [HttpPost("deleteCourse")]
+        public async Task<StudentResource> deleteCourse([FromBody]AddCourseStudent courseStudent)
+        {
+            //here otherId is TeacherId
+            var res = await db.TeacherStudent
+                .Where(ts => ts.StudentId == courseStudent.studentId && ts.TeacherId == courseStudent.otherId)
+                .FirstOrDefaultAsync();
+
+            if(res!=null)
+                db.TeacherStudent.Remove(res);
+            db.SaveChanges();
+            return await getSDetails(courseStudent.studentId);
         }
 
 

@@ -114,17 +114,25 @@
               <div class="mt-2" id="subjects">
                 <div class="card">
                   <div class="card-header" id="{{item.course.courseId}}">
-                    <h1 class="">
-                      <button class="btn btn-link text-monospace btn-block text-left" type="button" 
-                        data-toggle="collapse" attr.data-target="#{{item.hod.id}}" aria-expanded="true" 
-                        attr.aria-controls="{{item.hod.id}}">
-                        {{item.course.courseId}} - {{item.course.courseName}}
-                      </button>
-                    </h1>
+                    <div class="row">
+                      <h1 class="col-lg-9 col-md-7">
+                        <button class="btn btn-link text-monospace btn-block text-left" type="button" 
+                          data-toggle="collapse" attr.data-target="#{{item.hod.id}}" aria-expanded="true" 
+                          attr.aria-controls="{{item.hod.id}}">
+                          {{item.course.courseId}} - {{item.course.courseName}}
+                        </button>
+                      </h1>
+                      <div class="col-lg-1 col-md-5">
+                        <button (click)="delCourse(item.teacherId)" class="btn btn-danger">
+                          <i class="fa fa-trash" aria-hidden="true"></i> Delete Course
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <div id="{{item.hod.id}}" class="collapse" 
                     attr.aria-labelledby="{{item.course.courseId}}">
                     <div class="card-body">
+                      
                       <span class="">
                         Teacher : {{item.personalInfo.firstName}} {{item.personalInfo.lastName}}
                       </span> <br>
@@ -185,6 +193,4 @@
     </div>
   </form>
 </div>
-<h5>{{ user | json }}</h5>
-
 </body>
