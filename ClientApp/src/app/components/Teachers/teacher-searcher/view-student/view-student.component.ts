@@ -1,4 +1,4 @@
-import { TeacherStudentResource } from './../../../../models/models';
+import { TeacherStudentResource, TeacherSearch } from './../../../../models/models';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,56 +16,11 @@ export class ViewStudentComponent implements OnInit {
   studentId: number;
   id: number;
 
-  studentInfo: any = {
-    teacherID: 0,
-    studentId: 0,
-    personalInfo: {
-      firstName: '',
-      secondName: '',
-      lastname: '',
-      gender: '',
-      contactAddress: '',
-      contactNumber: '',
-      dob: '',
-      emailId: '',
-      type: '',
-      isReg: false
-    },
-    teacher: {
-      personalInfo: {
-        firstName: '',
-        secondName: '',
-        lastname: '',
-        gender: '',
-        contactAddress: '',
-        contactNumber: '',
-        dob: '',
-        emailId: '',
-        type: '',
-        isReg: false
-      },
+  studentInfo: any
 
-      hod: {
-        id: 0, name: ''
-      },
+  iswhere = 2;
+  allStudents: any
 
-      Course: {
-        courseId: 0, courseName: ''
-      },
-
-      subjectInfo: {
-        id: 0, name: ''
-      },
-      username: '',
-      teacherId: 0,
-      courseId: 0,
-      isReg: false,
-      isHod: false
-
-    }
-  }
-
-  iswhere = 1
 
 
   //Decalration End
@@ -90,7 +45,11 @@ export class ViewStudentComponent implements OnInit {
     this.teacherService.getStudentRecord(this.studentId).subscribe(res => {
       this.studentInfo = res;
       console.log("StudentInfo ", this.studentInfo)
+
+      
     })
+
+    
   }
 
 

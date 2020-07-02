@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServiceService } from '../../../services/teacher-services.services';
+import { TeacherSearch } from '../../../models/models';
 
 @Component({
   selector: 'app-viewer-page',
@@ -10,7 +11,7 @@ import { TeacherServiceService } from '../../../services/teacher-services.servic
 export class ViewerPageComponent implements OnInit {
 
   //Decalratio Start
-  studentId: number;
+  otherId: number;
   id: number;
   type:string
 
@@ -60,11 +61,22 @@ export class ViewerPageComponent implements OnInit {
       isReg: false,
       isHod: false
 
-    }
+    },
+
+    course: {
+      courseId: 0, courseName: ''
+    },
+    hod: {
+      id: 0, name: ''
+    },
+
+    subjectInfo: {
+      id: 0, name: ''
+    },
   }
 
-  iswhere = 1
-
+  iswhere = 2
+  allStudents:any
 
   //Decalration End
   constructor(private route: ActivatedRoute,
@@ -72,11 +84,11 @@ export class ViewerPageComponent implements OnInit {
     private teacherService: TeacherServiceService
   ) {
     route.params.subscribe(p => {
-      this.studentId = +p['id'];
+      this.otherId = +p['id'];
       this.id = +p['id2'];
       this.type = p['type'];
-      console.log("parameters " + this.id + " " + this.studentId + " " + this.type)
-      if (isNaN(this.studentId) || this.studentId <= 0 || isNaN(this.id) || this.id <= 0) {
+      console.log("parameters " + this.id + " " + this.otherId + " " + this.type)
+      if (isNaN(this.otherId) || this.otherId <= 0 || isNaN(this.id) || this.id <= 0) {
         console.log("parameter issue " + this.id)
         //router.navigate(['/login']);
         return;
@@ -86,22 +98,28 @@ export class ViewerPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.teacherService.getStudentRecord(this.studentId).subscribe(res => {
+    if(this.type=='S')
+    this.teacherService.getStudentRecord(this.otherId).subscribe(res => {
       this.studentInfo = res;
       console.log("StudentInfo ", this.studentInfo)
     })
-  }
 
-
-  regStudent() {
-    let q = {
-      id: this.studentId,
-      isReg: !this.studentInfo.personalInfo.isReg
+    else{
+      this.teacherService.getTeacher(this.otherId).subscribe(res => {
+        this.studentInfo = res;
+        console.log("StudentInfo ", this.studentInfo)
+      })
     }
-    this.teacherService.registerStudent(q).subscribe(res => {
-      console.log(res);
+    var q:TeacherSearch={
+      myStudents:true,
+      teacherID:this.id
+    }
+    this.teacherService.getStudents(q).subscribe(res => {
+      this.allStudents = res;
+      console.log("MyStudent ", this.allStudents)
     })
-    this.studentInfo.personalInfo.isReg = !this.studentInfo.personalInfo.isReg
   }
+
+
 
 }

@@ -130,7 +130,9 @@ export class StudentSearchComponent implements OnInit {
   RowSelected(rowID: number) {
     console.log("ID selected: " + rowID)
 
+    if(this.myStudent==true)
     this.router.navigateByUrl('/student/viewer/' + rowID + '/' + this.id + '/S');
+    else
     this.router.navigateByUrl('/student/viewer/' + rowID + '/' + this.id + '/T');
   }
 

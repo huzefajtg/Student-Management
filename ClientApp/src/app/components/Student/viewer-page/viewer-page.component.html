@@ -69,28 +69,73 @@
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="col-4" [hidden]="!studentInfo.personalInfo.isReg">
-                    Student is <strong>Registered</strong>
+                <div *ngIf="type=='T'">
+                  <div class="row">
+                    <div class="col-4">Course </div>
+                    <div class="col text-capitalize">{{ studentInfo.course.courseId }} - {{ studentInfo.course.courseName }} </div>
                   </div>
-                  <div class="col-4" [hidden]="studentInfo.personalInfo.isReg">
-                    Student is <strong>Not Registered</strong>
+  
+                  <div class="row">
+                    <div class="col-4">Subject </div>
+                    <div class="col text-capitalize">{{ studentInfo.subjectInfo.id }} - {{ studentInfo.subjectInfo.name }}
+                      </div>
                   </div>
-
-                  <div class="col">
-                    <button (click)="regStudent()" [hidden]="!studentInfo.personalInfo.isReg" class="col" 
-                    class="btn btn-danger">Click to Un-Register Student</button>
-
-                    <button (click)="regStudent()"  [hidden]="studentInfo.personalInfo.isReg" class="col" 
-                    class="btn btn-primary">Click to Register Student</button>
-                  </div>
+                  <div class="row">
+                  <div class="col-4">HOD </div>
+                  <div class="col text-capitalize">{{ studentInfo.hod.name }}
+                    </div>
                 </div>
+
+                </div>
+
               </tbody>
             </table>
           </div>
 
+
+          <!--                          STUDENT INFORMATION FOR THE TEACHER                         -->
           <div class="tab-pane" role="tabpanel" id="courses">
 
+
+
+            <div *ngIf="type=='T'">
+              <table class="table table-striped table-hover ">
+                <thead>
+                  <tr>
+                    <th scope="col">Id
+                      </th>
+                    <th scope="col">
+                      Name
+                    </th>
+                    <th scope="col">Emaid</th>
+                    <th scope="col">Contact Number</th>
+                    <th scope="col">Registered</th>
+                  </tr>
+                </thead>
+                <tbody>
+            
+                  <tr *ngFor="let item of allStudents" (click)="RowSelected( item.studentId )">
+                    <th scope="row" class="selid">{{ item.studentId }}</th>
+                    <td>{{ item.personalInfo.firstName }} {{ item.personalInfo.lastName }}</td>
+                    <td>{{ item.personalInfo.emailId }}</td>
+                    <td>{{ item.personalInfo.contactNumber }}</td>
+                    
+                    <td>
+                      <div *ngIf="item.personalInfo.isReg">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </div>
+                      <div *ngIf="!item.personalInfo.isReg">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </div>
+                    </td>
+                  </tr>
+            
+                </tbody>
+              </table>
+            </div>
+
+
+          <div *ngIf="type=='S'">
             <div class="row">
               <div class="col"><strong>Course Name</strong></div>
               <div class="col"><strong>Teacher Name</strong></div>
@@ -107,6 +152,10 @@
               </div>
 
             </div>
+
+
+          </div>
+
 
 
           </div>
