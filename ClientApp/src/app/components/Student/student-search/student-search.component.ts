@@ -1,45 +1,43 @@
+import { StudentService } from './../../../services/student.services';
 import { StudentResource } from './../../../models/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServiceService } from '../../../services/teacher-services.services';
 
-
 interface SorterType{
   name:string,
   isAsc:boolean
 }
-@Component({
-  selector: 'app-teacher-searcher',
-  templateUrl: './teacher-searcher.component.html',
-  styleUrls: ['./teacher-searcher.component.css']
-})
 
-export class TeacherSearcherComponent implements OnInit {
+
+
+@Component({
+  selector: 'app-student-search',
+  templateUrl: './student-search.component.html',
+  styleUrls: ['./student-search.component.css']
+})
+export class StudentSearchComponent implements OnInit {
   //Declarations
   id: number;
   tmpallStudents:any=[]
   allStudents: any
   firstList: Array<StudentResource> = []
   myStudent: boolean = false
-  iswhere = 1
+  iswhere = 2
 
   searchVal:string;
   isSort:string='id'
   sortObj:SorterType={
     name:'',
-    isAsc:false
+    isAsc:true
   }
-
 
   //End Of Declarations
 
-
-
-
-
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private teacherService: TeacherServiceService
+    private teacherService: TeacherServiceService,
+    private StudentService: StudentService
   ) {
     route.params.subscribe(p => {
       this.id = +p['id'];
@@ -54,20 +52,21 @@ export class TeacherSearcherComponent implements OnInit {
 
   ngOnInit() {
 
-    this.teacherService.getStudents({ teacherID: this.id, myStudents: false })
+    this.StudentService.getTeachersList()
       .subscribe(res => {
         this.allStudents = res;
         this.tmpallStudents=res;
         console.log("List :", this.allStudents)
 
-      });
-      this.isSort=''
+      console.log("Sorter Value ",this.isSort)
+    });
+      this.isSort='id'
       this.searchVal=''
   }
 
 
   getMyStudents() {
-    this.teacherService.getStudents({ teacherID: this.id, myStudents: true })
+    this.teacherService.getStudents({ teacherID: this.id, myStudents: false })
       .subscribe(res => {
         this.tmpallStudents=res;
         this.allStudents = res;
@@ -75,7 +74,7 @@ export class TeacherSearcherComponent implements OnInit {
       });
 
       this.searchVal=''
-      this.isSort=''
+      this.isSort='id'
   }
 
   searcher(){
@@ -86,7 +85,10 @@ export class TeacherSearcherComponent implements OnInit {
 
       if(Number.isInteger(Number(this.searchVal))){
         console.log("number Entered ")
-        this.allStudents = this.tmpallStudents.filter(ts => ts.studentId.includes( this.searchVal ));
+        if(this.myStudent==true)
+          this.allStudents = this.tmpallStudents.filter(ts => ts.studentId.toString().includes( this.searchVal ));
+        else
+          this.allStudents = this.tmpallStudents.filter(ts => ts.teacherId.toString().includes( this.searchVal ));
       }
       else{
         console.log("String Entered ")
@@ -127,79 +129,11 @@ export class TeacherSearcherComponent implements OnInit {
 
   RowSelected(rowID: number) {
     console.log("ID selected: " + rowID)
-    this.router.navigateByUrl('/teacher_home/viewStudent/' + rowID + '/' + this.id);
+
+    this.router.navigateByUrl('/student/viewer/' + rowID + '/' + this.id + '/S');
+    this.router.navigateByUrl('/student/viewer/' + rowID + '/' + this.id + '/T');
   }
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //{
-  //  student:{
-  //    personalInfo:{
-  //      firstName:'',
-  //      secondName:'',
-  //      lastname:'',
-  //      isReg:true,
-  
-  //      gender:'',
-  //      emailId:'',
-  //      contactNumber:'',
-  //      contactAddress:'',
-  //      dob:'',
-  //      type:''
-  //    },
-  //    isReg:false,
-  //    studentID:0,
-  //  },
-  //  studentID:0,
-  //  teacherID:0,
-  //  teacher:{
-  //    personalInfo:{
-  //      firstName:'',
-  //      secondName:'',
-  //      lastname:'',
-  //      isReg:true,
-  
-  //      gender:'',
-  //      emailId:'',
-  //      contactNumber:'',
-  //      contactAddress:'',
-  //      dob:'',
-  //      type:''
-  //    },
-  
-  //    hod:{
-  //      name:'',
-  //      id:0
-  //    },
-  
-  //    subjectInfo:{
-  //      name:'',
-  //      id:0
-  //    },
-  
-  //    username:'',
-  //    teacherId:this.id,
-  //    courseId:0,
-  //    isHod:false,
-  //    isReg:false
-  //  }
-
-  //}
 

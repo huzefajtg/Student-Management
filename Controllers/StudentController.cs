@@ -140,5 +140,29 @@ namespace StudentProject.Controllers
         }
 
 
+        [HttpGet("getStudents")]
+        public async Task<List<StudentResource>> getStudents()
+        {
+            var res = await db.Students.OrderBy(ts => ts.StudentId).ToListAsync();
+            return mapper.Map<List<Students>, List<StudentResource>>(res);
+
+        }
+
+        [HttpGet("getTeachers")]
+        public async Task<List<TeacherResource>> getTeachers()
+        {
+            var teachers = await db.Teachers
+                    .Include(t=>t.Course)
+                        .ThenInclude(c => c.Subject)
+                        .OrderBy(ts => ts.TeacherId).ToListAsync();
+            var res = mapper.Map<List<Teachers>, List<TeacherResource>>(teachers);
+            foreach (var i in res)
+            {
+                i.HOD = await getHOD(Convert.ToInt32(i.Course.CourseId.ToString()));
+            }
+
+            return res;
+        }
+
     }
 }

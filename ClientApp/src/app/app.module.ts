@@ -22,6 +22,8 @@ import { ViewStudentComponent } from './components/Teachers/teacher-searcher/vie
 import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/view-teacher/view-teacher.component';
 import { StudentHomeComponent } from './components/Student/student-home/student-home.component';
 import { StudentDetailsComponent } from './components/Student/student-details/student-details.component';
+import { StudentSearchComponent } from './components/Student/student-search/student-search.component';
+import { ViewerPageComponent } from './components/Student/viewer-page/viewer-page.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { StudentDetailsComponent } from './components/Student/student-details/st
     ViewStudentComponent,
     ViewTeacherComponent,
     StudentHomeComponent,
-    StudentDetailsComponent
+    StudentDetailsComponent,
+    StudentSearchComponent,
+    ViewerPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -58,6 +62,9 @@ import { StudentDetailsComponent } from './components/Student/student-details/st
       //Students
       { path: 'student_home/:id' , component:StudentHomeComponent },
       { path: 'student/profile/:id' , component:StudentDetailsComponent },
+      { path: 'student/search/:id' , component:StudentSearchComponent },
+      { path: 'student/viewer/:id/:id2/:type' , component:ViewerPageComponent },
+      
 
 
       { path: 'fetch-data', component: FetchDataComponent },

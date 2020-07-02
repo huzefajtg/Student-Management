@@ -50,7 +50,7 @@ namespace StudentProject.Controllers
 
             var res= mapper.Map<Teachers, TeacherResource>(teacher);
             res.HOD =await getHOD(Convert.ToInt32(res.Course.CourseId.ToString()));
-            res.username = getUsername(id);
+            //res.username = getUsername(id);
             return res;
         }
 
@@ -140,11 +140,6 @@ namespace StudentProject.Controllers
             return final;
         }
 
-
-
-
-
-
         [HttpPost("getStudents")]
         public async Task<List<StudentResource>> getStudents(TeacherSearch req)
         {
@@ -153,6 +148,8 @@ namespace StudentProject.Controllers
                 var val = await db.Students.OrderBy(s => s.StudentId).ToListAsync();
                 return mapper.Map<List<Students>, List<StudentResource>>(val);
             }
+
+            //for MyStudents==TRUE
             var res = await db.TeacherStudent
                          .Include(ts => ts.Student)
                          .Include(ts => ts.Teacher)

@@ -22,4 +22,9 @@ export class StudentService {
     return this._http.post('/api/student/deleteCourse' , obj).map(res => res);
   }
 
+  getTeachersList(){
+
+    return this._http.get('/api/student/getTeachers').map(res => res);
+  }
+
 }

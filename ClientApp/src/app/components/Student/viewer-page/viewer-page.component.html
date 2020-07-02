@@ -1,0 +1,123 @@
+<body id="bodypart">
+  <nav-menu [iswhereN]="iswhere" [Nid]=id></nav-menu>
+  
+
+  <h1>Student Name : {{ studentInfo.personalInfo.firstName }} 
+    {{ studentInfo.personalInfo.lastName }} </h1>
+
+
+  <div class="container">
+    
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link  active" href="#StuPInfo" role="tab" data-toggle="tab">Student Information</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#courses" role="tab" data-toggle="tab">Student Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#extra" role="tab" data-toggle="tab">Extra</a>
+          </li>
+          
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="tab-content">
+          <div class="tab-pane active" role="tabpanel" id="StuPInfo">
+            <table class="table">
+              <tbody>
+
+                <div class="row">
+                  <div class="col-4">Name</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.firstName }} 
+                    {{ studentInfo.personalInfo.secondName }} 
+                    {{ studentInfo.personalInfo.lastName }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">DOB</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.dob }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Email</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.emailId }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Contact Number</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.contactNumber }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Address</div>
+                  <div class="col text-capitalize">{{ studentInfo.personalInfo.contactAddress }} </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">Gender</div>
+                  <div class="col text-capitalize">
+                    <div *ngIf="studentInfo.personalInfo.gender=='M'">
+                      <i class="fa fa-mars" aria-hidden="true"></i> Male
+                    </div>
+
+                    <div *ngIf="studentInfo.personalInfo.gender=='F'">
+                      <i class="fa fa-venus" aria-hidden="true"></i> Female
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4" [hidden]="!studentInfo.personalInfo.isReg">
+                    Student is <strong>Registered</strong>
+                  </div>
+                  <div class="col-4" [hidden]="studentInfo.personalInfo.isReg">
+                    Student is <strong>Not Registered</strong>
+                  </div>
+
+                  <div class="col">
+                    <button (click)="regStudent()" [hidden]="!studentInfo.personalInfo.isReg" class="col" 
+                    class="btn btn-danger">Click to Un-Register Student</button>
+
+                    <button (click)="regStudent()"  [hidden]="studentInfo.personalInfo.isReg" class="col" 
+                    class="btn btn-primary">Click to Register Student</button>
+                  </div>
+                </div>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane" role="tabpanel" id="courses">
+
+            <div class="row">
+              <div class="col"><strong>Course Name</strong></div>
+              <div class="col"><strong>Teacher Name</strong></div>
+              <div class="col"><strong>Department HOD</strong></div>
+            </div>
+
+            <div class="row" *ngFor="let item of studentInfo.teacherInfo" >
+              <div class="col">{{ item.course.courseName }}</div>
+              <div class="col text-capitalize">{{ item.personalInfo.firstName }} 
+                {{ item.personalInfo.lastName }}
+              </div>
+              <div class="col">
+                {{ item.hod.name }}
+              </div>
+
+            </div>
+
+
+          </div>
+          <div class="tab-pane" role="tabpanel" id="extra">1</div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+</body>
