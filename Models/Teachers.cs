@@ -10,6 +10,7 @@ namespace StudentProject.Models
         public Teachers()
         {
             NotiFicationTeachers = new HashSet<NotiFicationTeachers>();
+            TeacherNotification = new HashSet<TeacherNotification>();
             TeacherStudent = new HashSet<TeacherStudent>();
         }
 
@@ -42,6 +43,8 @@ namespace StudentProject.Models
         public Courses Course { get; set; }
         [InverseProperty("NotificationForNavigation")]
         public ICollection<NotiFicationTeachers> NotiFicationTeachers { get; set; }
+        [InverseProperty("Teacher")]
+        public ICollection<TeacherNotification> TeacherNotification { get; set; }
         [InverseProperty("Teacher")]
         public ICollection<TeacherStudent> TeacherStudent { get; set; }
     }

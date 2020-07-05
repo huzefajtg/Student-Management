@@ -58,8 +58,8 @@ namespace StudentProject.Controllers
         public async Task<IActionResult> updateTeacher(int id, [FromBody]TeacherResource resource)
         {
             var teacher = await db.Teachers
-                //.Include(t => t.Course)
-                //    .ThenInclude(c => c.Subject)
+                .Include(t => t.Course)
+                    .ThenInclude(c => c.Subject)
                 .Where(t => t.TeacherId == id)
                 .FirstOrDefaultAsync();
 
@@ -74,7 +74,7 @@ namespace StudentProject.Controllers
             return await db.SaveChangesAsync();
         }
 
-        
+
 
 
 

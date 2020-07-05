@@ -99,15 +99,18 @@ namespace StudentProject.Controllers
                 }
             }
 
-            
+            //teachers[lowest].TeacherId; is teacherId. lowest is index of the teacherId to select
             var res = new TeacherStudent();
             res.StudentId = st_course.studentId;
             res.TeacherId = teachers[lowest].TeacherId;
             db.Add(res);
-            int x = db.SaveChanges();
+            //int x = db.SaveChanges(); notrequired
+            TeacherNotification(teachers[lowest].TeacherId, st_course.studentId, "S", 0);
 
             return mapper.Map<TeacherStudent, TeacherStudentResource>(res);
         }
+
+
 
 
         [HttpPut("{id}")]
@@ -135,7 +138,10 @@ namespace StudentProject.Controllers
 
             if(res!=null)
                 db.TeacherStudent.Remove(res);
-            db.SaveChanges();
+
+            TeacherNotification(courseStudent.otherId, courseStudent.studentId, "S", 1);
+
+            //db.SaveChanges();
             return await getSDetails(courseStudent.studentId);
         }
 
@@ -163,6 +169,33 @@ namespace StudentProject.Controllers
 
             return res;
         }
+
+
+
+        //===========================Notifications==================================
+        public void TeacherNotification(int teacherId, int otherId, string ortherType, int process)
+        {
+            var Noti = new TeacherNotification();
+            Noti.TeacherId = teacherId;
+            Noti.OtherId = otherId;
+            Noti.OtherType = ortherType;
+            Noti.Viwed = false;
+            Noti.NotiDate = DateTime.Now.ToString();
+            if (process == 0)   //add course
+            {
+                Noti.NotiMessage = "Student of Id= " + otherId + " has been added to your class ";
+            }
+            //delete course
+            else
+            {
+                Noti.NotiMessage = "Student of Id= " + otherId + " has been removed from your class ";
+            }
+
+            db.Add(Noti);
+            db.SaveChanges();
+
+        }
+
 
     }
 }

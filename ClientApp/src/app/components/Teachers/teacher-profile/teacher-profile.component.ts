@@ -108,12 +108,14 @@ export class TeacherProfileComponent implements OnInit {
       this.user.subjectInfo.name = this.subName
       this.user.subjectInfo.id = this.subjectId
       this.user.personalInfo.isReg = false
-
     }
 
+    console.log("user",this.user)
+    this.teacherService.updateTeacher(this.id, this.user).subscribe(res => {
+      console.log("result ",res)
+      this.router.navigate(['/teacher_home/' + this.id]);
+     })
 
-    this.teacherService.updateTeacher(this.id, this.user).subscribe(res => { })
-    this.router.navigate(['/teacher_home/' + this.id]);
 
 
   }

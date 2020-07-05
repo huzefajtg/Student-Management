@@ -36,7 +36,11 @@ export class TeacherServiceService {
   }
 
   getNotification(id:number){
-    return this._http.get('/api/teacher/notifications/' + id).map(res => res);
+    return this._http.get('/api/tnoti/' + id).map(res => res);
+  }
+
+  changeViwed(id:number){
+    return this._http.get('/api/tnoti/vChange/' + id).map(res => res);
   }
 
 

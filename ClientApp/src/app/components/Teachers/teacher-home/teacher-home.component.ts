@@ -48,4 +48,11 @@ export class TeacherHomeComponent implements OnInit {
     })
   }
 
+  vChange(msgid:number){
+    console.log("msg id",msgid)
+    this.tservice.changeViwed(msgid).subscribe(res=>{
+      console.log("result",res);
+    })
+  }
+
 }

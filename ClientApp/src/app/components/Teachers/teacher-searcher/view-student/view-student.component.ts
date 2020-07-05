@@ -18,7 +18,7 @@ export class ViewStudentComponent implements OnInit {
 
   studentInfo: any
 
-  iswhere = 2;
+  iswhere = 1;
   allStudents: any
 
 
