@@ -23,8 +23,16 @@ export class StudentService {
   }
 
   getTeachersList(){
-
     return this._http.get('/api/student/getTeachers').map(res => res);
+  }
+
+  
+  getNotification(id:number){
+    return this._http.get('/api/snoti/' + id).map(res => res);
+  }
+
+  changeViwed(id:number){
+    return this._http.get('/api/snoti/vChange/' + id).map(res => res);
   }
 
 }

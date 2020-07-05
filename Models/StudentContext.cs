@@ -20,6 +20,7 @@ namespace StudentProject.Models
         public virtual DbSet<CourseSubject> CourseSubject { get; set; }
         public virtual DbSet<LoginInfo> LoginInfo { get; set; }
         public virtual DbSet<NotiFicationTeachers> NotiFicationTeachers { get; set; }
+        public virtual DbSet<StudentNotification> StudentNotification { get; set; }
         public virtual DbSet<Students> Students { get; set; }
         public virtual DbSet<TeacherNotification> TeacherNotification { get; set; }
         public virtual DbSet<Teachers> Teachers { get; set; }
@@ -92,6 +93,20 @@ namespace StudentProject.Models
                     .WithMany(p => p.NotiFicationTeachers)
                     .HasForeignKey(d => d.NotificationFor)
                     .HasConstraintName("FK__NotiFicat__Notif__48CFD27E");
+            });
+
+            modelBuilder.Entity<StudentNotification>(entity =>
+            {
+                entity.Property(e => e.NotiDate).IsUnicode(false);
+
+                entity.Property(e => e.NotiMessage).IsUnicode(false);
+
+                entity.Property(e => e.OtherType).IsUnicode(false);
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.StudentNotification)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK__StudentNo__Stude__5FB337D6");
             });
 
             modelBuilder.Entity<Students>(entity =>

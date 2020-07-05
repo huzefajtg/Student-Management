@@ -20,6 +20,7 @@ namespace StudentProject.Mapping
             CreateMap<Courses, CourseResource>();
             CreateMap<NotiFicationTeachers, NotificationTeachersResource>();
             CreateMap<TeacherNotification, TeacherNotificationResource>();
+            CreateMap<StudentNotification, StudentNotificationResource>();
 
             CreateMap<LoginInfo, LoginInfoResource>();
             CreateMap<LoginInfo, LoginIdTypeResource>()

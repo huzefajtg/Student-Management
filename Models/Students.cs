@@ -10,6 +10,7 @@ namespace StudentProject.Models
         public Students()
         {
             CourseStudent = new HashSet<CourseStudent>();
+            StudentNotification = new HashSet<StudentNotification>();
             TeacherStudent = new HashSet<TeacherStudent>();
         }
 
@@ -36,6 +37,8 @@ namespace StudentProject.Models
 
         [InverseProperty("Student")]
         public ICollection<CourseStudent> CourseStudent { get; set; }
+        [InverseProperty("Student")]
+        public ICollection<StudentNotification> StudentNotification { get; set; }
         [InverseProperty("Student")]
         public ICollection<TeacherStudent> TeacherStudent { get; set; }
     }

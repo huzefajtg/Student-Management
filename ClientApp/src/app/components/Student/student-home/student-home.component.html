@@ -1,3 +1,65 @@
-<nav-menu [iswhereN]="iswhere" [Nid]=id></nav-menu>
+<body>
 
-<h1>Student {{ id }}</h1>
+    <nav-menu [iswhereN]="iswhere" [Nid]=id></nav-menu>
+
+    <h1>Student {{ id }}</h1>
+
+    <div class="container">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">Notification</th>
+            <th scope="col">Date</th>
+            <th scope="col">Type</th>
+            <th scope="col">Id - Name</th>
+            <th>Seen</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor="let item of notification">
+            <tr  *ngIf="item.viwed==false"> 
+            <th scope="row">{{ item.notiMessage }}</th>
+            <td>{{ item.notiDate }}</td>
+            <td>{{ item.otherType }}</td>
+            <td>{{ item.otherId }} - {{ item.otherName }}</td>
+            <td>
+                <input type="checkbox" [(ngModel)]="item.viwed" (change)="vChange(item.notificationId)">
+            </td>
+            </tr>
+        </tbody>
+
+        </table>
+
+
+        <div class="mt-3">
+        <h3>Seen Message</h3>
+
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">Notification</th>
+            <th scope="col">Date</th>
+            <th scope="col">Type</th>
+            <th scope="col">Id - Name</th>
+            <th>Seen</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor="let item of notification">
+            <tr  *ngIf="item.viwed==true"> 
+            <th scope="row">{{ item.notiMessage }}</th>
+            <td>{{ item.notiDate }}</td>
+            <td>{{ item.otherType }}</td>
+            <td>{{ item.otherId }} - {{ item.otherName }}</td>
+            <td>
+                <input type="checkbox" [(ngModel)]="item.viwed" (change)="vChange(item.notificationId)">
+            </td>
+            </tr>
+        </tbody>
+
+        </table>
+        </div>
+    </div>
+
+
+</body>
