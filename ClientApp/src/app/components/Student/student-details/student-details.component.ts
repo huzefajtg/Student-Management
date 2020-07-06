@@ -128,6 +128,7 @@ export class StudentDetailsComponent implements OnInit {
     this.Stuservices.deleteCourse(para).subscribe(res=>{
       this.user=res
     })
+    this.canceled();
   }
 
 }

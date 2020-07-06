@@ -31,7 +31,7 @@ export class TeacherServiceService {
     return this._http.get('/api/teacher/getSInfo/' + id).map(res => res);
   }
 
-  registerStudent(query: { id: number, isReg: boolean }) {
+  registerStudent(query: { id: number, isReg: boolean ,otherId:number}) {
     return this._http.post('/api/teacher/setRegisterStudent', query).map(res => res);
   }
 

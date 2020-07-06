@@ -15,8 +15,7 @@ export class ViewStudentComponent implements OnInit {
   //Decalratio Start
   studentId: number;
   id: number;
-
-  studentInfo: any
+  studentInfo: any={}
 
   iswhere = 1;
   allStudents: any
@@ -56,7 +55,8 @@ export class ViewStudentComponent implements OnInit {
   regStudent() {
     let q = {
       id: this.studentId,
-      isReg: !this.studentInfo.personalInfo.isReg
+      isReg: !this.studentInfo.personalInfo.isReg,
+      otherId:this.id
     }
     this.teacherService.registerStudent(q).subscribe(res => {
       console.log(res);

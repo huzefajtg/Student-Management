@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace StudentProject.Models
 {
-    public partial class StudentContext : DbContext
+    public partial class Context_Name : DbContext
     {
-        public StudentContext()
+        public Context_Name()
         {
         }
 
-        public StudentContext(DbContextOptions<StudentContext> options)
+        public Context_Name(DbContextOptions<Context_Name> options)
             : base(options)
         {
         }

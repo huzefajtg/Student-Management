@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentProject.Controllers.Resources;
 using StudentProject.Controllers.Resources.ResourceModels;
+using StudentProject.Extension.Interface;
 using StudentProject.Models;
 
 namespace StudentProject.Controllers
@@ -16,26 +17,23 @@ namespace StudentProject.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly StudentContext db;
+
+        private readonly IManager IStudent;
+
         private readonly IMapper mapper;
 
-        public StudentController(IMapper map)
+        public StudentController(IMapper map, IManager t)
         {
             StudentContext context = new StudentContext();
-            this.db = context;
-
             this.mapper = map;
+            this.IStudent = t;
         }
 
         [HttpGet("{id}")]
         public async Task<StudentResource> getSDetails(int id)
         {
-            var res = await db.TeacherStudent
-                       .Include(ts => ts.Student)
-                       .Include(ts => ts.Teacher)
-                           .ThenInclude(t => t.Course)
-                           .Where(ts => ts.StudentId == id).ToListAsync(); //1
 
+            var res = await IStudent.getTeacherStudent(id, true);
 
             var final = new StudentResource();
             var temp = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
@@ -54,25 +52,20 @@ namespace StudentProject.Controllers
 
         public async Task<KeyValuePairResource> getHOD(int courseID)
         {
-            var result = await db.Teachers.Where(t => t.CourseId == courseID && t.IsHod == true).FirstOrDefaultAsync();
+            var result = await IStudent.getHOD(courseID);
             return mapper.Map<Teachers, KeyValuePairResource>(result);
         }
 
         public string getUsername(int id)
         {
-            var loginfo = db.LoginInfo.Where(l => (l.Id == id && l.UserType == "T")).FirstOrDefault();
-            return loginfo.UserName.ToString();
+            return IStudent.getUsername(id);
         }
 
         public async Task<TeacherResource> GetTeacher(int id)
         {
-            //Teacher has=>Personal,Subject->course->subject
-            //(from a in db.Teachers join b in db.Courses on a.CourseId equals b.CourseId select new { a, b })
-            var teacher = await db.Teachers
-                .Include(t => t.Course)
-                    .ThenInclude(c => c.Subject)
-                .Where(t => t.TeacherId == id)
-                .FirstOrDefaultAsync();
+
+            var teacher = await IStudent.getTeacher(id);
+
 
             var res = mapper.Map<Teachers, TeacherResource>(teacher);
             res.HOD = await getHOD(Convert.ToInt32(res.Course.CourseId.ToString()));
@@ -86,13 +79,18 @@ namespace StudentProject.Controllers
             int lowest = 0;
             int tlow;
             //here otherId is CourseId
-            var teachers = await db.Teachers.Where(t => t.CourseId == st_course.otherId).ToListAsync();
+
+            var teachers = await IStudent.getTeachers(st_course.otherId);   //using courseId
+
             int[] teachercount = new int[teachers.Count];
             //to find teacher with lowest students
-            foreach(var t in teachers)
+            foreach (var t in teachers)
             {
                 tlow = teachers.IndexOf(t);
-                teachercount[tlow] = db.TeacherStudent.Where(ts => ts.TeacherId == t.TeacherId).Count();
+                //teachercount[tlow] = db.TeacherStudent.Where(ts => ts.TeacherId == t.TeacherId).Count();
+
+                teachercount[tlow] = IStudent.getTeacherStudentCount(t.TeacherId, false);
+
                 if (teachercount[lowest] > teachercount[tlow] && lowest != tlow)
                 {
                     lowest = tlow;
@@ -103,27 +101,22 @@ namespace StudentProject.Controllers
             var res = new TeacherStudent();
             res.StudentId = st_course.studentId;
             res.TeacherId = teachers[lowest].TeacherId;
-            db.Add(res);
-            //int x = db.SaveChanges(); notrequired
+            IStudent.AdderAsync(res);
             TeacherNotification(teachers[lowest].TeacherId, st_course.studentId, "S", 0);
 
             return mapper.Map<TeacherStudent, TeacherStudentResource>(res);
         }
 
-
-
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> updateTeacher(int id, [FromBody]StudentResource resource)
+        public async Task<IActionResult> updateStudent(int id, [FromBody]StudentResource resource)
         {
-            var student = await db.Students
-                //.Include(t => t.Course)
-                //    .ThenInclude(c => c.Subject)
-                .Where(t => t.StudentId == id)
-                .FirstOrDefaultAsync();
+
+            var student = await IStudent.getStudent(id);
 
             mapper.Map<StudentResource, Students>(resource, student);
-            db.SaveChanges();
+
+            IStudent.SaverAsync();
+
             return Ok(mapper.Map<Students, StudentResource>(student));
         }
 
@@ -132,16 +125,12 @@ namespace StudentProject.Controllers
         public async Task<StudentResource> deleteCourse([FromBody]AddCourseStudent courseStudent)
         {
             //here otherId is TeacherId
-            var res = await db.TeacherStudent
-                .Where(ts => ts.StudentId == courseStudent.studentId && ts.TeacherId == courseStudent.otherId)
-                .FirstOrDefaultAsync();
 
-            if(res!=null)
-                db.TeacherStudent.Remove(res);
-
+            var res = await IStudent.getTeacherStudent(courseStudent, true);
+            if (res != null)
+                await IStudent.Remover(res);
             TeacherNotification(courseStudent.otherId, courseStudent.studentId, "S", 1);
-
-            //db.SaveChanges();
+            IStudent.SaverAsync();
             return await getSDetails(courseStudent.studentId);
         }
 
@@ -149,7 +138,7 @@ namespace StudentProject.Controllers
         [HttpGet("getStudents")]
         public async Task<List<StudentResource>> getStudents()
         {
-            var res = await db.Students.OrderBy(ts => ts.StudentId).ToListAsync();
+            var res = await IStudent.getStudents();
             return mapper.Map<List<Students>, List<StudentResource>>(res);
 
         }
@@ -157,15 +146,10 @@ namespace StudentProject.Controllers
         [HttpGet("getTeachers")]
         public async Task<List<TeacherResource>> getTeachers()
         {
-            var teachers = await db.Teachers
-                    .Include(t=>t.Course)
-                        .ThenInclude(c => c.Subject)
-                        .OrderBy(ts => ts.TeacherId).ToListAsync();
+            var teachers = await IStudent.getTeachers(true);
             var res = mapper.Map<List<Teachers>, List<TeacherResource>>(teachers);
             foreach (var i in res)
-            {
                 i.HOD = await getHOD(Convert.ToInt32(i.Course.CourseId.ToString()));
-            }
 
             return res;
         }
@@ -182,20 +166,12 @@ namespace StudentProject.Controllers
             Noti.Viwed = false;
             Noti.NotiDate = DateTime.Now.ToString();
             if (process == 0)   //add course
-            {
                 Noti.NotiMessage = "Student of Id= " + otherId + " has been added to your class ";
-            }
             //delete course
             else
-            {
                 Noti.NotiMessage = "Student of Id= " + otherId + " has been removed from your class ";
-            }
-
-            db.Add(Noti);
-            db.SaveChanges();
-
+            IStudent.AdderAsync(Noti);
+            IStudent.SaverAsync();
         }
-
-
     }
 }

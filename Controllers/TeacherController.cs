@@ -80,12 +80,12 @@ namespace StudentProject.Controllers
 
         //--------------------Notification For Teachers-----------------------
 
-        [HttpGet("notifications/{id}")]
-        public async Task<IEnumerable<NotificationTeachersResource>> GetNotifications(int id)
-        {
-            var notifications = await db.NotiFicationTeachers.Where(no => no.NotificationFor == id).ToListAsync();
-            return mapper.Map<List<NotiFicationTeachers>, List<NotificationTeachersResource>>(notifications);
-        }
+        //[HttpGet("notifications/{id}")]
+        //public async Task<IEnumerable<NotificationTeachersResource>> GetNotifications(int id)
+        //{
+        //    var notifications = await db.TeacherNotification.Where(no => no.TeacherId == id).ToListAsync();
+        //    return mapper.Map<List<TeacherNotification>, List<NotificationTeachersResource>>(notifications);
+        //}
 
 
         //------------------------Students API-------------------
@@ -109,6 +109,22 @@ namespace StudentProject.Controllers
             res.IsReg = register.isReg;
             int x = await updateDetails();
 #warning Add track on who registered student TeacherController=>serRegStudent()
+
+            //============notification=============
+            var noti = new StudentNotification();
+            noti.StudentId = register.id;
+            noti.OtherId = register.otherId;
+            noti.OtherType = "T";
+            noti.Viwed = false;
+            noti.NotiDate = DateTime.Now.ToString();
+            if(register.isReg==true)
+                noti.NotiMessage = "You have been registered";
+            else
+                noti.NotiMessage = "You have been un-registered";
+            db.Add(noti);
+            db.SaveChangesAsync();
+
+
             return Ok(x);
         }
 
@@ -164,12 +180,6 @@ namespace StudentProject.Controllers
             return mapper.Map<List<TeacherStudent>, List<StudentResource>>(res);
 
         }
-
-
-
-    
-
-
 
     }
 }

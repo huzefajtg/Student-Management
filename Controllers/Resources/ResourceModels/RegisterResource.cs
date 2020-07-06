@@ -8,6 +8,7 @@ namespace StudentProject.Controllers.Resources.ResourceModels
     public class RegisterResource
     {
         public int id { get; set; }
+        public int otherId { get; set; }
         public bool isReg { get; set; }
     }
 }
