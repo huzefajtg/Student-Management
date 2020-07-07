@@ -1,8 +1,6 @@
 ﻿using StudentProject.Controllers.Resources.ResourceModels;
 using StudentProject.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StudentProject.Extension.Interface
@@ -13,8 +11,6 @@ namespace StudentProject.Extension.Interface
         Task<Students> getStudent(int id);
         Task<List<Students>> getStudents();
 
-
-
         //==========================Teacher============================
         //======TeacherStudent=========================================
             int getTeacherStudentCount(int id, bool isStudent);
@@ -23,7 +19,6 @@ namespace StudentProject.Extension.Interface
             Task<TeacherStudent> getTeacherStudent(AddCourseStudent courseStudent, bool isTeacher);
 
             Task<List<TeacherStudent>> getStudentsOf_Teachers(int id);
-
 
         Task<Teachers> getTeacher(int id);
         Task<List<Teachers>> getTeachers(int courseId);
@@ -48,8 +43,6 @@ namespace StudentProject.Extension.Interface
 
         TeacherNotification retNotificationT(int notificationId);
         StudentNotification retNotificationS(int notificationId);
-
-
 
     }
 }

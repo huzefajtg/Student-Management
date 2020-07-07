@@ -18,12 +18,11 @@ import { TeacherHomeComponent } from './components/Teachers/teacher-home/teacher
 import { TeacherProfileComponent } from './components/Teachers/teacher-profile/teacher-profile.component';
 import { TeacherServiceService } from './services/teacher-services.services';
 import { TeacherSearcherComponent } from './components/Teachers/teacher-searcher/teacher-searcher.component';
-import { ViewStudentComponent } from './components/Teachers/teacher-searcher/view-student/view-student.component';
-import { ViewTeacherComponent } from './components/Teachers/teacher-searcher/view-teacher/view-teacher.component';
 import { StudentHomeComponent } from './components/Student/student-home/student-home.component';
 import { StudentDetailsComponent } from './components/Student/student-details/student-details.component';
 import { StudentSearchComponent } from './components/Student/student-search/student-search.component';
 import { ViewerPageComponent } from './components/Student/viewer-page/viewer-page.component';
+import { ShowTableComponent } from './components/show-table/show-table.component';
 
 @NgModule({
   declarations: [
@@ -37,12 +36,11 @@ import { ViewerPageComponent } from './components/Student/viewer-page/viewer-pag
     TeacherHomeComponent,
     TeacherProfileComponent,
     TeacherSearcherComponent,
-    ViewStudentComponent,
-    ViewTeacherComponent,
     StudentHomeComponent,
     StudentDetailsComponent,
     StudentSearchComponent,
-    ViewerPageComponent
+    ViewerPageComponent,
+    ShowTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -56,14 +54,12 @@ import { ViewerPageComponent } from './components/Student/viewer-page/viewer-pag
       { path: 'teacher_home/:id' , component:TeacherHomeComponent },
       { path: 'teacher/profile/:id' , component:TeacherProfileComponent },
       { path: 'teacher/search/:id', component: TeacherSearcherComponent },
-      { path: 'teacher_home/viewStudent/:id/:id2' , component:ViewStudentComponent },
-      { path: 'teacher_home/viewTeacher/:id' , component:ViewTeacherComponent },
 
       //Students
       { path: 'student_home/:id' , component:StudentHomeComponent },
       { path: 'student/profile/:id' , component:StudentDetailsComponent },
       { path: 'student/search/:id' , component:StudentSearchComponent },
-      { path: 'student/viewer/:id/:id2/:type' , component:ViewerPageComponent },
+      { path: 'student/viewer/:id/:id2/:type/:type2' , component:ViewerPageComponent },
       
 
 

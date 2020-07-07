@@ -14,62 +14,17 @@
   </div>
 
   <div class="mb-2 mt-3">
-    <button class="btn btn-primary" [hidden]="myStudent" (click)="getMyStudents()" 
-      (click)="myStudent=!myStudent">
+    <button class="btn btn-primary" [hidden]="isStudent" (click)="getisStudents()" 
+      (click)="isStudent=!isStudent">
       Search Students</button>
-    <button class="btn btn-secondary" [hidden]="!myStudent" (click)="ngOnInit()" 
-      (click)="myStudent=!myStudent">
+    <button class="btn btn-secondary" [hidden]="!isStudent" (click)="ngOnInit()" 
+      (click)="isStudent=!isStudent">
       Search Teachers</button>
   </div>
 
-  <table class="table table-striped table-hover ">
-    <thead>
-      <tr>
-        <th scope="col" (click)="sorter('id')" (click)="isSort='id'" >
-          <div class="btn">
-            Id
-            <span *ngIf="isSort=='id'">
-              <i [hidden]="!sortObj.isAsc" class="fa fa-chevron-circle-up" aria-hidden="true"></i>
-              <i [hidden]="sortObj.isAsc" class="fa fa-chevron-circle-down" aria-hidden="true"></i>
-            </span>
-          </div>
 
-        </th>
-        <th scope="col" (click)="sorter('fname')" (click)="isSort='fname'" >
-          <span class="btn">
-            Name
-            <span class="text-right" *ngIf="isSort=='fname'">
-              <i [hidden]="!sortObj.isAsc" class="fa fa-chevron-circle-up" aria-hidden="true"></i>
-              <i [hidden]="sortObj.isAsc" class="fa fa-chevron-circle-down" aria-hidden="true"></i>
-            </span>
-          </span>
-         
-        </th>
-        <th scope="col"><div class="btn">Emaid</div></th>
-        <th scope="col"><div class="btn">Contact Number</div></th>
-        <th scope="col"><div class="btn">Registered</div></th>
-      </tr>
-    </thead>
-    <tbody>
+  <teacher-Searcher [iswhere]="iswhere" [teacherMode]="!isStudent" [TableList]="allStudents" [id]="id"></teacher-Searcher>
 
-      <tr *ngFor="let item of allStudents" (click)="RowSelected( item.studentId || item.teacherId )">
-        <th scope="row" class="selid">{{ item.teacherId }} {{ item.studentId }}</th>
-        <td>{{ item.personalInfo.firstName }} {{ item.personalInfo.lastName }}</td>
-        <td>{{ item.personalInfo.emailId }}</td>
-        <td>{{ item.personalInfo.contactNumber }}</td>
-        
-        <td>
-          <div *ngIf="item.personalInfo.isReg">
-            <i class="fa fa-check" aria-hidden="true"></i>
-          </div>
-          <div *ngIf="!item.personalInfo.isReg">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </div>
-        </td>
-      </tr>
-
-    </tbody>
-  </table>
 </div>
 
 </body>

@@ -92,12 +92,8 @@
             </table>
           </div>
 
-
           <!--                          STUDENT INFORMATION FOR THE TEACHER                         -->
           <div class="tab-pane" role="tabpanel" id="courses">
-
-
-
             <div *ngIf="type=='T'">
               <table class="table table-striped table-hover ">
                 <thead>
@@ -113,13 +109,11 @@
                   </tr>
                 </thead>
                 <tbody>
-            
                   <tr *ngFor="let item of allStudents" (click)="RowSelected( item.studentId )">
                     <th scope="row" class="selid">{{ item.studentId }}</th>
                     <td>{{ item.personalInfo.firstName }} {{ item.personalInfo.lastName }}</td>
                     <td>{{ item.personalInfo.emailId }}</td>
                     <td>{{ item.personalInfo.contactNumber }}</td>
-                    
                     <td>
                       <div *ngIf="item.personalInfo.isReg">
                         <i class="fa fa-check" aria-hidden="true"></i>
@@ -133,7 +127,6 @@
                 </tbody>
               </table>
             </div>
-
 
           <div *ngIf="type=='S'">
             <div class="row">
@@ -152,21 +145,11 @@
               </div>
 
             </div>
-
-
           </div>
-
-
-
           </div>
           <div class="tab-pane" role="tabpanel" id="extra">1</div>
         </div>
       </div>
     </div>
-
-
-
-
-
   </div>
 </body>

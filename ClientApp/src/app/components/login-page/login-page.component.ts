@@ -57,7 +57,7 @@ export class LoginPageComponent implements OnInit {
           console.log("user details from server ", this.userRedirect);
           if (type == "S") {
             console.log("Student")
-            this.router.navigateByUrl('/student_home/'+this.userRedirect[0].id);
+            this.router.navigateByUrl('/student_home/' + this.userRedirect[0].id);
           }
           else
             if (type == 'T') {
@@ -70,8 +70,8 @@ export class LoginPageComponent implements OnInit {
     )
   }
 
-  toHome(){
-    
+  toHome() {
+
   }
 
 }

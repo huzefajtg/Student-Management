@@ -13,7 +13,8 @@ export class ViewerPageComponent implements OnInit {
   //Decalratio Start
   otherId: number;
   id: number;
-  type:string
+  type: string
+  type2: number
 
   studentInfo: any = {
     teacherID: 0,
@@ -76,7 +77,7 @@ export class ViewerPageComponent implements OnInit {
   }
 
   iswhere = 2
-  allStudents:any
+  allStudents: any
 
   //Decalration End
   constructor(private route: ActivatedRoute,
@@ -87,39 +88,39 @@ export class ViewerPageComponent implements OnInit {
       this.otherId = +p['id'];
       this.id = +p['id2'];
       this.type = p['type'];
+      this.type2 = +p['type2'];
       console.log("parameters " + this.id + " " + this.otherId + " " + this.type)
       if (isNaN(this.otherId) || this.otherId <= 0 || isNaN(this.id) || this.id <= 0) {
         console.log("parameter issue " + this.id)
         //router.navigate(['/login']);
         return;
       }
+
+      this.iswhere=this.type2
     });
 
   }
 
   ngOnInit() {
-    if(this.type=='S')
-    this.teacherService.getStudentRecord(this.otherId).subscribe(res => {
-      this.studentInfo = res;
-      console.log("StudentInfo ", this.studentInfo)
-    })
+    if (this.type == 'S')
+      this.teacherService.getStudentRecord(this.otherId).subscribe(res => {
+        this.studentInfo = res;
+        console.log("StudentInfo ", this.studentInfo)
+      })
 
-    else{
+    else {
       this.teacherService.getTeacher(this.otherId).subscribe(res => {
         this.studentInfo = res;
         console.log("StudentInfo ", this.studentInfo)
       })
     }
-    var q:TeacherSearch={
-      myStudents:true,
-      teacherID:this.id
+    var q: TeacherSearch = {
+      myStudents: true,
+      teacherID: this.id
     }
     this.teacherService.getStudents(q).subscribe(res => {
       this.allStudents = res;
       console.log("MyStudent ", this.allStudents)
     })
   }
-
-
-
 }

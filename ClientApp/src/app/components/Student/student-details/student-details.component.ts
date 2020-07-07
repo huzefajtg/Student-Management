@@ -12,8 +12,8 @@ import { PARAMETERS } from '@angular/core/src/util/decorators';
 export class StudentDetailsComponent implements OnInit {
 
   //Declaration Start
-  iswhere=2
-  id:number;
+  iswhere = 2
+  id: number;
 
   user: any = {
     personalInfo: {
@@ -29,7 +29,7 @@ export class StudentDetailsComponent implements OnInit {
       dob: '',
       type: ''
     },
-    
+
   }
 
   val: boolean = true
@@ -37,7 +37,7 @@ export class StudentDetailsComponent implements OnInit {
   addCourseMode: boolean = false;
   isUpdate: boolean = false;
 
-  
+
   courses: any = []  //comes from server
   coursesSelect: any = [];
   courseId: number;
@@ -47,43 +47,43 @@ export class StudentDetailsComponent implements OnInit {
   //Declaration End
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
-    private Stuservices:StudentService,
-    private Tservice:TeacherServiceService
-    ) {
+    private Stuservices: StudentService,
+    private Tservice: TeacherServiceService
+  ) {
     route.params.subscribe(p => {
       this.id = +p['id'];
       if (isNaN(this.id) || this.id <= 0) {
-        console.log("parameter issue "+this.id)
+        console.log("parameter issue " + this.id)
         router.navigate(['/login']);
         return;
       }
-      
-    }); 
 
-   }
+    });
+
+  }
   ngOnInit() {
     this.getUser()
-    this.Tservice.getCourses().subscribe(res=>{this.courses=res})
+    this.Tservice.getCourses().subscribe(res => { this.courses = res })
 
   }
 
-  getUser(){
-    this.Stuservices.getStudent(this.id).subscribe(res=>{
-      this.user=res;
-      console.log("Student Information",this.user)
+  getUser() {
+    this.Stuservices.getStudent(this.id).subscribe(res => {
+      this.user = res;
+      console.log("Student Information", this.user)
     })
 
 
   }
 
 
-  canceled(){
+  canceled() {
     this.ngOnInit();
-    this.isUpdate=false
-    this.isUpdateCourse=false
-    this.addCourseMode=false
+    this.isUpdate = false
+    this.isUpdateCourse = false
+    this.addCourseMode = false
   }
 
   subName: string;
@@ -93,40 +93,40 @@ export class StudentDetailsComponent implements OnInit {
     console.log("coursesSelect:", this.coursesSelect)
   }
 
-  addCoursefunc(){
-    this.addCourseMode=!this.addCourseMode
+  addCoursefunc() {
+    this.addCourseMode = !this.addCourseMode
   }
 
-  addCourse(){
+  addCourse() {
     console.log("inside addCourse")
-    var para={
+    var para = {
       studentId: this.id,
       otherId: this.courseId
     }
-    console.log("inside addCourse ",para)
-    this.Stuservices.addCourse(para).subscribe(res=>{
-      console.log("Result addCourse",res)
-    this.getUser();
+    console.log("inside addCourse ", para)
+    this.Stuservices.addCourse(para).subscribe(res => {
+      console.log("Result addCourse", res)
+      this.getUser();
     })
-    this.addCourseMode=!this.addCourseMode
-  }
-  
-  submit(){
-    console.log("Submit Data", this.user)
-    this.Stuservices.updateStudent(this.id,this.user).subscribe(res=>{
-      console.log("Result addCourse",res)
-    })
-    this.isUpdate=!this.isUpdate
+    this.addCourseMode = !this.addCourseMode
   }
 
-  delCourse(teacherId){
-    console.log("Teacher ID",teacherId)
-    var para={
+  submit() {
+    console.log("Submit Data", this.user)
+    this.Stuservices.updateStudent(this.id, this.user).subscribe(res => {
+      console.log("Result addCourse", res)
+    })
+    this.isUpdate = !this.isUpdate
+  }
+
+  delCourse(teacherId) {
+    console.log("Teacher ID", teacherId)
+    var para = {
       studentId: this.id,
       otherId: teacherId
     }
-    this.Stuservices.deleteCourse(para).subscribe(res=>{
-      this.user=res
+    this.Stuservices.deleteCourse(para).subscribe(res => {
+      this.user = res
     })
     this.canceled();
   }

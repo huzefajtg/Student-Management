@@ -40,8 +40,4 @@ export class RegisterNewUserComponent implements OnInit {
       console.log(res);
     })
   }
-
-
-
-
 }
