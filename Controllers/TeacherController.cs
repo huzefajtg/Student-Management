@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using StudentProject.Controllers.Resources;
 using StudentProject.Controllers.Resources.ResourceModels;
+using StudentProject.Extension.Interface;
 using StudentProject.Models;
 
 namespace StudentProject.Controllers
@@ -15,38 +14,32 @@ namespace StudentProject.Controllers
     [ApiController]
     public class TeacherController : Controller
     {
-        private readonly StudentContext db;
         private readonly IMapper mapper;
-        public TeacherController(IMapper map)
+        private readonly IManager ITeacher;
+        public TeacherController(IMapper map, IManager t)
         {
             StudentContext context = new StudentContext();
-            this.db = context;
 
+            this.ITeacher = t;
             this.mapper = map;
         }
 
         public async Task<KeyValuePairResource> getHOD(int courseID)
         {
-            var result = await db.Teachers.Where(t => t.CourseId == courseID && t.IsHod == true).FirstOrDefaultAsync();
-            return mapper.Map<Teachers, KeyValuePairResource>(result);
+            return mapper.Map<Teachers, KeyValuePairResource>
+                (await ITeacher.getHOD(courseID));
         }
+        public string getUsername(int id) { return ITeacher.getUsername(id); }
+        public int updateDetails() { return ITeacher.Saver(); }
 
-        public string getUsername(int id)
-        {
-            var loginfo = db.LoginInfo.Where(l => (l.Id == id && l.UserType == "T")).FirstOrDefault();
-            return loginfo.UserName.ToString();
-        }
 
         [HttpGet("{id}")]
         public async Task<TeacherResource> GetTeacher(int id)
         {
             //Teacher has=>Personal,Subject->course->subject
             //(from a in db.Teachers join b in db.Courses on a.CourseId equals b.CourseId select new { a, b })
-            var teacher = await db.Teachers
-                .Include(t => t.Course)
-                    .ThenInclude(c => c.Subject)
-                .Where(t => t.TeacherId == id)
-                .FirstOrDefaultAsync();
+
+            var teacher = await ITeacher.getTeacher(id);
 
             var res= mapper.Map<Teachers, TeacherResource>(teacher);
             res.HOD =await getHOD(Convert.ToInt32(res.Course.CourseId.ToString()));
@@ -57,57 +50,40 @@ namespace StudentProject.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> updateTeacher(int id, [FromBody]TeacherResource resource)
         {
-            var teacher = await db.Teachers
-                .Include(t => t.Course)
-                    .ThenInclude(c => c.Subject)
-                .Where(t => t.TeacherId == id)
-                .FirstOrDefaultAsync();
+            var teacher = await ITeacher.getTeacher(id);
 
             mapper.Map<TeacherResource, Teachers>(resource, teacher);
-
-            await updateDetails();
+            updateDetails();
             return Ok(mapper.Map<Teachers, TeacherResource>(teacher));
         }
 
-        public async Task<int> updateDetails()
-        {
-            return await db.SaveChangesAsync();
-        }
-
-
-
-
 
         //--------------------Notification For Teachers-----------------------
-
-        //[HttpGet("notifications/{id}")]
-        //public async Task<IEnumerable<NotificationTeachersResource>> GetNotifications(int id)
-        //{
-        //    var notifications = await db.TeacherNotification.Where(no => no.TeacherId == id).ToListAsync();
-        //    return mapper.Map<List<TeacherNotification>, List<NotificationTeachersResource>>(notifications);
-        //}
-
+        //Go to teacher Notification
 
         //------------------------Students API-------------------
 
 
 
-        [HttpGet("search/{id}")]
-        public List<TeacherStudentResource> searchStudent(int id)
-        {
-            var query = db.TeacherStudent
-                        .Include(ts => ts.Student)
-                        .Include(ts => ts.Teacher)
-                        .Where(ts => ts.StudentId.ToString().StartsWith(id.ToString())).ToList();
-            return mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(query);
-        }
+        //Not Used Anywhere
+        //For server side sorting/Searching
+        //[HttpGet("search/{id}")]
+        //public List<TeacherStudentResource> searchStudent(int id)
+        //{
+        //    var query = db.TeacherStudent
+        //                .Include(ts => ts.Student)
+        //                .Include(ts => ts.Teacher)
+        //                .Where(ts => ts.StudentId.ToString().StartsWith(id.ToString())).ToList();
+        //    return mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(query);
+        //}
 
         [HttpPost("setRegisterStudent")]
         public async Task<IActionResult> setRegStudent(RegisterResource register)
         {
-            var res = await db.Students.Where(s => s.StudentId == register.id).FirstOrDefaultAsync();
+
+            var res = await ITeacher.getStudent(register.id);
             res.IsReg = register.isReg;
-            int x = await updateDetails();
+            int x = updateDetails();
 #warning Add track on who registered student TeacherController=>serRegStudent()
 
             //============notification=============
@@ -121,9 +97,10 @@ namespace StudentProject.Controllers
                 noti.NotiMessage = "You have been registered";
             else
                 noti.NotiMessage = "You have been un-registered";
-            db.Add(noti);
-            db.SaveChangesAsync();
 
+            ITeacher.AdderAsync(noti);
+
+            ITeacher.Saver();
 
             return Ok(x);
         }
@@ -133,25 +110,19 @@ namespace StudentProject.Controllers
         [HttpGet("getSInfo/{id}")]
         public async Task<StudentResource> getSInfo(int id)   //studentid
         {
-            var res = await db.TeacherStudent
-                        .Include(ts => ts.Student)
-                        .Include(ts => ts.Teacher)
-                            .ThenInclude(t=>t.Course)
-                            .Where(ts => ts.StudentId == id).ToListAsync(); //1
 
+            var res = await ITeacher.getTeacherStudent(id,true);
            
             var final = new StudentResource();
-            var temp = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
 
+            var temp = mapper.Map<List<TeacherStudent>, List<TeacherStudentResource>>(res);
             /*Add *NULL Teacher* for newly added students with no Courses*/
 
             final.PersonalInfo = temp[0].Student.PersonalInfo;
             final.StudentId = Convert.ToInt32(temp[0].StudentId);
 
             foreach (var i in temp)
-            {
                 final.teacherInfo.Add(await GetTeacher(Convert.ToInt32(i.TeacherId)));
-            }
 
             return final;
         }
@@ -161,26 +132,18 @@ namespace StudentProject.Controllers
         {
             if (req.myStudents == false)
             {
-                var val = await db.Students.OrderBy(s => s.StudentId).ToListAsync();
+                var val = await ITeacher.getStudents();
                 return mapper.Map<List<Students>, List<StudentResource>>(val);
             }
 
             //for MyStudents==TRUE
-            var res = await db.TeacherStudent
-                         .Include(ts => ts.Student)
-                         .Include(ts => ts.Teacher)
-                             //.Where(ts => ts.TeacherId == req.TeacherID)
-                             .OrderBy(ts => ts.StudentId).ToListAsync();
+            var res = new List<TeacherStudent>();
 
             if (req.myStudents == true)
-            {
-                res = res.Where(ts => ts.TeacherId == req.TeacherID).ToList();
-            }
+                res = await ITeacher.getStudentsOf_Teachers(req.TeacherID);
 
             return mapper.Map<List<TeacherStudent>, List<StudentResource>>(res);
-
         }
-
     }
 }
 

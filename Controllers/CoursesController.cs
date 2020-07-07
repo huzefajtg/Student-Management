@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using StudentProject.Controllers.Resources;
+using StudentProject.Extension.Interface;
 using StudentProject.Models;
 
 namespace StudentProject.Controllers
@@ -14,20 +11,20 @@ namespace StudentProject.Controllers
     [Route("api/courses")]
     public class CoursesController : Controller
     {
-        private readonly StudentContext db;
         private readonly IMapper mapper;
-        public CoursesController(IMapper map)
+        private readonly IManager ICourse;
+        public CoursesController(IMapper map, IManager t)
         {
             StudentContext context = new StudentContext();
-            this.db = context;
 
+            this.ICourse = t;
             this.mapper = map;
         }
 
         [HttpGet]
         public async Task<IEnumerable<CourseSubjectResource>> getCourses()
         {
-            var data = await db.CourseSubject.Include(cs => cs.Courses).Where(cs => cs.SubjectId != 0).ToListAsync();
+            var data = await ICourse.getCourses();
             return mapper.Map<List<CourseSubject>, List<CourseSubjectResource>>(data);
         }
     }

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using StudentProject.Controllers.Resources;
 using StudentProject.Controllers.Resources.ResourceModels;
 using StudentProject.Extension.Interface;
@@ -115,7 +112,7 @@ namespace StudentProject.Controllers
 
             mapper.Map<StudentResource, Students>(resource, student);
 
-            IStudent.SaverAsync();
+            IStudent.Saver();
 
             return Ok(mapper.Map<Students, StudentResource>(student));
         }
@@ -130,7 +127,7 @@ namespace StudentProject.Controllers
             if (res != null)
                 await IStudent.Remover(res);
             TeacherNotification(courseStudent.otherId, courseStudent.studentId, "S", 1);
-            IStudent.SaverAsync();
+            IStudent.Saver();
             return await getSDetails(courseStudent.studentId);
         }
 
@@ -171,7 +168,7 @@ namespace StudentProject.Controllers
             else
                 Noti.NotiMessage = "Student of Id= " + otherId + " has been removed from your class ";
             IStudent.AdderAsync(Noti);
-            IStudent.SaverAsync();
+            IStudent.Saver();
         }
     }
 }

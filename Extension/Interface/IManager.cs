@@ -17,14 +17,20 @@ namespace StudentProject.Extension.Interface
 
         //==========================Teacher============================
         //======TeacherStudent=========================================
-        int getTeacherStudentCount(int id, bool isStudent);
-        Task<List<TeacherStudent>> getTeacherStudent(int id,bool isStudent);
-        Task<TeacherStudent> getTeacherStudent(AddCourseStudent courseStudent,bool isTeacher);
+            int getTeacherStudentCount(int id, bool isStudent);
+
+            Task<List<TeacherStudent>> getTeacherStudent(int id, bool isStudent);
+            Task<TeacherStudent> getTeacherStudent(AddCourseStudent courseStudent, bool isTeacher);
+
+            Task<List<TeacherStudent>> getStudentsOf_Teachers(int id);
 
 
         Task<Teachers> getTeacher(int id);
         Task<List<Teachers>> getTeachers(int courseId);
         Task<List<Teachers>> getTeachers(bool Subs);
+
+        //==========================Courses=================
+        Task<List<CourseSubject>> getCourses();
 
         //==========================Suport======================
         Task<Teachers> getHOD(int courseID);
@@ -33,7 +39,17 @@ namespace StudentProject.Extension.Interface
         Task<int> Remover(TeacherStudent ob);
         int AdderAsync(TeacherStudent ob);
         int AdderAsync(TeacherNotification ob);
-        int SaverAsync();
+        int AdderAsync(StudentNotification ob);
+        int Saver();
+
+        //==========================Notification======================
+        Task<List<TeacherNotification>> GetTeacherNotification(int id);
+        Task<List<StudentNotification>> GetStudentNotification(int id);
+
+        TeacherNotification retNotificationT(int notificationId);
+        StudentNotification retNotificationS(int notificationId);
+
+
 
     }
 }

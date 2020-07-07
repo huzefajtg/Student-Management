@@ -7,7 +7,7 @@ namespace StudentProject.Controllers.Resources.ResourceModels
 {
     public class TeacherSearch
     {
-        public int? TeacherID { get; set; }
-        public bool? myStudents { get; set; }
+        public int TeacherID { get; set; }
+        public bool myStudents { get; set; }
     }
 }
