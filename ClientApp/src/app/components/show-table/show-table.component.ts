@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeacherServiceService } from '../../services/teacher-services.services';
 import { StudentService } from '../../services/student.services';
-import { isWorker } from 'cluster';
 
 interface SorterType{
   name:string,

@@ -52,18 +52,27 @@ body {
 }
 
 #explore-section {
-  background-image:url('https://wallpaperplay.com/walls/full/1/e/e/312869.jpg');
-  background-repeat: no-repeat;
+  /* background-image:url('https://wallpaperplay.com/walls/full/1/e/e/312869.jpg'); */
+  background-image:url('../../../assets/new/10.jpg');
+
+    min-height: 450px;
+    background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
 
   
 }
 
-#explore-section .dark-overlaye{
+#create-head-section{
+  background-image:url('../../../assets/new/6.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
 
-    width: 100%;
-    background: rgba(0, 0, 0, 0.45);
+.dark-overlaye{
+  width: 100%;
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .github{
@@ -71,7 +80,12 @@ body {
 }
 
 .github :hover{
+  transform: translateY(-10px);
   color: rgb(0, 0, 0);
+}
+
+.linkd :hover{
+  transform: translateY(-10px);
 }
 
 .insta{
@@ -79,6 +93,15 @@ body {
 }
 
 .insta :hover{
-  color: blue;
+  transform: translateY(-10px);
+  color: red;
+}
+
+.who :hover{
+  cursor: pointer;
+}
+
+.card{
+  box-shadow: 10px 10px 10px rgb(0, 0, 0,0.55);
 }
 

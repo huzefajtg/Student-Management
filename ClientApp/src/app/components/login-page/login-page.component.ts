@@ -16,9 +16,13 @@ import { NgModel } from '@angular/forms';
 export class LoginPageComponent implements OnInit {
 
   //Declarations Start
+    iswho=false
+
+
+
+
+
   isHome: boolean = false
-
-
   user = {
     username: '',
     password: ''

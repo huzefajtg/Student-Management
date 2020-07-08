@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterDetails } from '../models/models';
-import { userInfo } from 'os';
 
 @Injectable()
 export class LoginServiceService {
