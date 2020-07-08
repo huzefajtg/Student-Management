@@ -12,7 +12,7 @@ using StudentProject.Models;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-
+using StudentProject.Extension.Interface;
 
 namespace StudentProject.Controllers
 {
@@ -20,14 +20,13 @@ namespace StudentProject.Controllers
     [ApiController]
     public class LoginController : Controller
     {
-        private readonly StudentContext con;
+        private readonly IManager ILogin;
         private readonly IMapper mapper;
-        public LoginController(IMapper map)
+        public LoginController(IMapper map, IManager ILogin)
         {
             StudentContext context = new StudentContext();
-            this.con = context;
 
-           
+            this.ILogin = ILogin;
             this.mapper = map;
         }
 
@@ -43,23 +42,45 @@ namespace StudentProject.Controllers
         [HttpGet("{username}")]
         public async Task<bool> CheckUsername(string username)
         {
-            var db = new StudentContext();
-            var user = await db.LoginInfo.Where(log => log.UserName == username).ToListAsync();
-            if (user.Count == 1)
-                return true;
-            else return false;
+            //var db = new StudentContext();
+            //var user = await db.LoginInfo.Where(log => log.UserName == username).ToListAsync();
+            //if (user.Count == 1)
+            //    return true;
+            //else return false;
+
+            return await ILogin.isValidUser(username);
         }
 
+        //[HttpPost]
+        //public async Task<IEnumerable<LoginIdTypeResource>> CheckUser(UsernamePasswordResource ob)
+        //{
+        //    //var db = new StudentContext();
+        //    //var user = await db.LoginInfo.Where(log =>log.UserName == ob.username 
+        //    //                                        && log.UserPassword == ob.password)
+        //    //                                            .ToListAsync();
+
+        //    var user = await ILogin.GetLoginInfos(ob);
+        //    if (user.Count == 1)
+        //    {
+        //        return mapper.Map<List<LoginInfo>, List<LoginIdTypeResource>>(user);
+        //    }
+        //    else return null;
+        //}
+
+
         [HttpPost]
-        public async Task<IEnumerable<LoginIdTypeResource>> CheckUser(UsernamePasswordResource ob)
+        public async Task<LoginIdTypeResource> CheckUser(UsernamePasswordResource ob)
         {
-            var db = new StudentContext();
-            var user = await db.LoginInfo.Where(log =>log.UserName == ob.username 
-                                                    && log.UserPassword == ob.password)
-                                                        .ToListAsync();
-            if (user.Count == 1)
+            //var db = new StudentContext();
+            //var user = await db.LoginInfo.Where(log =>log.UserName == ob.username 
+            //                                        && log.UserPassword == ob.password)
+            //                                            .ToListAsync();
+
+            var user = await ILogin.GetLoginInfos(ob);
+
+            if (user == null)
             {
-                return mapper.Map<List<LoginInfo>, List<LoginIdTypeResource>>(user);
+                return mapper.Map<LoginInfo, LoginIdTypeResource>(user);
             }
             else return null;
         }
@@ -67,24 +88,25 @@ namespace StudentProject.Controllers
 
         //=============================Forgot Password======================
         [HttpPost("forgot")]
-        public int email(UsernamePasswordResource u)
+        public async Task<int> email(string username)
         {
             string toEmail =null;
-            var user = con.LoginInfo.Where(li => li.UserName == u.username).FirstOrDefault();
+            //var user = con.LoginInfo.Where(li => li.UserName == u.username).FirstOrDefault();
+            var user = await ILogin.GetLoginInfos(username);
 
             if (user != null)
             {
                 if (user.UserType == "S")
-                    toEmail = con.Students.Where(s => s.StudentId == user.Id).FirstOrDefault().EmailId;
+                    toEmail = ILogin.getEmail(user.Id, true);
                 else
-                    toEmail = con.Teachers.Where(s => s.TeacherId == user.Id).FirstOrDefault().EmailId;
+                    toEmail = ILogin.getEmail(user.Id, false);
+                    //toEmail = con.Teachers.Where(s => s.TeacherId == user.Id).FirstOrDefault().EmailId;
             }
 
             if (toEmail == null)
             {
                 return 0;
             }
-
 
             string sendermail = "huzefagaliakotwala@gmail.com";
             string senderpswd = "9898498885";
@@ -108,6 +130,14 @@ namespace StudentProject.Controllers
             cli.Send(mail);
 
             return otp;
+        }
+
+        [HttpPut("update")]
+        public async Task<int> UpdateUser(UsernamePasswordResource newUser)
+        {
+            var user = await ILogin.GetLoginInfos(newUser.username);
+            mapper.Map<UsernamePasswordResource, LoginInfo>(newUser, user);
+            return ILogin.Saver();
         }
     }
 }

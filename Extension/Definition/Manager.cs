@@ -123,6 +123,30 @@ namespace StudentProject.Extension.Definition
             return await db.CourseSubject.Include(cs => cs.Courses).Where(cs => cs.SubjectId != 0).ToListAsync();
         }
 
+        
+
+        //===============================Login==============================
+        public async Task<bool> isValidUser(string username)
+        {
+            var user = await db.LoginInfo.Where(log => log.UserName == username).ToListAsync();
+            if (user.Count == 1)
+                return true;
+            else return false;
+        }
+
+        public async Task<LoginInfo> GetLoginInfos(UsernamePasswordResource ob)
+        {
+            return await db.LoginInfo.Where(log => log.UserName == ob.username
+                                                    && log.UserPassword == ob.password)
+                                                        .FirstOrDefaultAsync();
+        }
+
+
+        public async Task<LoginInfo> GetLoginInfos(string username)
+        {
+            return await db.LoginInfo.Where(log => log.UserName == username)
+                                                        .FirstOrDefaultAsync();
+        }
 
 
         //================================Support==============================
@@ -135,6 +159,15 @@ namespace StudentProject.Extension.Definition
         {
             return db.LoginInfo.Where(l => (l.Id == id && l.UserType == "T")).FirstOrDefault().UserName.ToString();
         }
+
+        public string getEmail(int id,bool isStudent)
+        {
+            if(isStudent==true)
+                return db.Students.Where(s => s.StudentId == id).FirstOrDefault().EmailId;
+            else
+                return db.Teachers.Where(s => s.TeacherId == id).FirstOrDefault().EmailId;
+        }
+
 
 
         public int AdderAsync(TeacherStudent ob)

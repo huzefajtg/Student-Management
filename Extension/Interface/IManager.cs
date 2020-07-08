@@ -1,4 +1,5 @@
-﻿using StudentProject.Controllers.Resources.ResourceModels;
+﻿using StudentProject.Controllers.Resources;
+using StudentProject.Controllers.Resources.ResourceModels;
 using StudentProject.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,9 +28,15 @@ namespace StudentProject.Extension.Interface
         //==========================Courses=================
         Task<List<CourseSubject>> getCourses();
 
+        //=========================Login====================
+        Task<bool> isValidUser(string username);
+        Task<LoginInfo> GetLoginInfos(UsernamePasswordResource ob);
+        Task<LoginInfo> GetLoginInfos(string username);
+
         //==========================Suport======================
         Task<Teachers> getHOD(int courseID);
         string getUsername(int id);
+        string getEmail(int id,bool isStudent);
 
         Task<int> Remover(TeacherStudent ob);
         int AdderAsync(TeacherStudent ob);

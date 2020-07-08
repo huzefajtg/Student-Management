@@ -12,7 +12,7 @@ namespace StudentProject.Mapping
     {
         public MappingProfile()
         {
-            //Models to Resources
+            //===========================================================================>>Models to Resources
 
 
             CreateMap<LoginInfo, LoginIdTypeResource>();
@@ -124,7 +124,9 @@ namespace StudentProject.Mapping
             //          }))
 
 
-            //Resource to Model
+            //===========================================================================>>Resource to Model
+
+
             //CreateMap<TeacherResource, Teachers>()
             //  .ForMember(t => t.TeacherId, op => op.Ignore())
             //  .ForMember(t => t.IsHod, op => op.Ignore())
@@ -178,6 +180,14 @@ namespace StudentProject.Mapping
                 .ForMember(ts => ts.TableId, op => op.Ignore())
                 .ForMember(ts => ts.Teacher, op => op.Ignore())
                 .ForMember(ts => ts.Student, op => op.Ignore());
+
+            CreateMap<UsernamePasswordResource, LoginInfo>()
+                .ForMember(t => t.Id, opt => opt.Ignore())
+                .ForMember(t => t.UserType, opt => opt.Ignore())
+                .ForMember(t => t.Loginid, opt => opt.Ignore())
+                .ForMember(li => li.UserName, opt => opt.MapFrom(upr => upr.username))
+                .ForMember(li => li.UserPassword, opt => opt.MapFrom(upr => upr.password));
+
 
 
 

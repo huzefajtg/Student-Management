@@ -8,9 +8,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { LoginServiceService } from './services/login-service.service';
 import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
@@ -23,14 +20,12 @@ import { StudentDetailsComponent } from './components/Student/student-details/st
 import { StudentSearchComponent } from './components/Student/student-search/student-search.component';
 import { ViewerPageComponent } from './components/Student/viewer-page/viewer-page.component';
 import { ShowTableComponent } from './components/show-table/show-table.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     LoginPageComponent,
     RegisterNewUserComponent,
     TeacherHomeComponent,
@@ -40,7 +35,8 @@ import { ShowTableComponent } from './components/show-table/show-table.component
     StudentDetailsComponent,
     StudentSearchComponent,
     ViewerPageComponent,
-    ShowTableComponent
+    ShowTableComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -60,11 +56,7 @@ import { ShowTableComponent } from './components/show-table/show-table.component
       { path: 'student/profile/:id' , component:StudentDetailsComponent },
       { path: 'student/search/:id' , component:StudentSearchComponent },
       { path: 'student/viewer/:id/:id2/:type/:type2' , component:ViewerPageComponent },
-      
 
-
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'counter', component: CounterComponent },
       { path: '**', redirectTo: '/login' }//has to remain last
 
     ])

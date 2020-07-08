@@ -12,6 +12,7 @@ namespace StudentProject.Models
         [Required]
         [StringLength(20)]
         public string UserPassword { get; set; }
+
         [Column("ID")]
         public int Id { get; set; }
         [StringLength(2)]

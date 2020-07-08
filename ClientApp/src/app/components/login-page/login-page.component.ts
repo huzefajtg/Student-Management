@@ -53,7 +53,8 @@ export class LoginPageComponent implements OnInit {
       res => {
         if (res != null) {
           this.userRedirect = res;
-          let type = this.userRedirect[0].userType;
+          // let type = this.userRedirect[0].userType;
+          let type = this.userRedirect.userType;
           console.log("user details from server ", this.userRedirect);
           if (type == "S") {
             console.log("Student")
