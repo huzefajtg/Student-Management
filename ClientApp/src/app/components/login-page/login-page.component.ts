@@ -18,10 +18,6 @@ export class LoginPageComponent implements OnInit {
   //Declarations Start
     iswho=false
 
-
-
-
-
   isHome: boolean = false
   user = {
     username: '',
