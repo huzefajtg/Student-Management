@@ -53,21 +53,24 @@ export class LoginPageComponent implements OnInit {
 
 
   submit() {
+
     this.LoginService.CheckUser(this.user).subscribe(
       res => {
+        console.log("inside res ",res)
         if (res != null) {
+          console.log("inside res if")
           this.userRedirect = res;
           // let type = this.userRedirect[0].userType;
           let type = this.userRedirect.userType;
           console.log("user details from server ", this.userRedirect);
           if (type == "S") {
             console.log("Student")
-            this.router.navigateByUrl('/student_home/' + this.userRedirect[0].id);
+            this.router.navigateByUrl('/student_home/' + this.userRedirect.id);
           }
           else
             if (type == 'T') {
               console.log("Teacher")
-              this.router.navigateByUrl('/teacher_home/' + this.userRedirect[0].id);
+              this.router.navigateByUrl('/teacher_home/' + this.userRedirect.id);
             }
         }
         else alert("wrong user");

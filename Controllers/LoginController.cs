@@ -78,7 +78,7 @@ namespace StudentProject.Controllers
 
             var user = await ILogin.GetLoginInfos(ob);
 
-            if (user == null)
+            if (user != null)
             {
                 return mapper.Map<LoginInfo, LoginIdTypeResource>(user);
             }
@@ -88,11 +88,11 @@ namespace StudentProject.Controllers
 
         //=============================Forgot Password======================
         [HttpPost("forgot")]
-        public async Task<int> email(string username)
+        public async Task<int> email(UsernamePasswordResource username)
         {
             string toEmail =null;
             //var user = con.LoginInfo.Where(li => li.UserName == u.username).FirstOrDefault();
-            var user = await ILogin.GetLoginInfos(username);
+            var user = await ILogin.GetLoginInfos(username.username);
 
             if (user != null)
             {
@@ -109,12 +109,12 @@ namespace StudentProject.Controllers
             }
 
             string sendermail = "huzefagaliakotwala@gmail.com";
-            string senderpswd = "9898498885";
+            string senderpswd = "bbvjyjhg";
 
             SmtpClient cli = new SmtpClient("smtp.gmail.com", 587);
 
             cli.EnableSsl = true;
-            cli.Timeout = 10000;
+            cli.Timeout = 10000; 
             cli.DeliveryMethod = SmtpDeliveryMethod.Network;
             cli.UseDefaultCredentials = false;
             cli.Credentials = new NetworkCredential(sendermail, senderpswd);

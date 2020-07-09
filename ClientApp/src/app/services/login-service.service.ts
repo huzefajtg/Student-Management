@@ -1,3 +1,4 @@
+import { User } from './../models/models';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterDetails } from '../models/models';
@@ -19,7 +20,7 @@ export class LoginServiceService {
   Register(user:RegisterDetails){
     return this._http.post('/api/register',user).map(res=>res);
   }
-  getOTP(username:string){
+  getOTP(username:User){
     return this._http.post('/api/login/forgot',username).map(res=>res);
   }
 

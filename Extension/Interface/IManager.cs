@@ -31,6 +31,7 @@ namespace StudentProject.Extension.Interface
         //=========================Login====================
         Task<bool> isValidUser(string username);
         Task<LoginInfo> GetLoginInfos(UsernamePasswordResource ob);
+        //Task<List<LoginInfo>> GetLoginInfos(UsernamePasswordResource ob);
         Task<LoginInfo> GetLoginInfos(string username);
 
         //==========================Suport======================
@@ -38,7 +39,7 @@ namespace StudentProject.Extension.Interface
         string getUsername(int id);
         string getEmail(int id,bool isStudent);
 
-        Task<int> Remover(TeacherStudent ob);
+        int Remover(TeacherStudent ob);
         int AdderAsync(TeacherStudent ob);
         int AdderAsync(TeacherNotification ob);
         int AdderAsync(StudentNotification ob);

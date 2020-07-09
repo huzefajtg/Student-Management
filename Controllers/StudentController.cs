@@ -125,7 +125,7 @@ namespace StudentProject.Controllers
 
             var res = await IStudent.getTeacherStudent(courseStudent, true);
             if (res != null)
-                await IStudent.Remover(res);
+                IStudent.Remover(res);
             TeacherNotification(courseStudent.otherId, courseStudent.studentId, "S", 1);
             IStudent.Saver();
             return await getSDetails(courseStudent.studentId);

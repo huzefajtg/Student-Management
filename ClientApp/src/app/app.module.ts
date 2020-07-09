@@ -47,6 +47,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     RouterModule.forRoot([
       { path: '', component: LoginPageComponent, pathMatch: 'full' },
       { path: 'login', component: LoginPageComponent },
+      { path: 'forgot', component: ForgotPasswordComponent },
       { path: 'register-new-user', component: RegisterNewUserComponent },
       //Teachers
       { path: 'teacher_home/:id' , component:TeacherHomeComponent },

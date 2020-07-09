@@ -1,3 +1,4 @@
+import { User } from './../../models/models';
 import { Component, OnInit } from '@angular/core';
 import { LoginServiceService } from '../../services/login-service.service';
 
@@ -8,8 +9,12 @@ import { LoginServiceService } from '../../services/login-service.service';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  username:string
-  otp:any
+  u:User={
+    username:'',
+    password:''
+  }
+
+  otp:number
   userOTP:number
   //Declaration END
   constructor(private loginService:LoginServiceService) { }
@@ -18,8 +23,9 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   getOTP(){
-    this.loginService.getOTP(this.username).subscribe(res=>{
-      this.otp=res
+    console.log("u",this.u)
+    this.loginService.getOTP(this.u).subscribe(res=>{
+      this.otp=+res
     })
   }
 
@@ -29,11 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   changePassword(){
-    let ob:{
-      username:string,
-      password:string
-    }
-    this.loginService.changePass(ob).subscribe(res=>{
+    this.loginService.changePass(this.u).subscribe(res=>{
       if(res==1)
         console.log("password changed");
     })

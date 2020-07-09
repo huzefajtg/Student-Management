@@ -139,6 +139,11 @@ namespace StudentProject.Extension.Definition
             return await db.LoginInfo.Where(log => log.UserName == ob.username
                                                     && log.UserPassword == ob.password)
                                                         .FirstOrDefaultAsync();
+
+
+            //return await db.LoginInfo.Where(log => log.UserName == ob.username
+            //                                        && log.UserPassword == ob.password)
+            //                                            .ToListAsync();
         }
 
 
@@ -170,33 +175,15 @@ namespace StudentProject.Extension.Definition
 
 
 
-        public int AdderAsync(TeacherStudent ob)
-        {
-            db.AddAsync(ob);
-            return 1;
-        }
+        public int AdderAsync(TeacherStudent ob) { db.AddAsync(ob); return 1; }
 
-        public int AdderAsync(TeacherNotification ob)
-        {
-            db.AddAsync(ob);
-            return 1;
-        }
-        public int AdderAsync(StudentNotification ob)
-        {
-            db.AddAsync(ob);
-            return 1;
-        }
+        public int AdderAsync(TeacherNotification ob) { db.AddAsync(ob); return 1; }
 
-        public async Task<int> Remover(TeacherStudent ob)
-        {
-            db.Remove(ob);
-            return 1;
-        }
+        public int AdderAsync(StudentNotification ob) { db.AddAsync(ob); return 1; }
 
-        public int Saver()
-        {
-            return db.SaveChanges();
-        }
+        public int Remover(TeacherStudent ob) { db.Remove(ob); return 1; }
+
+        public int Saver() { return db.SaveChanges(); }
 
         //================================Notification==============================
         public async Task<List<TeacherNotification>> GetTeacherNotification(int id)
