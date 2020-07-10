@@ -109,7 +109,7 @@ namespace StudentProject.Controllers
             }
 
             string sendermail = "huzefagaliakotwala@gmail.com";
-            string senderpswd = "bbvjyjhg";
+            string senderpswd = "asdas";
 
             SmtpClient cli = new SmtpClient("smtp.gmail.com", 587);
 

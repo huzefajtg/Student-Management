@@ -30,6 +30,14 @@ table{
     cursor:pointer;
     background: linear-gradient(to right , #3a3c3d, #111314);
     color: white;
+    animation: tabmove 5s infinity;
+    animation-timing-function: linear;
+}
+
+@keyframes tabmov{
+    0%{
+        background-color: red;;
+    }
 }
 
 table tbody tr:hover {

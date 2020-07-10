@@ -10,15 +10,45 @@ body {
 
   
   #home-section {
-    background-image:url('https://ranking.jagranjosh.com/upload/1554436322MIT%20ADT%20building.jpg');
+    /* background-image:url('https://ranking.jagranjosh.com/upload/1554436322MIT%20ADT%20building.jpg'); */
     /* background: linear-gradient(to right, #fffcdc, #d9a7c7); */
     /* color: rgb(red, green, ); */
+    background:linear-gradient(to right,rgb(0, 6, 56) rgb(26, 33, 88));
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    background-position: center;
     min-height: 650px;
     background-position: 0px -37px;
+    animation: slide 20s infinite;
+    
   }
+  @keyframes slide {
+    0%,100%{
+      background-image:url('../../../assets/new/3.jpg');
+    }
+
+    20%{
+      background-image:url('../../../assets/new/4.jpg');
+      background-position: 0px -37px;
+    }
+
+    40%{
+      background-image:url('../../../assets/new/7.jpg');
+      background-position: 0px -37px;
+    }
+
+    60%{
+      background-image:url('../../../assets/new/9.jpg');
+      background-position: 0px -37px;
+    }
+
+    80%{
+      background-image:url('../../../assets/new/8.jpg');
+      background-position: 0px -37px;
+    }
+  }
+    
 
   .lBox{
   box-shadow: 10px 10px 10px rgb(0, 0, 0,0.8);
@@ -30,15 +60,17 @@ body {
 
   }
   
-  #home-section .dark-overlay {
+   #home-section .dark-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 650px;
-    background: rgba(0, 0, 0, 0.7);
+    min-height: 651px;
+    /* background: rgba(0, 0, 0, 0.7); */
+    background:linear-gradient(to right,rgba(0, 0, 0, 0.808),rgba(0, 1, 10, 0.35));
+    /* background:linear-gradient(to right,rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.35)); */
     background-position: 0px -37px;
-  }
+  } 
   
   #home-section .home-inner {
     padding-top: 150px;
