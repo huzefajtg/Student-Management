@@ -90,17 +90,27 @@ namespace StudentProject.Controllers
         [HttpPost("forgot")]
         public async Task<int> email(UsernamePasswordResource username)
         {
-            string toEmail =null;
+            string toEmail = null;
+            string name = null;
+            var s = new Students();
+            var t = new Teachers();
             //var user = con.LoginInfo.Where(li => li.UserName == u.username).FirstOrDefault();
             var user = await ILogin.GetLoginInfos(username.username);
-
             if (user != null)
             {
                 if (user.UserType == "S")
+                {
+                    s = await ILogin.getStudent(user.Id);
+                    name = s.FirstName + " " + s.LastName;
                     toEmail = ILogin.getEmail(user.Id, true);
+                }
                 else
+                {
+                    t = await ILogin.getTeacher(user.Id);
+                    name = t.FirstName + " " + t.LastName;
                     toEmail = ILogin.getEmail(user.Id, false);
                     //toEmail = con.Teachers.Where(s => s.TeacherId == user.Id).FirstOrDefault().EmailId;
+                }
             }
 
             if (toEmail == null)
@@ -109,7 +119,7 @@ namespace StudentProject.Controllers
             }
 
             string sendermail = "huzefagaliakotwala@gmail.com";
-            string senderpswd = "asdas";
+            string senderpswd = "sfsdf";
 
             SmtpClient cli = new SmtpClient("smtp.gmail.com", 587);
 
@@ -121,8 +131,10 @@ namespace StudentProject.Controllers
 
             Random r = new Random();
             int otp = r.Next(000111, 999999);
-            string body = "<h1>Dear,</h1><br/> Your OTP generated at " +
-                DateTime.Now.ToString() + " for Password change is: " + otp;
+
+            string body = "<h2>Dear " + name + ",</h2><br><p>2Your OTP generated at " +
+                DateTime.Now.ToString() + " for Password change is: " + otp + "</p><br><h5>Thank You for using " +
+                "<strong>Student Management System</strong> By Huzefa Galiakotwala<br>Regards<br>Huzefa Galiakotwala</h5>";
 
             MailMessage mail = new MailMessage(sendermail, toEmail, "OTP for Password Change", body);
             mail.IsBodyHtml = true;
