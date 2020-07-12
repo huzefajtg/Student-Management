@@ -14,13 +14,13 @@
             <ul class="navbar-nav ml-auto">
               <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
                  class="nav-item">
-                <a [routerLink]='["/teacher_home/"+Nid]' class="btn rounded nav-link text-white">
+                <a [routerLink]='["/teacher_home/"+Nid]' class="rounded nav-link text-white">
                   Home
                   <i class="fa fa-home" aria-hidden="true"></i>
                 </a>
               </li>
               <li class="nav-item">
-                <a [routerLink]='["/teacher/search/"+Nid]' class="btn rounded nav-link text-white">Search
+                <a [routerLink]='["/teacher/search/"+Nid]' class="rounded nav-link text-white">Search
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </a>
               </li>
@@ -32,10 +32,10 @@
                     <i [hidden]="!tmp" class="fa fa-chevron-circle-up" aria-hidden="true"></i>
                     <i [hidden]="tmp" class="fa fa-chevron-circle-down" aria-hidden="true"></i>
                   </div>
-                  <div [hidden]="!tmp" class="update dropdown-content bg-dark">
-                  <a class="dropdown-item bg-dark text-white" 
+                  <section [hidden]="!tmp" class="rounded update bg-dark">
+                  <a class="mt-2 rounded mypro text-white nav-link" 
                      [routerLink]='["/teacher/profile/"+Nid]'>Update My Profile</a>
-                  </div>
+                  </section>
                 </div>
                 
               </li>
@@ -58,11 +58,12 @@
     <div *ngIf="iswhereN==2">
       <nav class="navbar navbar-expand-sm bg-dark navbar-dark mb-3" style="opacity: 95%;" id="main-nav">
           <div class="container">
-            <a href="index.html" class="display 2 navbar-brand">
+            <a href="index.html" class="display navbar-brand">
               <img src="../../assets/logo_1.png" 
                 width="30" height="30" 
                 class="d-inline-block align-top" alt="" loading="lazy"> 
-              <strong>Student</strong> Management System</a>
+              <strong>Student</strong> Management System
+            </a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -70,13 +71,13 @@
               <ul class="navbar-nav ml-auto">
                 <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
                    class="nav-item">
-                  <a [routerLink]='["/student_home/"+Nid]' class="btn rounded nav-link text-white">
+                  <a [routerLink]='["/student_home/"+Nid]' class="rounded nav-link text-white">
                     Home
                     <i class="fa fa-home" aria-hidden="true"></i>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a [routerLink]='["/student/search/"+Nid]' class="btn rounded nav-link text-white">Search
+                  <a [routerLink]='["/student/search/"+Nid]' class="rounded nav-link text-white">Search
                     <i class="fa fa-search" aria-hidden="true"></i>
                   </a>
                 </li>
@@ -84,14 +85,16 @@
                 <li [routerLinkActive]='["link-active"]' class="nav-item">
       
                   <div class="dropdownd bg-dark">
-                    <div class="btn mypro rounded nav-link text-white dropdown" (click)="tmp=!tmp">My Profile
+                    <div class="rounded btn nav-link text-white" (click)="tmp=!tmp">My Profile
                       <i [hidden]="!tmp" class="fa fa-chevron-circle-up" aria-hidden="true"></i>
                       <i [hidden]="tmp" class="fa fa-chevron-circle-down" aria-hidden="true"></i>
                     </div>
-                    <div [hidden]="!tmp" class="update dropdown-content bg-dark">
-                    <a class="dropdown-item bg-dark text-white" 
-                       [routerLink]='["/student/profile/"+Nid]'>Update My Profile</a>
-                    </div>
+                    <section  [hidden]="!tmp" class="rounded update bg-dark">
+                      <a class="mt-2 rounded mypro text-white nav-link"
+                        [routerLink]='["/student/profile/"+Nid]'>Update My Profile</a>
+                        
+                    </section> 
+
                   </div>
                   
                 </li>

@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
     password:''
   }
   
+  timer:boolean=true
   //if user manages to change username after readonly=true the username will not change
   user:User={
     username:'',
@@ -34,15 +35,18 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   getOTP(){
+    this.timer=false
     this.btn1=false
     console.log("u",this.u)
     this.loginService.getOTP(this.u).subscribe(res=>{
       this.otp=+res
       if(this.otp==0){
+        this.timer=true
       alert("ERROR")
         this.btn1=true
     }
       else{
+        this.timer=true
         this.btn2=!this.btn2
         this.user.username=this.u.username
       }

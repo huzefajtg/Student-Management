@@ -52,15 +52,16 @@ body {
 
   .lBox{
   box-shadow: 0px 0px 50px 10px rgba(0, 0, 0);
+
   /* text-shadow: 10px 10px 50px rgba(245, 245, 245, 0.459); */
     transition: 0.8s ease;
     background: linear-gradient(to right, rgb(52, 52, 230), #0275d8,#337fc2);
   }
 
   .lBox:hover{
-    box-shadow: 0px 0px 80px 10px rgba(255, 255, 255, 0.678);
-    transition: 0.8s ease;
-    background: linear-gradient(to right, rgb(52, 52, 230), #0275d8,#337fc2);
+    box-shadow: 0px 0px 50px 10px rgba(255, 255, 255, 0.37);
+    transition: 1s ease;
+    background: linear-gradient(to left top, rgb(52, 52, 230), #0275d8,#337fc2);
 
     }
 
