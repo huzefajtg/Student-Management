@@ -13,6 +13,7 @@ export class StudentService {
   addCourse(obj:{studentId:number,otherId:number}) {
     return this._http.post('/api/student/course' , obj).map(res => res);
   }
+  
   updateStudent(id:number,StudentDetails){
     return this._http.put('api/student/'+id,StudentDetails).map(re=>re);
   }

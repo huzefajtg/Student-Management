@@ -51,16 +51,40 @@ body {
     
 
   .lBox{
-  box-shadow: 10px 10px 10px rgb(0, 0, 0,0.8);
-  background: linear-gradient(to right, rgb(52, 52, 230), #0275d8,#337fc2);
+  box-shadow: 0px 0px 50px 10px rgba(0, 0, 0);
+  /* text-shadow: 10px 10px 50px rgba(245, 245, 245, 0.459); */
+    transition: 0.8s ease;
+    background: linear-gradient(to right, rgb(52, 52, 230), #0275d8,#337fc2);
   }
+
+  .lBox:hover{
+    box-shadow: 0px 0px 80px 10px rgba(255, 255, 255, 0.678);
+    transition: 0.8s ease;
+    background: linear-gradient(to right, rgb(52, 52, 230), #0275d8,#337fc2);
+
+    }
+
+    .lBox:hover .dark-overlay{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 651px;
+      background:red;
+      background-position: 0px -37px;
+    }
 
   .spcs{
-  background: linear-gradient(to right bottom, rgb(91, 10, 196), #0275d8);
-
-  }
+    transition: all 0.9s ease;
+    background: linear-gradient(to right bottom, rgb(91, 10, 196), #0275d8);
+}
+  .spcs:hover{
+  transition: all 0.5s ease;
+  background: linear-gradient(to left top, rgb(91, 10, 196), #0275d8);
+    }
   
-   #home-section .dark-overlay {
+   /* #home-section .dark-overlay { */
+    .dark-overlay {
     position: absolute;
     top: 0;
     left: 0;

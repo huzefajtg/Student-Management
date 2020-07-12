@@ -4,7 +4,7 @@
 
 
   <div class="container">
-    <form>
+    <form autocomplete="off" #formV="ngForm">
       <div class="card mb-3" >
         
         <div class="container">
@@ -24,8 +24,10 @@
                 <label>First Name</label>
                 <input name="fname" class="form-control" type="text" placeholder="{{ user.personalInfo.firstName }}"
                 [(ngModel)]="user.personalInfo.firstName" [readonly]="!isUpdate"
-                required>
-              </div>
+                #fname="ngModel" required (change)=show(formV)>
+                  <p class="validation text-danger" *ngIf="!fname.valid && fname.touched">
+                    First Name Required</p>
+                </div>
               <div class="col-sm">
                 <label class="">Second Name</label>
                 <input name="sname" class="form-control" type="text" placeholder="{{ user.personalInfo.secondName }}"
@@ -36,7 +38,9 @@
                 <label>Last Name</label>
                 <input name="lname" class="form-control" type="text" placeholder="{{ user.personalInfo.lastName }}"
                 [(ngModel)]="user.personalInfo.lastName" [readonly]="!isUpdate"
-                >
+                #lastName="ngModel" required>
+                  <p class="validation text-danger" *ngIf="!lastName.valid && lastName.touched">
+                    Last Name Required</p>
               </div>
             </div>
           </div>
@@ -62,33 +66,40 @@
               <div class="col">
                 Email
                 <input id="email" class="form-control" type="email" placeholder="yourname@example.com" name="email"
-                [(ngModel)]="user.personalInfo.emailId" [readonly]="!isUpdate">
-                
+                [(ngModel)]="user.personalInfo.emailId" [readonly]="!isUpdate" 
+                #emailId="ngModel" required>
+                <p class="validation text-danger" *ngIf="!emailId.valid && emailId.touched">
+                  Email Required</p>
               </div>
-
               <div class="col">
                 Contact Number
                 <input id="contactNum" class="form-control" type="text" placeholder="Enter Phone Number" name="conNum"
-                [(ngModel)]="user.personalInfo.contactNumber" [readonly]="!isUpdate">
-
+                [(ngModel)]="user.personalInfo.contactNumber" [readonly]="!isUpdate" 
+                #contactNumber="ngModel" required>
+                <p class="validation text-danger" *ngIf="!contactNumber.valid && contactNumber.touched">
+                  Contact Number Required</p>
+  
               </div>
             </div>
-          </div>  
-          <div class="form-group">
-              <label for="adress">Adress</label>
-                <input type="text" name="address" class="form-control" 
-                [(ngModel)]="user.personalInfo.contactAddress" [readonly]="!isUpdate">
-          </div>
+          </div> 
 
           <div class="form-group">
-              <label for="adress">Date Of Birth</label>
-                <input type="text" name="dob" class="form-control" placeholder="DD/MM/YYYY"
-                [(ngModel)]="user.personalInfo.dob" [readonly]="!isUpdate">
-          </div>
+            <label for="adress">Adress</label>
+              <input type="text" name="address" class="form-control" 
+              [(ngModel)]="user.personalInfo.contactAddress" [readonly]="!isUpdate" 
+              #add="ngModel" required>
+              <p class="validation text-danger" *ngIf="!add.valid && add.touched">
+                Adress Required</p>
+        </div>
 
-          
-
-          
+        <div class="form-group">
+          <label for="adress">Date Of Birth</label>
+            <input type="text" name="dob" class="form-control" placeholder="DD/MM/YYYY"
+            [(ngModel)]="user.personalInfo.dob" [readonly]="!isUpdate"  
+            #dob="ngModel" required>
+            <p class="validation text-danger" *ngIf="!dob.valid && dob.touched">
+              DOB Required</p>
+      </div>
           
 
           <button class="btn btn-success mt-3" [hidden]="isUpdateCourse" 
@@ -123,7 +134,8 @@
             </div>
           </div>
 
-          <button class="btn btn-warning mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
+          <button class="btn btn-warning mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse" 
+          [disabled]="formV.form.status!='VALID'"
           (click)=submit()>Update</button>
       <button class="btn btn-danger mt-3" [hidden]="!isUpdate" [hidden]="!isUpdateCourse"
           (click)="canceled()">Cancel</button>

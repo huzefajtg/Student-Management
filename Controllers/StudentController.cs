@@ -105,9 +105,8 @@ namespace StudentProject.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> updateStudent(int id, [FromBody]StudentResource resource)
+        public async Task<IActionResult> updateStudent(int id, StudentResource resource)
         {
-
             var student = await IStudent.getStudent(id);
 
             mapper.Map<StudentResource, Students>(resource, student);

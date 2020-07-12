@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterDetails,Personal } from '../../models/models';
+import { RegisterDetails } from '../../models/models';
 import { LoginServiceService } from '../../services/login-service.service';
 
 @Component({
@@ -29,6 +29,8 @@ export class RegisterNewUserComponent implements OnInit {
       password: ''
     }
   }
+  cp:string;
+
   constructor(private LoginService: LoginServiceService) { }
 
   ngOnInit() {
@@ -39,5 +41,9 @@ export class RegisterNewUserComponent implements OnInit {
     this.LoginService.Register(this.user).subscribe(res => {
       console.log(res);
     })
+  }
+
+  show(c){
+    console.log(c);
   }
 }

@@ -1,0 +1,11 @@
+.validation {
+    display: block;
+    transition: opacity 1s ease-out;
+    opacity: 1;
+}
+.active {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    display: block;
+    color: black;
+}

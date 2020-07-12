@@ -130,5 +130,6 @@ export class StudentDetailsComponent implements OnInit {
     })
     this.canceled();
   }
+  show(c){console.log(c)}
 
 }

@@ -6,7 +6,7 @@
   </nav>
 
   <div class="container">
-    <form (ngSubmit)="Register()">
+    <form #formValid="ngForm" autocomplete="off" (ngSubmit)="Register()">
       <div class="card">
         <div class="card-body">
 
@@ -17,8 +17,11 @@
 
               <div class="col">
                 <input name="fname" class="form-control" type="text" placeholder="Enter First Name"
-                [(ngModel)]="user.PersonalInfo.firstName"
+                [(ngModel)]="user.PersonalInfo.firstName" #fname="ngModel"
                 required>
+                <p class="validation text-danger" *ngIf="!fname.valid && fname.touched"
+                  [class.active]="!fname.valid && fname.touched">
+                  First Name Required</p>
               </div>
               <div class="col">
                 <input name="sname" class="form-control" type="text" placeholder="Enter Second Name"
@@ -26,7 +29,9 @@
               </div>
               <div class="col">
                 <input name="lname" class="form-control" type="text" placeholder="Enter Third Name"
-                [(ngModel)]="user.PersonalInfo.lastname">
+                [(ngModel)]="user.PersonalInfo.lastname"  #tname="ngModel"
+                required>
+                <p class="validation text-danger" *ngIf="!tname.valid && tname.touched">Last Name Required</p>
               </div>
             </div>
           </div>
@@ -35,14 +40,16 @@
             <label for="gender">Gender</label>
             <div class="form-check">
               <input class="form-check-input" id="Male" name="gender" type="radio" value="M"
-              [(ngModel)]="user.PersonalInfo.gender">
+              [(ngModel)]="user.PersonalInfo.gender" required #gen="ngModel">
               <label for="Make">Male</label> 
             </div>
             <div class="form-check">
               <input class="form-check-input" id="female" name=gender type="radio" value="F"
-              [(ngModel)]="user.PersonalInfo.gender">
+              [(ngModel)]="user.PersonalInfo.gender" required #gen="ngModel">
               <label for="female">Female</label> 
             </div>
+
+            <p class="validation text-danger" *ngIf="!gen.valid && gen.touched">Gender Required</p>
           </div>
 
           <div class="form-group">
@@ -50,14 +57,19 @@
               <div class="col">
                 Email
                 <input id="email" class="form-control" type="email" placeholder="yourname@example.com" name="email"
-                [(ngModel)]="user.PersonalInfo.emailId">
+                [(ngModel)]="user.PersonalInfo.emailId"
+                required #mail="ngModel"
+                >
+              <p class="validation text-danger" *ngIf="!mail.valid && mail.touched">Email Required</p>
                 
               </div>
 
               <div class="col">
                 Contact Number
                 <input id="contactNum" class="form-control" type="text" placeholder="Enter Phone Number" name="conNum"
-                [(ngModel)]="user.PersonalInfo.contactNumber">
+                [(ngModel)]="user.PersonalInfo.contactNumber"
+                required #conNum="ngModel">
+                <p class="validation text-danger" *ngIf="!conNum.valid && conNum.touched">Number Required</p>
 
               </div>
             </div>
@@ -65,13 +77,17 @@
           <div class="form-group">
               <label for="adress">Adress</label>
                 <input type="text" name="address" class="form-control" 
-                [(ngModel)]="user.PersonalInfo.contactAddress">
+                [(ngModel)]="user.PersonalInfo.contactAddress"
+                required #add="ngModel">
+                <p class="validation text-danger" *ngIf="!add.valid && add.touched">Adress Required</p>
           </div>
 
           <div class="form-group">
               <label for="adress">Date Of Birth</label>
                 <input type="text" name="dob" class="form-control" placeholder="DD/MM/YYYY"
-                [(ngModel)]="user.PersonalInfo.dob">
+                [(ngModel)]="user.PersonalInfo.dob"
+                required #dob="ngModel">
+                <p class="validation text-danger" *ngIf="!dob.valid && dob.touched">DOB Required</p>
           </div>
 
           <div class="card">
@@ -81,28 +97,41 @@
                 <div class="form-row">
                   <div class="col">
                     <label for="username">Username</label>
-                    <input name="username" hidden=true class="form-control" type="text" placeholder="Username"
-                    [(ngModel)]="user.UserInfo.username"
-                    [class]="user.UserInfo=='S'">
-
+                    
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
                       </div>
                       <input type="text" class="form-control" name="username"  placeholder="Username"
-                      [(ngModel)]="user.UserInfo.username">
+                      [(ngModel)]="user.UserInfo.username"
+                      required #username="ngModel">
+                      <p class="validation text-danger" *ngIf="!username.valid && username.touched">
+                        Username Required</p>
+  
                     </div>
 
                   </div>
                   <div class="col">
                     <label for="password">Password</label>
                     <input name="password" class="form-control" type="password" placeholder="Password"
-                    [(ngModel)]="user.UserInfo.password">
+                    [(ngModel)]="user.UserInfo.password"
+                    required #password="ngModel">
+                    <p class="validation text-danger" *ngIf="!password.valid && password.touched">Password Required</p>
+
                   </div>
                   <div class="col">
                     <label for="confirm">Confirm Pasword</label>
                     
-                    <input name="cpassword" class="form-control" type="password" placeholder="Confirm Password">
+                    <input name="cpasswor" class="form-control" type="password" 
+                    placeholder="Confirm Password" [(ngModel)]="cp"
+                    required #cpass="ngModel" (change)=show(cpass)>
+                    <p class="validation text-danger" 
+                    *ngIf="(!cpass.valid && cpass.touched) ">
+                    Confirm Password Required</p>
+
+                    <p class="validation text-danger" 
+                      *ngIf="cpass.model!=null && cpass.model!=user.UserInfo.password">
+                      Password not matched</p>
                   </div>
                 </div>
               </div>
@@ -111,19 +140,25 @@
               <div class="form-check form-check-inline">
                 <input class="form-check-input" name="type" type="radio"  value="S"
                 [(ngModel)]="user.PersonalInfo.type">
-                <label class="form-check-label" for="inlineCheckbox1">Student</label>
+                <label class="form-check-label" for="inlineCheckbox1"
+               >Student</label>
               </div>
 
               <div class="form-check form-check-inline">
                 <input class="form-check-input" name="type" type="radio"  value="T"
                 [(ngModel)]="user.PersonalInfo.type">
-                <label class="form-check-label" for="inlineCheckbox1">Teacher</label>
+                <label class="form-check-label" for="inlineCheckbox1"
+                >Teacher</label>
               </div>
+
+              <p class="validation text-danger" *ngIf="user.PersonalInfo.type!=null">
+                Register As Required</p>
               </div>
 
             </div>
           </div>
-          <button class="btn btn-primary mt-3" >Submit</button>
+          <button [disabled]="formValid.form.status!='VALID'"
+           class="btn btn-primary mt-3" (click)="show(formValid)">Submit</button>
           <a href="\home" class="btn btn-danger mt-3"> 
             Back
           </a>
