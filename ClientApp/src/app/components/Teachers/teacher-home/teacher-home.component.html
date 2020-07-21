@@ -15,8 +15,8 @@
         </tr>
       </thead>
 
-      <tbody *ngFor="let item of notification">
-        <tr  *ngIf="item.viwed==false"> 
+      <tbody *ngFor="let item of notification" >
+        <tr  *ngIf="item.viwed==false" style="animation: transitionInT 0.55s;"> 
           <th scope="row">{{ item.notiMessage }}</th>
           <td>{{ item.notiDate }}</td>
           <td>{{ item.otherType }}</td>
@@ -45,7 +45,7 @@
       </thead>
 
       <tbody *ngFor="let item of notification">
-        <tr  *ngIf="item.viwed==true"> 
+        <tr  *ngIf="item.viwed==true"style="animation: transitionInT 0.55s;"> 
           <th scope="row">{{ item.notiMessage }}</th>
           <td>{{ item.notiDate }}</td>
           <td>{{ item.otherType }}</td>

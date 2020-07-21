@@ -69,6 +69,20 @@
                   </div>
                 </div>
 
+                <div *ngIf="type2==1">
+                  <div class="row">
+                    <div class="col-4">Registered </div>
+                    <div *ngIf="studentInfo.personalInfo.isReg" class="col text-capitalize">
+                      Student Is <strong>registered</strong><br>
+                      <button class="btn btn-danger mt-1" (click)="ChangeRegister()">Click To Un-Register Student</button>
+                  </div>
+                  <div *ngIf="!studentInfo.personalInfo.isReg" class="col text-capitalize">
+                    Student Is <strong>not registered</strong><br>
+                    <button class="btn btn-success mt-1" (click)="ChangeRegister()">Click To Register Student</button>
+                  </div>
+                </div>
+                </div>
+
                 <div *ngIf="type=='T'">
                   <div class="row">
                     <div class="col-4">Course </div>
@@ -92,7 +106,7 @@
             </table>
           </div>
 
-          <!--                          STUDENT INFORMATION FOR THE TEACHER                         -->
+          <!--                          STUDENT INFORMATION FOR THE TEACHER            Page 2             -->
           <div class="tab-pane" role="tabpanel" id="courses">
             <div *ngIf="type=='T'">
               <table class="table table-striped table-hover ">

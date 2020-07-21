@@ -1,7 +1,7 @@
 <body>
   
   <table class="table table-striped table-hover ">
-    <thead>
+    <thead  style="animation: transitionInT 0.3s;">
       <tr>
         <th scope="col" (click)="sorter('id')" (click)="isSort='id'" >
           <div class="btn">
@@ -30,7 +30,7 @@
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of TableList" (click)="RowSelected( item.studentId || item.teacherId )">
+      <tr *ngFor="let item of TableList" (click)="RowSelected( item.studentId || item.teacherId )"  style="animation: transitionInT 0.55s;">
         <th scope="row" class="selid">{{ item.teacherId }} {{ item.studentId }}</th>
         <td>{{ item.personalInfo.firstName }} {{ item.personalInfo.lastName }}</td>
         <td>{{ item.personalInfo.emailId }}</td>

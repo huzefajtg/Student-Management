@@ -59,8 +59,6 @@ namespace StudentProject.Controllers
                 return db.LoginInfo.FromSql(comand).ToList();
 
             }
-
-
         }
     }
 }

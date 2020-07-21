@@ -64,3 +64,10 @@ table tbody tr:hover {
     background: transparent;
 }
 
+
+/* table tbody tr:nth-child(n+1){
+    animation: transitionInT 0.55s;
+} */
+
+  
+  

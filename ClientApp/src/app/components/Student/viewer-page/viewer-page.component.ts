@@ -1,3 +1,4 @@
+import { Personal } from './../../../models/models';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeacherServiceService } from '../../../services/teacher-services.services';
@@ -89,7 +90,8 @@ export class ViewerPageComponent implements OnInit {
       this.id = +p['id2'];
       this.type = p['type'];
       this.type2 = +p['type2'];
-      console.log("parameters " + this.id + " " + this.otherId + " " + this.type)
+      console.log("parameters " + this.id + " other ID " + this.otherId + " Type1 " 
+        + this.type+" type2 "+this.type2)
       if (isNaN(this.otherId) || this.otherId <= 0 || isNaN(this.id) || this.id <= 0) {
         console.log("parameter issue " + this.id)
         //router.navigate(['/login']);
@@ -122,5 +124,18 @@ export class ViewerPageComponent implements OnInit {
       this.allStudents = res;
       console.log("MyStudent ", this.allStudents)
     })
+  }
+
+  ChangeRegister(){
+    let ob:any={
+      id:this.otherId,
+      isReg:!this.studentInfo.personalInfo.isReg,
+      otherId:this.id
+    }
+    console.log(ob);
+    this.teacherService.registerStudent(ob).subscribe(res=>{
+      console.log(res)
+      this.studentInfo.personalInfo.isReg=!this.studentInfo.personalInfo.isReg
+    });
   }
 }

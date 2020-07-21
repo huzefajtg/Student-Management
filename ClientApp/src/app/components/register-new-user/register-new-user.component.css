@@ -9,3 +9,7 @@
     display: block;
     color: black;
 }
+
+body{
+    animation: transitionIn 0.75s;
+}
