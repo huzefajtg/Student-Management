@@ -14,7 +14,7 @@ namespace StudentProject.Mapping
         {
             //===========================================================================>>Models to Resources
 
-
+            CreateMap<Filter, FilterResource>();
             CreateMap<LoginInfo, LoginIdTypeResource>();
             CreateMap<CourseSubject, CourseSubjectResource>();
             CreateMap<Courses, CourseResource>();

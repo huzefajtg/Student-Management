@@ -132,10 +132,19 @@ namespace StudentProject.Controllers
 
 
         [HttpGet("getStudents")]
-        public async Task<List<StudentResource>> getStudents()
+        //public async Task<List<StudentResource>> getStudents()
+        //{
+        //    var res = await IStudent.getStudents();
+        //    return mapper.Map<List<Students>, List<StudentResource>>(res);
+
+        //}
+
+        public FilterResource getStudents(Filter f)
         {
-            var res = await IStudent.getStudents();
-            return mapper.Map<List<Students>, List<StudentResource>>(res);
+
+            return mapper.Map<Filter, FilterResource>(f);
+            //var res = await IStudent.getStudents();
+            //return mapper.Map<List<Students>, List<StudentResource>>(res);
 
         }
 

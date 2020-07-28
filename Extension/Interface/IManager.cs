@@ -11,10 +11,11 @@ namespace StudentProject.Extension.Interface
         //==========================Student============================
         Task<Students> getStudent(int id);
         Task<List<Students>> getStudents();
+        Task<List<Students>> getStudents(FilterResource f);
 
         //==========================Teacher============================
         //======TeacherStudent=========================================
-            int getTeacherStudentCount(int id, bool isStudent);
+        int getTeacherStudentCount(int id, bool isStudent);
 
             Task<List<TeacherStudent>> getTeacherStudent(int id, bool isStudent);
             Task<TeacherStudent> getTeacherStudent(AddCourseStudent courseStudent, bool isTeacher);

@@ -40,12 +40,20 @@ namespace StudentProject.Extension.Definition
             return await db.Students.OrderBy(s=>s.StudentId).ToListAsync();
         }
 
+        public async Task<List<Students>> getStudents(FilterResource f)
+        {
+            var t = db.Students.AsQueryable();
+            t.Where(a => a.StudentId == f.StudId);
+            return await t.ToListAsync();
+        }
+
+
 
 
         //================================Teachers=============================
 
         //================================================TeacherStudent=======
-            public int getTeacherStudentCount(int id, bool isStudent)
+        public int getTeacherStudentCount(int id, bool isStudent)
             {
                 if (isStudent == true)
                     return db.TeacherStudent.Where(ts => ts.StudentId == id).Count(); //StudentId
